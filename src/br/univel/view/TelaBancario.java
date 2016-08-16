@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class Tela extends JFrame {
+public class TelaBancario extends JFrame {
 
 	private JPanel contentPane;
 
@@ -18,7 +18,7 @@ public class Tela extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Tela frame = new Tela();
+					TelaBancario frame = new TelaBancario();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -30,7 +30,8 @@ public class Tela extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Tela() {
+	public TelaBancario() {
+		setTitle("Área do bancario");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

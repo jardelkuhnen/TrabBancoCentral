@@ -1,15 +1,16 @@
 package br.univel.controller;
 
 import br.univel.dao.UsuarioDao;
+import br.univel.enun.TipoUsuario;
 
 public class UsuarioController {
 
-	public boolean acessoLogin(String usuario, String senha) {
+	public TipoUsuario acessoLogin(String usuario, String senha) {
 
 		UsuarioDao userDao = new UsuarioDao();
 
-		boolean login = userDao.acessoLogin(usuario, senha);
-		
+		TipoUsuario login = userDao.acessoLogin(usuario, senha);
+
 		return login;
 
 	}

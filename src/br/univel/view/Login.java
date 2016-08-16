@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import br.univel.controller.UsuarioController;
+import br.univel.enun.TipoUsuario;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -88,17 +89,26 @@ public class Login extends JFrame {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				boolean login = false;
+
 				UsuarioController userControll = new UsuarioController();
-				login = userControll.acessoLogin(txtUsuario.getText().trim(),
-						txtSenha.getText().trim());
 
-				if (login) {
+				TipoUsuario tipoUser = userControll.acessoLogin(txtUsuario
+						.getText().trim(), txtSenha.getText().trim());
 
-					Tela tela = new Tela();
-					tela.setVisible(true);
-					tela.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				if (tipoUser == TipoUsuario.CLIENTE) {
+					// abra tela cliente
+					TelaCliente telaCli = new TelaCliente();
+					telaCli.setVisible(true);
+					telaCli.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					setVisible(false);
+
+				} else if (tipoUser == TipoUsuario.BANCARIO) {
+
+					TelaBancario telaBanc = new TelaBancario();
+					telaBanc.setVisible(true);
+					telaBanc.setExtendedState(JFrame.MAXIMIZED_BOTH);
+					setVisible(false);
+
 				} else {
 					JOptionPane.showMessageDialog(null,
 							"Usuário não localizado");

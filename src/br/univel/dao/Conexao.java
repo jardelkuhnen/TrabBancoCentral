@@ -8,10 +8,10 @@ import java.sql.Statement;
 
 public class Conexao {
 
-	private static final String url_Banco = "url banco";
-	private static final String driver_Class = "driver banco";
-	private static final String user = "user banco";
-	private static final String pass = "pass banco";
+	private static final String url_Banco = "jdbc:h2:~/BancoCentral";
+	private static final String driver_Class = "org.h2.Driver";
+	private static final String user = "sa";
+	private static final String pass = "sa";
 
 	public static ResultSet rs;
 	public Statement stmt;
