@@ -96,7 +96,6 @@ public class Login extends JFrame {
 					// abra tela cliente
 					TelaCliente telaCli = new TelaCliente();
 					telaCli.setVisible(true);
-					telaCli.setSize(800, 500);
 					telaCli.setLocationRelativeTo(null);
 					setVisible(false);
 
@@ -104,7 +103,6 @@ public class Login extends JFrame {
 
 					TelaBancario telaBanc = new TelaBancario();
 					telaBanc.setVisible(true);
-					telaBanc.setSize(800, 500);
 					telaBanc.setLocationRelativeTo(null);
 					setVisible(false);
 

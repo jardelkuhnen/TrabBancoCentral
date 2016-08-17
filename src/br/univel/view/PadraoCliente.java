@@ -28,7 +28,7 @@ public class PadraoCliente extends JFrame {
 	}
 
 	public PadraoCliente() {
-
+		setSize(800, 375);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 553, 403);
 		contentPane = new JPanel();
@@ -77,7 +77,7 @@ public class PadraoCliente extends JFrame {
 		cabecalho.add(lblDataAcess, gbc_lblDataAcess);
 
 		JLabel imagem = new JLabel("");
-		imagem.setIcon(new ImageIcon("E:\\workspace\\TrabBancoCentral\\Imagens\\Icone.png"));
+		imagem.setIcon(new ImageIcon("D:\\workspace\\TrabBancoCentral\\Imagens\\Icone.png"));
 		GridBagConstraints gbc_imagem = new GridBagConstraints();
 		gbc_imagem.gridheight = 2;
 		gbc_imagem.insets = new Insets(0, 0, 0, 5);

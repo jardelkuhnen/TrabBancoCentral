@@ -5,6 +5,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaBancario extends PadraoBancario {
 
@@ -12,7 +14,9 @@ public class TelaBancario extends PadraoBancario {
 
 	public TelaBancario() {
 		super();
-		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
+		
+		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
+				.getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 1.0 };
 
@@ -32,7 +36,7 @@ public class TelaBancario extends PadraoBancario {
 		gbl_corpo.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
 		gbl_corpo.rowWeights = new double[] { 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		corpo.setLayout(gbl_corpo);
-		
+
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridwidth = 2;
@@ -42,12 +46,12 @@ public class TelaBancario extends PadraoBancario {
 		gbc_panel.gridy = 0;
 		corpo.add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{302, 243, 0};
-		gbl_panel.rowHeights = new int[]{55, 64, 68, 0};
-		gbl_panel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[] { 302, 243, 0 };
+		gbl_panel.rowHeights = new int[] { 55, 64, 68, 0 };
+		gbl_panel.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
-		
+
 		JButton btnInfo = new JButton("1 - Informa\u00E7\u00F5es de Contas");
 		GridBagConstraints gbc_btnInfo = new GridBagConstraints();
 		gbc_btnInfo.fill = GridBagConstraints.BOTH;
@@ -55,7 +59,7 @@ public class TelaBancario extends PadraoBancario {
 		gbc_btnInfo.gridx = 0;
 		gbc_btnInfo.gridy = 0;
 		panel.add(btnInfo, gbc_btnInfo);
-		
+
 		JButton btnProfi = new JButton("4 - Profissionais");
 		GridBagConstraints gbc_btnProfi = new GridBagConstraints();
 		gbc_btnProfi.fill = GridBagConstraints.BOTH;
@@ -63,7 +67,7 @@ public class TelaBancario extends PadraoBancario {
 		gbc_btnProfi.gridx = 1;
 		gbc_btnProfi.gridy = 0;
 		panel.add(btnProfi, gbc_btnProfi);
-		
+
 		JButton btnNovaConta = new JButton("2 - Nova Conta");
 		GridBagConstraints gbc_btnNovaConta = new GridBagConstraints();
 		gbc_btnNovaConta.fill = GridBagConstraints.BOTH;
@@ -71,7 +75,7 @@ public class TelaBancario extends PadraoBancario {
 		gbc_btnNovaConta.gridx = 0;
 		gbc_btnNovaConta.gridy = 1;
 		panel.add(btnNovaConta, gbc_btnNovaConta);
-		
+
 		JButton btnBalanco = new JButton("5 - Balan\u00E7o");
 		GridBagConstraints gbc_btnBalanco = new GridBagConstraints();
 		gbc_btnBalanco.fill = GridBagConstraints.BOTH;
@@ -79,7 +83,7 @@ public class TelaBancario extends PadraoBancario {
 		gbc_btnBalanco.gridx = 1;
 		gbc_btnBalanco.gridy = 1;
 		panel.add(btnBalanco, gbc_btnBalanco);
-		
+
 		JButton btnClientes = new JButton("3 - Clientes");
 		GridBagConstraints gbc_btnClientes = new GridBagConstraints();
 		gbc_btnClientes.fill = GridBagConstraints.BOTH;
@@ -87,22 +91,21 @@ public class TelaBancario extends PadraoBancario {
 		gbc_btnClientes.gridx = 0;
 		gbc_btnClientes.gridy = 2;
 		panel.add(btnClientes, gbc_btnClientes);
-		
+
 		JButton btnAgencias = new JButton("6 - Ag\u00EAncias");
+		btnAgencias.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ListaAgencia listaAgen = new ListaAgencia();
+				listaAgen.setVisible(true);
+			}
+		});
 		GridBagConstraints gbc_btnAgencias = new GridBagConstraints();
 		gbc_btnAgencias.fill = GridBagConstraints.BOTH;
 		gbc_btnAgencias.gridx = 1;
 		gbc_btnAgencias.gridy = 2;
 		panel.add(btnAgencias, gbc_btnAgencias);
 
-		// setIconImage(Toolkit.getDefaultToolkit().getImage(
-		// "./Imagens/Icone.png"));
-		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// setBounds(100, 100, 450, 300);
-		// contentPane = new JPanel();
-		// contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		// contentPane.setLayout(new BorderLayout(0, 0));
-		// setContentPane(contentPane);
 	}
 
 }
