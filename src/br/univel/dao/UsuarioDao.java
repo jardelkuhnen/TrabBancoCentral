@@ -23,7 +23,7 @@ public class UsuarioDao {
 			stmt.setString(2, senha);
 			ResultSet rs = stmt.executeQuery();
 
-			int tipoUsuario = 0;
+			int tipoUsuario = 2;
 			while (rs.next()) {
 
 				tipoUsuario = Integer.parseInt(rs.getString("tipoUsuario"));
