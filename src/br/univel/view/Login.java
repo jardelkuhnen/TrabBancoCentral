@@ -96,14 +96,16 @@ public class Login extends JFrame {
 					// abra tela cliente
 					TelaCliente telaCli = new TelaCliente();
 					telaCli.setVisible(true);
-					telaCli.setExtendedState(JFrame.MAXIMIZED_BOTH);
+					telaCli.setSize(800, 500);
+					telaCli.setLocationRelativeTo(null);
 					setVisible(false);
 
 				} else if (tipoUser == TipoUsuario.BANCARIO) {
 
 					TelaBancario telaBanc = new TelaBancario();
 					telaBanc.setVisible(true);
-					telaBanc.setExtendedState(JFrame.MAXIMIZED_BOTH);
+					telaBanc.setSize(800, 500);
+					telaBanc.setLocationRelativeTo(null);
 					setVisible(false);
 
 				} else {

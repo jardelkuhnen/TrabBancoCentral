@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-public class Padrao extends JFrame {
+public class PadraoBancario extends JFrame {
 
 	private JPanel contentPane;
 	protected JLabel lblDataAcess;
@@ -27,7 +27,7 @@ public class Padrao extends JFrame {
 		this.lblDataAcess.setText(lblDataAcess);
 	}
 
-	public Padrao() {
+	public PadraoBancario() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 553, 403);

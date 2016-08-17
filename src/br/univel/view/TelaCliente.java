@@ -2,7 +2,7 @@ package br.univel.view;
 
 import javax.swing.JPanel;
 
-public class TelaCliente extends Padrao {
+public class TelaCliente extends PadraoBancario {
 
 	private JPanel contentPane;
 

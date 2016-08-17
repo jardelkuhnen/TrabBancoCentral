@@ -6,7 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.JButton;
 
-public class TelaBancario extends Padrao {
+public class TelaBancario extends PadraoBancario {
 
 	private JPanel contentPane;
 
