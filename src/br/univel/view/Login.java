@@ -1,26 +1,22 @@
 package br.univel.view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.Toolkit;
-
 import javax.swing.JTextField;
-import javax.swing.JButton;
+import javax.swing.border.EmptyBorder;
 
 import br.univel.controller.UsuarioController;
 import br.univel.enun.TipoUsuario;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
 
@@ -49,7 +45,8 @@ public class Login extends JFrame {
 	 */
 	public Login() {
 		setTitle("Login");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imagens/Icone.png"));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage("./Imagens/Icone.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 254, 196);
 		contentPane = new JPanel();
@@ -59,7 +56,8 @@ public class Login extends JFrame {
 		gbl_contentPane.columnWidths = new int[] { 203, 0 };
 		gbl_contentPane.rowHeights = new int[] { 53, 20, 20, 23, 0 };
 		gbl_contentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
 		txtUsuario = new JTextField();
@@ -90,24 +88,24 @@ public class Login extends JFrame {
 
 				UsuarioController userControll = new UsuarioController();
 
-				TipoUsuario tipoUser = userControll.acessoLogin(txtUsuario.getText().trim(), txtSenha.getText().trim());
+				TipoUsuario tipoUser = userControll.acessoLogin(txtUsuario
+						.getText().trim(), txtSenha.getText().trim());
 
 				if (tipoUser == TipoUsuario.CLIENTE) {
 					// abra tela cliente
 					TelaCliente telaCli = new TelaCliente();
 					telaCli.setVisible(true);
-					telaCli.setLocationRelativeTo(null);
 					setVisible(false);
 
 				} else if (tipoUser == TipoUsuario.BANCARIO) {
 
 					TelaBancario telaBanc = new TelaBancario();
 					telaBanc.setVisible(true);
-					telaBanc.setLocationRelativeTo(null);
 					setVisible(false);
 
 				} else {
-					JOptionPane.showMessageDialog(null, "Usuário não localizado");
+					JOptionPane.showMessageDialog(null,
+							"Usuário não localizado");
 				}
 
 			}

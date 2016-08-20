@@ -14,13 +14,12 @@ public class TelaBancario extends PadraoBancario {
 
 	public TelaBancario() {
 		super();
-		
+		setLocationRelativeTo(null);
+		setTitle("Área do Bancario");
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
 				.getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 1.0 };
-
-		setTitle("Área do Bancario");
 
 		JPanel corpo = new JPanel();
 		GridBagConstraints gbc_corpo = new GridBagConstraints();
@@ -95,7 +94,7 @@ public class TelaBancario extends PadraoBancario {
 		JButton btnAgencias = new JButton("6 - Ag\u00EAncias");
 		btnAgencias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				ListaAgencia listaAgen = new ListaAgencia();
 				listaAgen.setVisible(true);
 			}
@@ -107,5 +106,4 @@ public class TelaBancario extends PadraoBancario {
 		panel.add(btnAgencias, gbc_btnAgencias);
 
 	}
-
 }
