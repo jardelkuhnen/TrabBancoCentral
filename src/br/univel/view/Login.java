@@ -44,6 +44,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		setResizable(false);
 		setTitle("Login");
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage("./Imagens/Icone.png"));

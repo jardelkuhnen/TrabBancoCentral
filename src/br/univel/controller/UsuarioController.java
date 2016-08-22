@@ -1,12 +1,14 @@
 package br.univel.controller;
 
+import java.util.List;
+
 import br.univel.dao.UsuarioDao;
 import br.univel.enun.TipoUsuario;
 import br.univel.interfacee.Command;
 import br.univel.model.MD5Hash;
 import br.univel.model.Usuario;
 
-public class UsuarioController extends Usuario {
+public class UsuarioController {
 
 	public TipoUsuario acessoLogin(String usuario, String senha) {
 
@@ -21,22 +23,28 @@ public class UsuarioController extends Usuario {
 
 	}
 
-	public void addUser(Usuario usuario) {
-
-		UsuarioController userControll = new UsuarioController();
+	public void add(Usuario usuario) {
 
 		Command usuarioHash = new MD5Hash(usuario.getUsuario());
 		Command senhaHash = new MD5Hash(usuario.getSenha());
 
-		userControll.setId(usuario.getId());
-		userControll.setUsuario(usuarioHash.toString());
-		userControll.setSenha(senhaHash.toString());
-		userControll.setTipoUsuario(usuario.getTipoUsuario());
-		
-		UsuarioDao userDao = new UsuarioDao();
-		
-		userDao.addUser(userControll);
-		
+		usuario.setId(usuario.getId());
+		usuario.setUsuario(usuarioHash.toString());
+		usuario.setSenha(senhaHash.toString());
+		usuario.setTipoUsuario(usuario.getTipoUsuario());
 
+		UsuarioDao userDao = new UsuarioDao();
+
+		userDao.addUser(usuario);
+
+	}
+
+	
+	public List<Usuario> get(){
+		
+		
+		
+		return null;
+		
 	}
 }

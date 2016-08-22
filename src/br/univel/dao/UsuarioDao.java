@@ -9,15 +9,15 @@ import javax.swing.JOptionPane;
 
 import br.univel.controller.UsuarioController;
 import br.univel.enun.TipoUsuario;
+import br.univel.model.Usuario;
 
 public class UsuarioDao {
 
 	Connection con;
+	private static String sql = "SELECT tipoUsuario FROM USUARIO WHERE USUARIO = ? AND SENHA = ?";
 
 	public TipoUsuario acessoLogin(final String usuario, final String senha) {
 		con = Conexao.getConection();
-
-		String sql = "SELECT tipoUsuario FROM USUARIO WHERE USUARIO = ? AND SENHA = ?";
 
 		PreparedStatement stmt;
 		try {
@@ -48,7 +48,7 @@ public class UsuarioDao {
 
 	}
 
-	public void addUser(UsuarioController userControll) {
+	public void addUser(Usuario usuario) {
 
 		con = Conexao.getConection();
 
@@ -57,10 +57,10 @@ public class UsuarioDao {
 		PreparedStatement stmt;
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, userControll.getId());
-			stmt.setString(2, userControll.getUsuario());
-			stmt.setString(3, userControll.getSenha());
-			stmt.setString(4, userControll.getTipoUsuario().toString());
+			stmt.setInt(1, usuario.getId());
+			stmt.setString(2, usuario.getUsuario());
+			stmt.setString(3, usuario.getSenha());
+			stmt.setString(4, usuario.getTipoUsuario().toString());
 
 			stmt.execute();
 			stmt.close();
