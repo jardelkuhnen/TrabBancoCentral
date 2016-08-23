@@ -1,4 +1,4 @@
-package br.univel.view;
+package br.univel;
 
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
@@ -17,6 +17,9 @@ import javax.swing.border.EmptyBorder;
 
 import br.univel.controller.UsuarioController;
 import br.univel.enun.TipoUsuario;
+import br.univel.view.TelaBancario;
+import br.univel.view.TelaCliente;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;

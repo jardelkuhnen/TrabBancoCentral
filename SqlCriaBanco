@@ -1,5 +1,9 @@
-CREATE TABLE USUARIO(ID, USUARIO, SENHA, TIPOUSUARIO) VALUES ('1','1','1','0');
-CREATE TABLE USUARIO(ID, USUARIO, SENHA, TIPOUSUARIO) VALUES ('2','2','2','1');
+create table usuario(
+	id serial,
+	usuario varchar(255),
+	senha varchar(255),
+	tipoUsuario varchar(255),
+	primary key (id));
 
 
 

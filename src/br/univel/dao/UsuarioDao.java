@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
@@ -14,14 +15,15 @@ import br.univel.model.Usuario;
 public class UsuarioDao {
 
 	Connection con;
-	private static String sql = "SELECT tipoUsuario FROM USUARIO WHERE USUARIO = ? AND SENHA = ?";
+	private static String SQL_SELECT_ID = "SELECT tipoUsuario FROM USUARIO WHERE USUARIO = ? AND SENHA = ?";
+	private static String SQL_INSERT = "INSERT INTO USUARIO (ID, USUARIO, SENHA,TIPOUSUARIO) VALUES (?,?,?,?)";
 
 	public boolean acessoLogin(final String usuario, final String senha) {
-		con = Conexao.getConection();
 
 		PreparedStatement stmt;
 		try {
-			stmt = con.prepareStatement(sql);
+			con = Conexao.getConection();
+			stmt = con.prepareStatement(SQL_INSERT);
 			stmt.setString(1, usuario);
 			stmt.setString(2, senha);
 			ResultSet rs = stmt.executeQuery();
@@ -41,11 +43,9 @@ public class UsuarioDao {
 
 		con = Conexao.getConection();
 
-		String sql = "INSERT INTO USUARIO (ID, USUARIO, SENHA TIPOUSUARIO) VALUES (?,?,?,?)";
-
 		PreparedStatement stmt;
 		try {
-			stmt = con.prepareStatement(sql);
+			stmt = con.prepareStatement(SQL_INSERT);
 			stmt.setInt(1, usuario.getId());
 			stmt.setString(2, usuario.getUsuario());
 			stmt.setString(3, usuario.getSenha());
@@ -54,8 +54,7 @@ public class UsuarioDao {
 			stmt.execute();
 			stmt.close();
 
-			JOptionPane.showMessageDialog(null,
-					"Usuario cadastrado com sucesso");
+			JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
