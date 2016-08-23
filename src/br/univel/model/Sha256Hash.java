@@ -14,13 +14,13 @@ public class Sha256Hash implements Command {
 	}
 
 	@Override
-	public String execute(String text) {
+	public String execute() {
 
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance("SHA-256");
 
-			md.update(this.text.getBytes("UTF-8"));
+			md.update(text.getBytes("UTF-8"));
 
 			byte[] digest = md.digest();
 

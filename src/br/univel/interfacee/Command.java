@@ -2,6 +2,6 @@ package br.univel.interfacee;
 
 public interface Command {
 
-	public String execute(String text);
+	public String execute();
 
 }

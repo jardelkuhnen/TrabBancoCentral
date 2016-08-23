@@ -14,19 +14,25 @@ public class UsuarioController {
 	public boolean acessoLogin(String usuario, String senha, TipoUsuario tipoUsuario) {
 		UsuarioDao userDao = new UsuarioDao();
 		boolean login = false;
+
 		if (tipoUsuario == TipoUsuario.CLIENTE) {
 
-			Command usuarioHash = new Sha256Hash(usuario);
-			Command senhaHash = new Sha256Hash(senha);
-
-			login = userDao.acessoLogin(usuarioHash.toString(), senhaHash.toString());
+			Command commandUser = new Sha256Hash(usuario);
+			String usuarioHash = commandUser.execute();
+			
+			Command commandPass = new Sha256Hash(senha);
+			String senhaHash = commandPass.execute();
+			
+			login = userDao.acessoLogin(usuarioHash, senhaHash);
 
 		} else if (tipoUsuario == TipoUsuario.BANCARIO) {
 
-			Command bancarioHash = new MD5Hash(usuario);
-			Command senhaHash = new MD5Hash(senha);
+			Command commandUser = new MD5Hash(usuario);
+			String usuarioHash = commandUser.execute();
+			Command commandPass = new MD5Hash(senha);
+			String senhaHash = commandPass.execute();
 
-			login = userDao.acessoLogin(bancarioHash.toString(), senhaHash.toString());
+			login = userDao.acessoLogin(usuarioHash, senhaHash);
 		}
 
 		return login;

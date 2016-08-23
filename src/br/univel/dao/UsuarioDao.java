@@ -4,18 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-import br.univel.controller.UsuarioController;
-import br.univel.enun.TipoUsuario;
 import br.univel.model.Usuario;
 
 public class UsuarioDao {
 
 	Connection con;
-	private static String SQL_SELECT_ID = "SELECT tipoUsuario FROM USUARIO WHERE USUARIO = ? AND SENHA = ?";
+	private static String SQL_SELECT_ID = "SELECT * FROM USUARIO WHERE USUARIO = ? AND SENHA = ?";
 	private static String SQL_INSERT = "INSERT INTO USUARIO (ID, USUARIO, SENHA,TIPOUSUARIO) VALUES (?,?,?,?)";
 
 	public boolean acessoLogin(final String usuario, final String senha) {
@@ -23,7 +20,7 @@ public class UsuarioDao {
 		PreparedStatement stmt;
 		try {
 			con = Conexao.getConection();
-			stmt = con.prepareStatement(SQL_INSERT);
+			stmt = con.prepareStatement(SQL_SELECT_ID);
 			stmt.setString(1, usuario);
 			stmt.setString(2, senha);
 			ResultSet rs = stmt.executeQuery();

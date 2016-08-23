@@ -1,6 +1,8 @@
 package br.univel;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -9,7 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -19,12 +23,6 @@ import br.univel.controller.UsuarioController;
 import br.univel.enun.TipoUsuario;
 import br.univel.view.TelaBancario;
 import br.univel.view.TelaCliente;
-
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.Color;
 
 public class Login extends JFrame {
 
@@ -43,6 +41,7 @@ public class Login extends JFrame {
 				try {
 					Login login = new Login();
 					login.setVisible(true);
+					login.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -110,7 +109,7 @@ public class Login extends JFrame {
 				TipoUsuario tipoUsuario = (TipoUsuario) cbmAcesso.getSelectedItem();
 
 				boolean acessa = userControll.acessoLogin(usuario, senha, tipoUsuario);
-				
+
 				if (acessa && tipoUsuario == TipoUsuario.CLIENTE) {
 					TelaCliente telaCli = new TelaCliente();
 					telaCli.setVisible(true);
@@ -124,6 +123,7 @@ public class Login extends JFrame {
 
 				} else {
 					JOptionPane.showMessageDialog(Login.this, "Usuário não localizado");
+					limparCampos();
 				}
 
 			}
@@ -141,5 +141,13 @@ public class Login extends JFrame {
 		gbc_btnLogin.gridx = 0;
 		gbc_btnLogin.gridy = 4;
 		contentPane.add(btnLogin, gbc_btnLogin);
+	}
+
+	protected void limparCampos() {
+
+		txtUsuario.setText("");
+		txtSenha.setText("");
+		cbmAcesso.setSelectedIndex(0);
+
 	}
 }

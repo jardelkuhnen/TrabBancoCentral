@@ -1,5 +1,6 @@
 package br.univel.model;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -13,13 +14,12 @@ public class MD5Hash implements Command {
 	}
 
 	@Override
-	public String execute(String text) {
+	public String execute() {
 
-		MessageDigest instance;
 		try {
-			instance = MessageDigest.getInstance("MD5");
-			instance.update(this.text.getBytes());
-			String hash = new String(instance.digest());
+			MessageDigest m = MessageDigest.getInstance("MD5");
+			m.update(this.text.getBytes(), 0, this.text.length());
+			String hash = new BigInteger(1, m.digest()).toString(16);
 			
 			return hash;
 		} catch (NoSuchAlgorithmException e) {

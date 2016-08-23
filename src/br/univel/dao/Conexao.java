@@ -9,8 +9,8 @@ import java.sql.Statement;
 public class Conexao {
 
 	private static final String url_Banco = "jdbc:postgresql://localhost:5432/BancoCentral";
-	// private static final String driver_Class = "org.h2.Driver";
-	private static final String user = "1";
+	// private static final String driver_Class = "org.postgresql.Driver";
+	private static final String user = "postgres";
 	private static final String pass = "1";
 
 	public static ResultSet rs;
