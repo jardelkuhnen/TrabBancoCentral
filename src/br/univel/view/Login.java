@@ -17,12 +17,19 @@ import javax.swing.border.EmptyBorder;
 
 import br.univel.controller.UsuarioController;
 import br.univel.enun.TipoUsuario;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Color;
 
 public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JTextField txtSenha;
+	private JComboBox cbmAcesso;
+	private JLabel lblBancoCentral;
 
 	/**
 	 * Launch the application.
@@ -46,20 +53,27 @@ public class Login extends JFrame {
 	public Login() {
 		setResizable(false);
 		setTitle("Login");
-		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage("./Imagens/Icone.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imagens/Icone.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 254, 196);
+		setBounds(100, 100, 254, 193);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 203, 0 };
-		gbl_contentPane.rowHeights = new int[] { 53, 20, 20, 23, 0 };
+		gbl_contentPane.rowHeights = new int[] { 53, 20, 20, 23, 0, 0 };
 		gbl_contentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
+
+		lblBancoCentral = new JLabel("Banco Central");
+		lblBancoCentral.setForeground(new Color(0, 0, 128));
+		lblBancoCentral.setFont(new Font("Tahoma", Font.BOLD, 18));
+		GridBagConstraints gbc_lblBancoCentral = new GridBagConstraints();
+		gbc_lblBancoCentral.insets = new Insets(0, 0, 5, 0);
+		gbc_lblBancoCentral.gridx = 0;
+		gbc_lblBancoCentral.gridy = 0;
+		contentPane.add(lblBancoCentral, gbc_lblBancoCentral);
 
 		txtUsuario = new JTextField();
 		txtUsuario.setToolTipText("Usu\u00E1rio");
@@ -88,33 +102,41 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				UsuarioController userControll = new UsuarioController();
+				String usuario = txtUsuario.getText().trim();
+				String senha = txtSenha.getText().trim();
+				TipoUsuario tipoUsuario = (TipoUsuario) cbmAcesso.getSelectedItem();
 
-				TipoUsuario tipoUser = userControll.acessoLogin(txtUsuario
-						.getText().trim(), txtSenha.getText().trim());
-
-				if (tipoUser == TipoUsuario.CLIENTE) {
-					// abra tela cliente
+				boolean acessa = userControll.acessoLogin(usuario, senha, tipoUsuario);
+				
+				if (acessa && tipoUsuario == TipoUsuario.CLIENTE) {
 					TelaCliente telaCli = new TelaCliente();
 					telaCli.setVisible(true);
 					setVisible(false);
 
-				} else if (tipoUser == TipoUsuario.BANCARIO) {
+				} else if (acessa && tipoUsuario == TipoUsuario.BANCARIO) {
 
 					TelaBancario telaBanc = new TelaBancario();
 					telaBanc.setVisible(true);
 					setVisible(false);
 
 				} else {
-					JOptionPane.showMessageDialog(null,
-							"Usuário não localizado");
+					JOptionPane.showMessageDialog(Login.this, "Usuário não localizado");
 				}
 
 			}
 		});
+
+		cbmAcesso = new JComboBox(TipoUsuario.values());
+		GridBagConstraints gbc_cbmAcesso = new GridBagConstraints();
+		gbc_cbmAcesso.insets = new Insets(0, 0, 5, 0);
+		gbc_cbmAcesso.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbmAcesso.gridx = 0;
+		gbc_cbmAcesso.gridy = 3;
+		contentPane.add(cbmAcesso, gbc_cbmAcesso);
 		GridBagConstraints gbc_btnLogin = new GridBagConstraints();
 		gbc_btnLogin.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnLogin.gridx = 0;
-		gbc_btnLogin.gridy = 3;
+		gbc_btnLogin.gridy = 4;
 		contentPane.add(btnLogin, gbc_btnLogin);
 	}
 }

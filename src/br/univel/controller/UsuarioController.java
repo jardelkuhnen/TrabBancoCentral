@@ -6,18 +6,28 @@ import br.univel.dao.UsuarioDao;
 import br.univel.enun.TipoUsuario;
 import br.univel.interfacee.Command;
 import br.univel.model.MD5Hash;
+import br.univel.model.Sha256Hash;
 import br.univel.model.Usuario;
 
 public class UsuarioController {
 
-	public TipoUsuario acessoLogin(String usuario, String senha) {
-
-		Command usuarioHash = new MD5Hash(usuario);
-		Command senhaHash = new MD5Hash(senha);
-
+	public boolean acessoLogin(String usuario, String senha, TipoUsuario tipoUsuario) {
 		UsuarioDao userDao = new UsuarioDao();
-		TipoUsuario login = userDao.acessoLogin(usuarioHash.toString(),
-				senhaHash.toString());
+		boolean login = false;
+		if (tipoUsuario == TipoUsuario.CLIENTE) {
+
+			Command usuarioHash = new Sha256Hash(usuario);
+			Command senhaHash = new Sha256Hash(senha);
+
+			login = userDao.acessoLogin(usuarioHash.toString(), senhaHash.toString());
+
+		} else if (tipoUsuario == TipoUsuario.BANCARIO) {
+
+			Command bancarioHash = new MD5Hash(usuario);
+			Command senhaHash = new MD5Hash(senha);
+
+			login = userDao.acessoLogin(bancarioHash.toString(), senhaHash.toString());
+		}
 
 		return login;
 
@@ -39,12 +49,9 @@ public class UsuarioController {
 
 	}
 
-	
-	public List<Usuario> get(){
-		
-		
-		
+	public List<Usuario> get() {
+
 		return null;
-		
+
 	}
 }

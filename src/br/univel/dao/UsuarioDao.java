@@ -16,7 +16,7 @@ public class UsuarioDao {
 	Connection con;
 	private static String sql = "SELECT tipoUsuario FROM USUARIO WHERE USUARIO = ? AND SENHA = ?";
 
-	public TipoUsuario acessoLogin(final String usuario, final String senha) {
+	public boolean acessoLogin(final String usuario, final String senha) {
 		con = Conexao.getConection();
 
 		PreparedStatement stmt;
@@ -26,25 +26,14 @@ public class UsuarioDao {
 			stmt.setString(2, senha);
 			ResultSet rs = stmt.executeQuery();
 
-			int tipoUsuario = 2;
 			while (rs.next()) {
-
-				tipoUsuario = Integer.parseInt(rs.getString("tipoUsuario"));
-			}
-
-			switch (tipoUsuario) {
-			case 0:
-				return TipoUsuario.CLIENTE;
-			case 1:
-				return TipoUsuario.BANCARIO;
-			default:
-				return null;
+				return true;
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return false;
 
 	}
 
