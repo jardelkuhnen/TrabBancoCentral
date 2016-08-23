@@ -28,6 +28,7 @@ public class PadraoCliente extends JFrame {
 	}
 
 	public PadraoCliente() {
+		setResizable(false);
 		setSize(800, 375);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 553, 403);

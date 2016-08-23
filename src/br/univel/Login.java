@@ -9,6 +9,8 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -77,7 +79,7 @@ public class Login extends JFrame {
 		gbc_lblBancoCentral.gridy = 0;
 		contentPane.add(lblBancoCentral, gbc_lblBancoCentral);
 
-		txtUsuario = new JTextField();
+		txtUsuario = new JTextField("jardel");
 		txtUsuario.setToolTipText("Usu\u00E1rio");
 		GridBagConstraints gbc_txtUsuario = new GridBagConstraints();
 		gbc_txtUsuario.anchor = GridBagConstraints.NORTH;
@@ -88,7 +90,7 @@ public class Login extends JFrame {
 		contentPane.add(txtUsuario, gbc_txtUsuario);
 		txtUsuario.setColumns(10);
 
-		txtSenha = new JTextField();
+		txtSenha = new JTextField("jardel");
 		txtSenha.setToolTipText("Senha");
 		txtSenha.setColumns(10);
 		GridBagConstraints gbc_txtSenha = new GridBagConstraints();
@@ -100,33 +102,20 @@ public class Login extends JFrame {
 		contentPane.add(txtSenha, gbc_txtSenha);
 
 		JButton btnLogin = new JButton("Login");
+		btnLogin.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					acessarSistema();
+				}
+			}
+		});
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				UsuarioController userControll = new UsuarioController();
-				String usuario = txtUsuario.getText().trim();
-				String senha = txtSenha.getText().trim();
-				TipoUsuario tipoUsuario = (TipoUsuario) cbmAcesso.getSelectedItem();
-
-				boolean acessa = userControll.acessoLogin(usuario, senha, tipoUsuario);
-
-				if (acessa && tipoUsuario == TipoUsuario.CLIENTE) {
-					TelaCliente telaCli = new TelaCliente();
-					telaCli.setVisible(true);
-					setVisible(false);
-
-				} else if (acessa && tipoUsuario == TipoUsuario.BANCARIO) {
-
-					TelaBancario telaBanc = new TelaBancario();
-					telaBanc.setVisible(true);
-					setVisible(false);
-
-				} else {
-					JOptionPane.showMessageDialog(Login.this, "Usuário não localizado");
-					limparCampos();
-				}
-
+				acessarSistema();
 			}
+
 		});
 
 		cbmAcesso = new JComboBox(TipoUsuario.values());
@@ -149,5 +138,30 @@ public class Login extends JFrame {
 		txtSenha.setText("");
 		cbmAcesso.setSelectedIndex(0);
 
+	}
+
+	protected void acessarSistema() {
+		UsuarioController userControll = new UsuarioController();
+		String usuario = txtUsuario.getText().trim();
+		String senha = txtSenha.getText().trim();
+		TipoUsuario tipoUsuario = (TipoUsuario) cbmAcesso.getSelectedItem();
+
+		boolean acessa = userControll.acessoLogin(usuario, senha, tipoUsuario);
+
+		if (acessa && tipoUsuario == TipoUsuario.CLIENTE) {
+			TelaCliente telaCli = new TelaCliente();
+			telaCli.setVisible(true);
+			setVisible(false);
+
+		} else if (acessa && tipoUsuario == TipoUsuario.BANCARIO) {
+
+			TelaBancario telaBanc = new TelaBancario();
+			telaBanc.setVisible(true);
+			setVisible(false);
+
+		} else {
+			JOptionPane.showMessageDialog(Login.this, "Usuário não localizado");
+			limparCampos();
+		}
 	}
 }

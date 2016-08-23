@@ -28,7 +28,8 @@ public class PadraoBancario extends JFrame {
 	}
 
 	public PadraoBancario() {
-		setSize(800, 350);
+		setResizable(false);
+		setSize(553, 310);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 553, 403);
 		contentPane = new JPanel();

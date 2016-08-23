@@ -12,6 +12,7 @@ import br.univel.model.Usuario;
 public class UsuarioController {
 
 	public boolean acessoLogin(String usuario, String senha, TipoUsuario tipoUsuario) {
+
 		UsuarioDao userDao = new UsuarioDao();
 		boolean login = false;
 
@@ -19,10 +20,10 @@ public class UsuarioController {
 
 			Command commandUser = new Sha256Hash(usuario);
 			String usuarioHash = commandUser.execute();
-			
+
 			Command commandPass = new Sha256Hash(senha);
 			String senhaHash = commandPass.execute();
-			
+
 			login = userDao.acessoLogin(usuarioHash, senhaHash);
 
 		} else if (tipoUsuario == TipoUsuario.BANCARIO) {
@@ -41,9 +42,12 @@ public class UsuarioController {
 
 	public void add(Usuario usuario) {
 
-		Command usuarioHash = new MD5Hash(usuario.getUsuario());
-		Command senhaHash = new MD5Hash(usuario.getSenha());
+		Command commandUser = new MD5Hash(usuario.getUsuario());
+		String usuarioHash = commandUser.execute();
 
+		Command commandPass = new MD5Hash(usuario.getSenha());
+		String senhaHash = commandPass.execute();
+		
 		usuario.setId(usuario.getId());
 		usuario.setUsuario(usuarioHash.toString());
 		usuario.setSenha(senhaHash.toString());
@@ -51,7 +55,7 @@ public class UsuarioController {
 
 		UsuarioDao userDao = new UsuarioDao();
 
-		userDao.addUser(usuario);
+		userDao.add(usuario);
 
 	}
 
