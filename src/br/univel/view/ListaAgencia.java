@@ -24,7 +24,7 @@ public class ListaAgencia extends PadraoBancario {
 
 	private JPanel contentPane;
 	private JTable table;
-	private ListaAgenciaModel model = new ListaAgenciaModel();
+	private ListaAgenciaModel model = new ListaAgenciaModel(null);
 
 	public ListaAgencia() {
 		super();

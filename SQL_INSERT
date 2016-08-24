@@ -1,0 +1,1 @@
+insert into agencia(nome, numero, cidade) values ('Centro','25689', 'Cascavel');

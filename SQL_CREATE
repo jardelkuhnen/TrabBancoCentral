@@ -4,6 +4,13 @@ create table usuario(
 	senha varchar(255),
 	tipoUsuario varchar(255),
 	primary key (id));
+	
+create table agencia(
+	id serial,
+	nome varchar(255),
+	numero varchar(255),
+	cidade varchar(255),
+	primary key(id));
 
 
 
