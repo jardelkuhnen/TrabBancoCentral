@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,9 +29,9 @@ public class PadraoBancario extends JFrame {
 	}
 
 	public PadraoBancario() {
-		setResizable(false);
 		setSize(553, 310);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imagens/Icone.png"));
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 553, 403);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

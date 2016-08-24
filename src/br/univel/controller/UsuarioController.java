@@ -59,9 +59,5 @@ public class UsuarioController {
 
 	}
 
-	public List<Usuario> get() {
-
-		return null;
-
-	}
+	
 }

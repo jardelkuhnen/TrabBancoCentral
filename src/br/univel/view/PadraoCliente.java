@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,10 +29,10 @@ public class PadraoCliente extends JFrame {
 	}
 
 	public PadraoCliente() {
-		setResizable(false);
 		setSize(800, 375);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 553, 403);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imagens/Icone.png"));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

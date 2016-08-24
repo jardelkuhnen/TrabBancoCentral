@@ -14,6 +14,7 @@ public class TelaBancario extends PadraoBancario {
 
 	public TelaBancario() {
 		super();
+		setResizable(false);
 		setLocationRelativeTo(null);
 		setTitle("Área do Bancario");
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()

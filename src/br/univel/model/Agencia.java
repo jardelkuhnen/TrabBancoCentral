@@ -7,6 +7,13 @@ public class Agencia {
 	private String numero;
 	private String cidade;
 
+	public Agencia(Integer id, String nome, String numero, String cidade) {
+		this.id = id;
+		this.nome = nome;
+		this.numero = numero;
+		this.cidade = cidade;
+	}
+
 	public int getId() {
 		return id;
 	}
