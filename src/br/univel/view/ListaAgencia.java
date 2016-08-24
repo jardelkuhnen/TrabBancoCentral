@@ -1,33 +1,30 @@
 package br.univel.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
-import javax.swing.JFrame;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import br.univel.dao.AgenciaDao;
 import br.univel.model.ListaAgenciaModel;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.sql.SQLException;
-
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
-import javax.swing.JTable;
-import javax.swing.BoxLayout;
-
 public class ListaAgencia extends PadraoBancario {
 
 	private JPanel contentPane;
-	private JTable table;
+	private JTable tblAgencia;
 	private ListaAgenciaModel model = new ListaAgenciaModel(null);
 
 	public ListaAgencia() {
 		super();
+		setTitle("Listagem de Agências");
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.columnWidths = new int[] { 372, 73, 101 };
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
@@ -46,10 +43,10 @@ public class ListaAgencia extends PadraoBancario {
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane);
 
-		table = new JTable();
-		scrollPane.setViewportView(table);
+		tblAgencia = new JTable();
+		scrollPane.setViewportView(tblAgencia);
 
-		table.setModel(model);
+		tblAgencia.setModel(model);
 
 		preencheLista();
 
@@ -67,7 +64,19 @@ public class ListaAgencia extends PadraoBancario {
 		gbc_btnAdicionar.gridx = 2;
 		gbc_btnAdicionar.gridy = 2;
 		getContentPane().add(btnAdicionar, gbc_btnAdicionar);
-		setTitle("Listagem de Agências");
+
+		btnAdicionar.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				final Integer rowSelected = tblAgencia.getSelectedRow();
+				final Integer rowIndex = tblAgencia.convertRowIndexToModel(rowSelected);
+				final Integer idPessoa = (Integer) tblAgencia.getModel().getValueAt(rowIndex, -1);
+				CadAgencia cadAgencia = new CadAgencia(idPessoa);
+				cadAgencia.setVisible(true);
+
+			}
+		});
 
 	}
 
