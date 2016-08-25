@@ -6,6 +6,7 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -14,18 +15,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import br.univel.dao.AgenciaDao;
+import br.univel.model.Agencia;
 import br.univel.model.ListaAgenciaModel;
 
 public class ListaAgencia extends PadraoBancario {
 
 	private JPanel contentPane;
 	private JTable tblAgencia;
-	private ListaAgenciaModel model = new ListaAgenciaModel(null);
+	private ListaAgenciaModel model;
 
 	public ListaAgencia() {
 		super();
 		setTitle("Listagem de Agências");
-		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
+		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
+				.getLayout();
 		gridBagLayout.columnWidths = new int[] { 372, 73, 101 };
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0 };
@@ -46,9 +49,15 @@ public class ListaAgencia extends PadraoBancario {
 		tblAgencia = new JTable();
 		scrollPane.setViewportView(tblAgencia);
 
-		tblAgencia.setModel(model);
+		try {
+			List<Agencia> agencias = new AgenciaDao().buscarAgencias();
+			model = new ListaAgenciaModel(agencias);
 
-		preencheLista();
+			tblAgencia.setModel(model);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		JButton btnNewButton = new JButton("Editar");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -70,8 +79,10 @@ public class ListaAgencia extends PadraoBancario {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				final Integer rowSelected = tblAgencia.getSelectedRow();
-				final Integer rowIndex = tblAgencia.convertRowIndexToModel(rowSelected);
-				final Integer idPessoa = (Integer) tblAgencia.getModel().getValueAt(rowIndex, -1);
+				final Integer rowIndex = tblAgencia
+						.convertRowIndexToModel(rowSelected);
+				final Integer idPessoa = (Integer) tblAgencia.getModel()
+						.getValueAt(rowIndex, -1);
 				CadAgencia cadAgencia = new CadAgencia(idPessoa);
 				cadAgencia.setVisible(true);
 
@@ -80,15 +91,4 @@ public class ListaAgencia extends PadraoBancario {
 
 	}
 
-	private void preencheLista() {
-
-		try {
-			AgenciaDao agenciaDao = new AgenciaDao();
-
-			model.incluir(agenciaDao.buscarAgencias());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	}
 }

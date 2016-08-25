@@ -37,16 +37,16 @@ public class PadraoCliente extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[] { 77, 414, 0 };
+		gbl_contentPane.columnWidths = new int[] { 77, 0, 414, 0 };
 		gbl_contentPane.rowHeights = new int[] { 89, 253, 0 };
-		gbl_contentPane.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPane.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		gbl_contentPane.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
 		JPanel cabecalho = new JPanel();
 		cabecalho.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 		GridBagConstraints gbc_cabecalho = new GridBagConstraints();
-		gbc_cabecalho.gridwidth = 2;
+		gbc_cabecalho.gridwidth = 3;
 		gbc_cabecalho.fill = GridBagConstraints.BOTH;
 		gbc_cabecalho.insets = new Insets(0, 0, 5, 0);
 		gbc_cabecalho.gridx = 0;

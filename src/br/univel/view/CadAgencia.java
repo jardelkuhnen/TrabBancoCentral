@@ -27,14 +27,14 @@ public class CadAgencia extends PadraoBancario {
 		setResizable(false);
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
-		gridBagLayout.columnWeights = new double[] { 1.0, 0.0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0 };
 		setLocationRelativeTo(null);
 		setTitle("Cadastro de Agências");
 
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridwidth = 2;
-		gbc_panel.insets = new Insets(0, 0, 0, 5);
+		gbc_panel.gridwidth = 3;
+		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 1;
