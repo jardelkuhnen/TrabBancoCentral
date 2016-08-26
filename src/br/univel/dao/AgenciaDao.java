@@ -15,6 +15,7 @@ import br.univel.model.Agencia;
 public class AgenciaDao {
 
 	private static final String SQL_GET_AGENCI_ID = "SELECT * FROM AGENCIA WHERE ID = ?";
+	private static final String SQL_UPDATE = "UPDATE AGENCIA SET NOME = ?, NUMERO = ?, CIDADE = ? WHERE ID = ?";
 	private static String SQL_SELECT_ALL = "SELECT * FROM AGENCIA";
 	private static String SQL_INSERT = "INSERT INTO AGENCIA (NOME, NUMERO, CIDADE) VALUES (?,?,?)";
 
@@ -118,6 +119,32 @@ public class AgenciaDao {
 			return readResultSet(rs);
 		} finally {
 			close(rs, stmt, con);
+		}
+
+	}
+
+	public void edit(Agencia agencia) {
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs;
+
+		try {
+			con = Conexao.getConection();
+			stmt = con.prepareStatement(SQL_UPDATE);
+			writeStatement(agencia, stmt);
+			
+			stmt.setInt(4, agencia.getId());
+
+			int linhasInseridas = stmt.executeUpdate();
+
+			if (linhasInseridas == 0)
+				throw new RuntimeException("Falha ao inserir dados na tabela Agencia");
+
+			JOptionPane.showMessageDialog(null, "Agência inserida com sucesso!!!");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 	}

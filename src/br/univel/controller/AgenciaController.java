@@ -9,11 +9,6 @@ public class AgenciaController {
 
 	public void add(Agencia agencia) {
 
-		
-		agencia.setId(agencia.getId());
-		agencia.setNome(agencia.getNome());
-		agencia.setCidade(agencia.getCidade());
-		
 		new AgenciaDao().addAgencia(agencia);
 		
 	}
@@ -22,6 +17,12 @@ public class AgenciaController {
 
 		
 		return new AgenciaDao().get(idAgencia);
+	}
+
+	public void edit(Agencia agencia) {
+
+		new AgenciaDao().edit(agencia);
+		
 	}
 
 

@@ -31,6 +31,7 @@ public class CadAgencia extends PadraoBancario implements WindowListener {
 	private JTextField txtNumero;
 	private JTextField txtCidade;
 	private Integer idAgencia;
+	private String tipoSql = "";
 
 	public CadAgencia(Integer idAgencia) {
 		super();
@@ -119,10 +120,18 @@ public class CadAgencia extends PadraoBancario implements WindowListener {
 				String nomeAgenc = txtNome.getText().trim();
 				String numero = txtNumero.getText().trim();
 				String cidade = txtCidade.getText().trim();
-				if (nomeAgenc == "" || numero == "" || cidade == "") {
+
+				if (nomeAgenc.equals("") || numero.equals("") || cidade.equals("")) {
+
 					JOptionPane.showMessageDialog(null, this, "Informe todos os campos para gravar!",
 							JOptionPane.WARNING_MESSAGE);
+
+				} else if (tipoSql.equals("update")) {
+					final Agencia agencia = new Agencia(idAgencia, nomeAgenc, numero, cidade);
+					new AgenciaController().edit(agencia);
+					tipoSql = "";
 				} else {
+
 					final Agencia agencia = new Agencia(ID_CRIAR_AGENCIA, nomeAgenc, numero, cidade);
 					new AgenciaController().add(agencia);
 				}
@@ -198,14 +207,15 @@ public class CadAgencia extends PadraoBancario implements WindowListener {
 			txtCidade.setText("");
 			txtNome.setText("");
 			txtNumero.setText("");
-			
-		}else{
+
+		} else {
+			this.tipoSql = "update";
 			txtCidade.setText(agencia.getCidade());
 			txtNome.setText(agencia.getNome());
 			txtNumero.setText(agencia.getNumero());
-			
+
 		}
-		
+
 	}
 
 }

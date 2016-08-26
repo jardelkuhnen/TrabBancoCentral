@@ -77,7 +77,7 @@ public class ListaAgencia extends PadraoBancario {
 			public void actionPerformed(ActionEvent arg0) {
 
 				final Integer rowSelected = tblAgencia.getSelectedRow();
-				new CadAgencia(rowSelected).setVisible(true);
+				new CadAgencia(null).setVisible(true);
 			}
 		});
 		GridBagConstraints gbc_btnAdicionar = new GridBagConstraints();
