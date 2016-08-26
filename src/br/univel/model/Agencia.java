@@ -2,7 +2,7 @@ package br.univel.model;
 
 public class Agencia {
 
-	private int id;
+	private Integer id;
 	private String nome;
 	private String numero;
 	private String cidade;

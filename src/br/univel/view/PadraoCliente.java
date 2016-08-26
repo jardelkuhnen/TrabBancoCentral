@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.Color;
 
 public class PadraoCliente extends JFrame {
 
@@ -54,12 +55,13 @@ public class PadraoCliente extends JFrame {
 		contentPane.add(cabecalho, gbc_cabecalho);
 		GridBagLayout gbl_cabecalho = new GridBagLayout();
 		gbl_cabecalho.columnWidths = new int[] { 94, 208, 90, 0 };
-		gbl_cabecalho.rowHeights = new int[] { 26, 26, 0 };
-		gbl_cabecalho.columnWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
-		gbl_cabecalho.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_cabecalho.rowHeights = new int[] { 26, 0, 26, 0 };
+		gbl_cabecalho.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_cabecalho.rowWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		cabecalho.setLayout(gbl_cabecalho);
 
 		JLabel lblBancoCentral = new JLabel("Banco Central");
+		lblBancoCentral.setForeground(new Color(0, 0, 205));
 		lblBancoCentral.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_lblBancoCentral = new GridBagConstraints();
 		gbc_lblBancoCentral.fill = GridBagConstraints.BOTH;
@@ -69,6 +71,7 @@ public class PadraoCliente extends JFrame {
 		cabecalho.add(lblBancoCentral, gbc_lblBancoCentral);
 
 		lblDataAcess = new JLabel("");
+		lblDataAcess.setForeground(new Color(0, 0, 205));
 		lblDataAcess.setText(getHorarioLocal());
 		GridBagConstraints gbc_lblDataAcess = new GridBagConstraints();
 		gbc_lblDataAcess.anchor = GridBagConstraints.EAST;
@@ -79,25 +82,26 @@ public class PadraoCliente extends JFrame {
 		cabecalho.add(lblDataAcess, gbc_lblDataAcess);
 
 		JLabel imagem = new JLabel("");
-		imagem.setIcon(new ImageIcon("D:\\workspace\\TrabBancoCentral\\Imagens\\Icone.png"));
+		imagem.setIcon(new ImageIcon("E:\\workspace\\TrabBancoCentral\\Imagens\\Icone.png"));
 		GridBagConstraints gbc_imagem = new GridBagConstraints();
-		gbc_imagem.gridheight = 2;
+		gbc_imagem.gridheight = 3;
 		gbc_imagem.insets = new Insets(0, 0, 0, 5);
 		gbc_imagem.gridx = 0;
 		gbc_imagem.gridy = 0;
 		cabecalho.add(imagem, gbc_imagem);
 
 		JLabel lblFrase = new JLabel("Aqui seu dinheiro rende mais");
+		lblFrase.setForeground(new Color(0, 0, 205));
 		lblFrase.setFont(new Font("Tahoma", Font.BOLD, 14));
 		GridBagConstraints gbc_lblFrase = new GridBagConstraints();
 		gbc_lblFrase.fill = GridBagConstraints.BOTH;
 		gbc_lblFrase.insets = new Insets(0, 0, 0, 5);
 		gbc_lblFrase.gridx = 1;
-		gbc_lblFrase.gridy = 1;
+		gbc_lblFrase.gridy = 2;
 		cabecalho.add(lblFrase, gbc_lblFrase);
 	}
 
 	protected String getHorarioLocal() {
-		return new SimpleDateFormat("dd/MM/yyyy  hh:mm").format(new Date());
+		return new SimpleDateFormat("dd/MM/yyyy  HH:mm").format(new Date());
 	}
 }

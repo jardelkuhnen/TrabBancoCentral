@@ -1,22 +1,55 @@
 package br.univel.dao;
 
-import java.io.Closeable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import br.univel.model.Agencia;
 
 public class AgenciaDao {
 
+	private static final String SQL_GET_AGENCI_ID = "SELECT * FROM AGENCIA WHERE ID = ?";
 	private static String SQL_SELECT_ALL = "SELECT * FROM AGENCIA";
+	private static String SQL_INSERT = "INSERT INTO AGENCIA (NOME, NUMERO, CIDADE) VALUES (?,?,?)";
 
 	public void addAgencia(Agencia agencia) {
 
-		// String sql = "INSERT INTO AGENCIA ID, NOME, NUMERO, CIDADE"
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs;
+
+		try {
+			con = Conexao.getConection();
+			stmt = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+			writeStatement(agencia, stmt);
+
+			int linhasInseridas = stmt.executeUpdate();
+
+			if (linhasInseridas == 0)
+				throw new RuntimeException("Falha ao inserir dados na tabela Agencia");
+
+			rs = stmt.getGeneratedKeys();
+			rs.next();
+			agencia.setId(rs.getInt(1));
+			JOptionPane.showMessageDialog(null, "Agência inserida com sucesso!!!");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void writeStatement(Agencia agencia, PreparedStatement stmt) throws SQLException {
+
+		stmt.setString(1, agencia.getNome());
+		stmt.setString(2, agencia.getNumero());
+		stmt.setString(3, agencia.getCidade());
 
 	}
 
@@ -66,4 +99,27 @@ public class AgenciaDao {
 
 		return new Agencia(id, nome, numero, cidade);
 	}
+
+	public Agencia get(Integer idAgencia) throws SQLException {
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+
+			con = Conexao.getConection();
+
+			stmt = con.prepareStatement(SQL_GET_AGENCI_ID);
+			stmt.setInt(1, idAgencia);
+
+			rs = stmt.executeQuery();
+			rs.next();
+
+			return readResultSet(rs);
+		} finally {
+			close(rs, stmt, con);
+		}
+
+	}
+
 }

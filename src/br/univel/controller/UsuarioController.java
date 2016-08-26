@@ -47,17 +47,14 @@ public class UsuarioController {
 
 		Command commandPass = new MD5Hash(usuario.getSenha());
 		String senhaHash = commandPass.execute();
-		
+
 		usuario.setId(usuario.getId());
 		usuario.setUsuario(usuarioHash.toString());
 		usuario.setSenha(senhaHash.toString());
 		usuario.setTipoUsuario(usuario.getTipoUsuario());
 
-		UsuarioDao userDao = new UsuarioDao();
-
-		userDao.add(usuario);
+		new UsuarioDao().add(usuario);
 
 	}
 
-	
 }

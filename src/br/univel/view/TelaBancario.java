@@ -14,18 +14,19 @@ public class TelaBancario extends PadraoBancario {
 
 	public TelaBancario() {
 		super();
-		setResizable(false);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		setTitle("Área do Bancario");
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
 				.getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
-		gridBagLayout.columnWeights = new double[] { 1.0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0 };
 
 		JPanel corpo = new JPanel();
 		GridBagConstraints gbc_corpo = new GridBagConstraints();
+		gbc_corpo.insets = new Insets(0, 0, 0, 5);
 		gbc_corpo.gridheight = 2;
-		gbc_corpo.gridwidth = 2;
+		gbc_corpo.gridwidth = 3;
 		gbc_corpo.fill = GridBagConstraints.BOTH;
 		gbc_corpo.gridx = 0;
 		gbc_corpo.gridy = 1;
@@ -46,9 +47,9 @@ public class TelaBancario extends PadraoBancario {
 		gbc_panel.gridy = 0;
 		corpo.add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 302, 243, 0 };
+		gbl_panel.columnWidths = new int[] { 279, 243, 0 };
 		gbl_panel.rowHeights = new int[] { 55, 64, 68, 0 };
-		gbl_panel.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
