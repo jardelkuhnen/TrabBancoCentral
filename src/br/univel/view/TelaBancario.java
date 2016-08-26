@@ -5,7 +5,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
 public class TelaBancario extends PadraoBancario {
@@ -70,6 +73,12 @@ public class TelaBancario extends PadraoBancario {
 		panel.add(btnProfi, gbc_btnProfi);
 
 		JButton btnNovaConta = new JButton("2 - Nova Conta");
+		btnNovaConta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+					new CadConta().setVisible(true);
+			}
+		});
 		GridBagConstraints gbc_btnNovaConta = new GridBagConstraints();
 		gbc_btnNovaConta.fill = GridBagConstraints.BOTH;
 		gbc_btnNovaConta.insets = new Insets(0, 0, 5, 5);
