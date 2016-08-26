@@ -3,8 +3,8 @@ package br.univel.view;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,12 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import br.univel.controller.AgenciaController;
 import br.univel.dao.AgenciaDao;
 import br.univel.model.Agencia;
 import br.univel.model.ListaAgenciaModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class ListaAgencia extends PadraoBancario {
 
@@ -62,8 +59,10 @@ public class ListaAgencia extends PadraoBancario {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				final Integer rowSelected = tblAgencia.getSelectedRow() + 1;
-				new CadAgencia(rowSelected).setVisible(true);
+				final Integer rowSelected = tblAgencia.getSelectedRow();
+				final Integer rowIndex = tblAgencia.convertRowIndexToModel(rowSelected);
+				final Integer idAgencia = (Integer) tblAgencia.getModel().getValueAt(rowIndex, -1);
+				new CadAgencia(idAgencia).setVisible(true);
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
