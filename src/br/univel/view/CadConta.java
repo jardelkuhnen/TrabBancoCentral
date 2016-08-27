@@ -8,7 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import br.univel.controller.ContaController;
+import br.univel.dao.AgenciaDao;
 import br.univel.enun.TipoConta;
+import br.univel.interfacee.Command;
+import br.univel.model.Conta;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,6 +20,7 @@ import java.awt.Insets;
 import java.text.ParseException;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -32,6 +37,7 @@ public class CadConta extends PadraoBancario {
 	private JTextField txtAgencia;
 	private JTextField txtSenhaAcesso;
 	private JTextField txtSenhaOpera;
+	private JTextField txtUsuario;
 
 	public CadConta() {
 		super();
@@ -51,9 +57,10 @@ public class CadConta extends PadraoBancario {
 		getContentPane().add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 0, 197, 225, 0, 0 };
-		gbl_panel.rowHeights = new int[] { 30, 14, 20, 14, 20, 14, 20, 14, 20, 23, 0 };
+		gbl_panel.rowHeights = new int[] { 30, 14, 20, 14, 20, 14, 20, 14, 20, 23, 0, 0, 0 };
 		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		JLabel lblNome = new JLabel("Nome");
@@ -156,31 +163,48 @@ public class CadConta extends PadraoBancario {
 		gbc_cmbTipoConta.gridy = 6;
 		panel.add(cmbTipoConta, gbc_cmbTipoConta);
 
+		JLabel lblUsuarioAcesso = new JLabel("Usuario Acesso");
+		GridBagConstraints gbc_lblUsuarioAcesso = new GridBagConstraints();
+		gbc_lblUsuarioAcesso.anchor = GridBagConstraints.WEST;
+		gbc_lblUsuarioAcesso.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUsuarioAcesso.gridx = 1;
+		gbc_lblUsuarioAcesso.gridy = 7;
+		panel.add(lblUsuarioAcesso, gbc_lblUsuarioAcesso);
+
 		JLabel lblSenhaAcesso = new JLabel("Senha Acesso");
 		GridBagConstraints gbc_lblSenhaAcesso = new GridBagConstraints();
 		gbc_lblSenhaAcesso.anchor = GridBagConstraints.NORTHWEST;
 		gbc_lblSenhaAcesso.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSenhaAcesso.gridx = 1;
+		gbc_lblSenhaAcesso.gridx = 2;
 		gbc_lblSenhaAcesso.gridy = 7;
 		panel.add(lblSenhaAcesso, gbc_lblSenhaAcesso);
 
-		JLabel lblNewLabel = new JLabel("Senha Operações");
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 2;
-		gbc_lblNewLabel.gridy = 7;
-		panel.add(lblNewLabel, gbc_lblNewLabel);
+		txtUsuario = new JTextField();
+		GridBagConstraints gbc_txtUsuario = new GridBagConstraints();
+		gbc_txtUsuario.insets = new Insets(0, 0, 5, 5);
+		gbc_txtUsuario.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtUsuario.gridx = 1;
+		gbc_txtUsuario.gridy = 8;
+		panel.add(txtUsuario, gbc_txtUsuario);
+		txtUsuario.setColumns(10);
 
 		txtSenhaAcesso = new JTextField();
 		GridBagConstraints gbc_txtSenhaAcesso = new GridBagConstraints();
 		gbc_txtSenhaAcesso.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtSenhaAcesso.anchor = GridBagConstraints.NORTH;
 		gbc_txtSenhaAcesso.insets = new Insets(0, 0, 5, 5);
-		gbc_txtSenhaAcesso.gridx = 1;
+		gbc_txtSenhaAcesso.gridx = 2;
 		gbc_txtSenhaAcesso.gridy = 8;
 		panel.add(txtSenhaAcesso, gbc_txtSenhaAcesso);
 		txtSenhaAcesso.setColumns(10);
+
+		JLabel lblNewLabel = new JLabel("Senha Operações");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 9;
+		panel.add(lblNewLabel, gbc_lblNewLabel);
 
 		try {
 			txtSenhaOpera = new JFormattedTextField(new MaskFormatter("######"));
@@ -188,8 +212,8 @@ public class CadConta extends PadraoBancario {
 			gbc_txtSenhaOpera.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtSenhaOpera.anchor = GridBagConstraints.NORTH;
 			gbc_txtSenhaOpera.insets = new Insets(0, 0, 5, 5);
-			gbc_txtSenhaOpera.gridx = 2;
-			gbc_txtSenhaOpera.gridy = 8;
+			gbc_txtSenhaOpera.gridx = 1;
+			gbc_txtSenhaOpera.gridy = 10;
 			panel.add(txtSenhaOpera, gbc_txtSenhaOpera);
 			txtSenhaOpera.setColumns(10);
 		} catch (ParseException e) {
@@ -200,14 +224,30 @@ public class CadConta extends PadraoBancario {
 		btnConfrime.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
+				ContaController contaController = new ContaController();
+				Conta conta = new Conta();
+				conta.setNome(txtNome.getText().trim());
+				conta.setIdade(Integer.parseInt(txtIdade.getText()));
+				conta.setCpf(Integer.parseInt(txtCpf.getText()));
+				conta.setAgencia(txtAgencia.getText());
+				conta.setTipoConta(cmbTipoConta.getSelectedItem().toString());
+				conta.setSenhaAcesso(txtSenhaAcesso.getText());
+				conta.setSenhaOperacoes(txtSenhaOpera.getText());
+				conta.setUsuarioAcesso(txtUsuario.getText().trim());
+
+				contaController.add(conta);
 			}
 		});
 		GridBagConstraints gbc_btnConfrime = new GridBagConstraints();
-		gbc_btnConfrime.insets = new Insets(0, 0, 0, 5);
+		gbc_btnConfrime.insets = new Insets(0, 0, 5, 5);
 		gbc_btnConfrime.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnConfrime.gridx = 2;
-		gbc_btnConfrime.gridy = 9;
+		gbc_btnConfrime.gridy = 10;
 		panel.add(btnConfrime, gbc_btnConfrime);
+
+	}
+
+	protected void inserirConta() {
 
 	}
 }

@@ -17,6 +17,7 @@ public class TelaBancario extends PadraoBancario {
 
 	public TelaBancario() {
 		super();
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Área do Bancario");

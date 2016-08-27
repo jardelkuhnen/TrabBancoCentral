@@ -28,7 +28,7 @@ import br.univel.view.TelaCliente;
 
 public class Login extends JFrame {
 
-	private JPanel contentPane;	
+	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JTextField txtSenha;
 	private JComboBox cbmAcesso;
@@ -47,7 +47,7 @@ public class Login extends JFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}   
+			}
 		});
 	}
 

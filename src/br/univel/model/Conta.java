@@ -8,9 +8,10 @@ public class Conta {
 	private String nome;
 	private Integer idade;
 	private Integer cpf;
-	private Integer agencia;
+	private String agencia;
 	private Integer numeroConta;
-	private TipoConta tipoConta;
+	private String tipoConta;
+	private String usuarioAcesso;
 	private String senhaAcesso;
 	private String senhaOperacoes;
 
@@ -46,11 +47,11 @@ public class Conta {
 		this.cpf = cpf;
 	}
 
-	public Integer getAgencia() {
+	public String getAgencia() {
 		return agencia;
 	}
 
-	public void setAgencia(Integer agencia) {
+	public void setAgencia(String agencia) {
 		this.agencia = agencia;
 	}
 
@@ -62,12 +63,20 @@ public class Conta {
 		this.numeroConta = numeroConta;
 	}
 
-	public TipoConta getTipoConta() {
+	public String getTipoConta() {
 		return tipoConta;
 	}
 
-	public void setTipoConta(TipoConta tipoConta) {
+	public void setTipoConta(String tipoConta) {
 		this.tipoConta = tipoConta;
+	}
+
+	public String getUsuarioAcesso() {
+		return usuarioAcesso;
+	}
+
+	public void setUsuarioAcesso(String usuarioAcesso) {
+		this.usuarioAcesso = usuarioAcesso;
 	}
 
 	public String getSenhaAcesso() {

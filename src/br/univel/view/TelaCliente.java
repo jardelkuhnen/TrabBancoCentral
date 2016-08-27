@@ -8,6 +8,7 @@ public class TelaCliente extends PadraoBancario {
 
 	public TelaCliente() {
 		super();
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		setTitle("Área do Cliente");
 		setLocationRelativeTo(null);

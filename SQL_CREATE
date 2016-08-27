@@ -19,6 +19,7 @@ create table conta(
 	cpf int,
 	agencia int,
 	tipoConta varchar(255),
+	usuarioAcesso varchar(255),
 	senhaAcesso varchar(255),
 	senhaOperacoes varchar(255),
 	numeroConta int,

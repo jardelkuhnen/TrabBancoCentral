@@ -150,7 +150,7 @@ public class AgenciaDao {
 
 	}
 
-	public Integer getNumero(Agencia agencia) {
+	public Integer getNumero(String nAgencia) {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs;
@@ -159,7 +159,7 @@ public class AgenciaDao {
 			con = Conexao.getConection();
 			stmt = con.prepareStatement(SQL_SELECT_AGENCIA);
 
-			stmt.setString(1, agencia.getNumero());
+			stmt.setString(1, nAgencia);
 
 			rs = stmt.executeQuery();
 

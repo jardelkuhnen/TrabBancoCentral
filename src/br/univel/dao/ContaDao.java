@@ -47,7 +47,7 @@ public class ContaDao {
 		stmt.setString(1, conta.getNome());
 		stmt.setInt(2, conta.getIdade());
 		stmt.setInt(3, conta.getCpf());
-		stmt.setInt(4, conta.getAgencia());
+		stmt.setString(4, conta.getAgencia());
 		stmt.setString(5, conta.getTipoConta().toString());
 		stmt.setString(6, conta.getSenhaAcesso());
 		stmt.setString(7, conta.getSenhaOperacoes());
