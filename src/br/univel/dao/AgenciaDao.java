@@ -14,9 +14,10 @@ import br.univel.model.Agencia;
 
 public class AgenciaDao {
 
-	private static final String SQL_GET_AGENCI_ID = "SELECT * FROM AGENCIA WHERE ID = ?";
-	private static final String SQL_UPDATE = "UPDATE AGENCIA SET NOME = ?, NUMERO = ?, CIDADE = ? WHERE ID = ?";
-	private static String SQL_SELECT_ALL = "SELECT * FROM AGENCIA";
+	private static String SQL_SELECT_AGENCIA = "SELECT COUNT(*) FROM AGENCIA WHERE AGENCIA = ?";
+	private static String SQL_GET_AGENCI_ID = "SELECT * FROM AGENCIA WHERE ID = ?";
+	private static String SQL_UPDATE = "UPDATE AGENCIA SET NOME = ?, NUMERO = ?, CIDADE = ? WHERE ID = ?";
+	private static String SQL_SELECT_ALL = "SELECT * FROM AGENCIA ORDER BY ID";
 	private static String SQL_INSERT = "INSERT INTO AGENCIA (NOME, NUMERO, CIDADE) VALUES (?,?,?)";
 
 	public void addAgencia(Agencia agencia) {
@@ -133,7 +134,7 @@ public class AgenciaDao {
 			con = Conexao.getConection();
 			stmt = con.prepareStatement(SQL_UPDATE);
 			writeStatement(agencia, stmt);
-			
+
 			stmt.setInt(4, agencia.getId());
 
 			int linhasInseridas = stmt.executeUpdate();
@@ -147,6 +148,29 @@ public class AgenciaDao {
 			e.printStackTrace();
 		}
 
+	}
+
+	public Integer getNumero(Agencia agencia) {
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs;
+		int agEncontradas = 0;
+		try {
+			con = Conexao.getConection();
+			stmt = con.prepareStatement(SQL_SELECT_AGENCIA);
+
+			stmt.setString(1, agencia.getNumero());
+
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				agEncontradas = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return agEncontradas;
 	}
 
 }

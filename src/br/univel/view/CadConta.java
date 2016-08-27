@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import br.univel.enun.TipoConta;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -18,6 +20,8 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CadConta extends PadraoBancario {
 
@@ -31,7 +35,7 @@ public class CadConta extends PadraoBancario {
 
 	public CadConta() {
 		super();
-		// setExtendedState(PadraoBancario.MAXIMIZED_BOTH);
+		setExtendedState(PadraoBancario.MAXIMIZED_BOTH);
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0 };
@@ -46,9 +50,9 @@ public class CadConta extends PadraoBancario {
 		gbc_panel.gridy = 1;
 		getContentPane().add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 0, 131, 225, 0 };
+		gbl_panel.columnWidths = new int[] { 0, 197, 225, 0, 0 };
 		gbl_panel.rowHeights = new int[] { 30, 14, 20, 14, 20, 14, 20, 14, 20, 23, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
@@ -65,7 +69,7 @@ public class CadConta extends PadraoBancario {
 		GridBagConstraints gbc_txtNome = new GridBagConstraints();
 		gbc_txtNome.anchor = GridBagConstraints.NORTH;
 		gbc_txtNome.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtNome.insets = new Insets(0, 0, 5, 0);
+		gbc_txtNome.insets = new Insets(0, 0, 5, 5);
 		gbc_txtNome.gridwidth = 2;
 		gbc_txtNome.gridx = 1;
 		gbc_txtNome.gridy = 2;
@@ -84,13 +88,13 @@ public class CadConta extends PadraoBancario {
 		JLabel lblCpf = new JLabel("CPF");
 		GridBagConstraints gbc_lblCpf = new GridBagConstraints();
 		gbc_lblCpf.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblCpf.insets = new Insets(0, 0, 5, 0);
+		gbc_lblCpf.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCpf.gridx = 2;
 		gbc_lblCpf.gridy = 3;
 		panel.add(lblCpf, gbc_lblCpf);
 
 		try {
-			txtIdade = new JFormattedTextField(new MaskFormatter("###"));
+			txtIdade = new JFormattedTextField(new MaskFormatter("##"));
 			GridBagConstraints gbc_txtIdade = new GridBagConstraints();
 			gbc_txtIdade.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtIdade.anchor = GridBagConstraints.NORTH;
@@ -108,7 +112,7 @@ public class CadConta extends PadraoBancario {
 			GridBagConstraints gbc_txtCpf = new GridBagConstraints();
 			gbc_txtCpf.anchor = GridBagConstraints.NORTH;
 			gbc_txtCpf.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtCpf.insets = new Insets(0, 0, 5, 0);
+			gbc_txtCpf.insets = new Insets(0, 0, 5, 5);
 			gbc_txtCpf.gridx = 2;
 			gbc_txtCpf.gridy = 4;
 			panel.add(txtCpf, gbc_txtCpf);
@@ -128,7 +132,7 @@ public class CadConta extends PadraoBancario {
 		JLabel lblTipoConta = new JLabel("Tipo Conta");
 		GridBagConstraints gbc_lblTipoConta = new GridBagConstraints();
 		gbc_lblTipoConta.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblTipoConta.insets = new Insets(0, 0, 5, 0);
+		gbc_lblTipoConta.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTipoConta.gridx = 2;
 		gbc_lblTipoConta.gridy = 5;
 		panel.add(lblTipoConta, gbc_lblTipoConta);
@@ -143,11 +147,11 @@ public class CadConta extends PadraoBancario {
 		panel.add(txtAgencia, gbc_txtAgencia);
 		txtAgencia.setColumns(10);
 
-		JComboBox cmbTipoConta = new JComboBox();
+		JComboBox cmbTipoConta = new JComboBox(TipoConta.values());
 		GridBagConstraints gbc_cmbTipoConta = new GridBagConstraints();
 		gbc_cmbTipoConta.anchor = GridBagConstraints.NORTH;
 		gbc_cmbTipoConta.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cmbTipoConta.insets = new Insets(0, 0, 5, 0);
+		gbc_cmbTipoConta.insets = new Insets(0, 0, 5, 5);
 		gbc_cmbTipoConta.gridx = 2;
 		gbc_cmbTipoConta.gridy = 6;
 		panel.add(cmbTipoConta, gbc_cmbTipoConta);
@@ -160,10 +164,10 @@ public class CadConta extends PadraoBancario {
 		gbc_lblSenhaAcesso.gridy = 7;
 		panel.add(lblSenhaAcesso, gbc_lblSenhaAcesso);
 
-		JLabel lblNewLabel = new JLabel("Senha Opera;\u00F3es");
+		JLabel lblNewLabel = new JLabel("Senha Operações");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 2;
 		gbc_lblNewLabel.gridy = 7;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
@@ -178,18 +182,28 @@ public class CadConta extends PadraoBancario {
 		panel.add(txtSenhaAcesso, gbc_txtSenhaAcesso);
 		txtSenhaAcesso.setColumns(10);
 
-		txtSenhaOpera = new JTextField();
-		GridBagConstraints gbc_txtSenhaOpera = new GridBagConstraints();
-		gbc_txtSenhaOpera.anchor = GridBagConstraints.NORTH;
-		gbc_txtSenhaOpera.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtSenhaOpera.insets = new Insets(0, 0, 5, 0);
-		gbc_txtSenhaOpera.gridx = 2;
-		gbc_txtSenhaOpera.gridy = 8;
-		panel.add(txtSenhaOpera, gbc_txtSenhaOpera);
-		txtSenhaOpera.setColumns(10);
+		try {
+			txtSenhaOpera = new JFormattedTextField(new MaskFormatter("######"));
+			GridBagConstraints gbc_txtSenhaOpera = new GridBagConstraints();
+			gbc_txtSenhaOpera.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtSenhaOpera.anchor = GridBagConstraints.NORTH;
+			gbc_txtSenhaOpera.insets = new Insets(0, 0, 5, 5);
+			gbc_txtSenhaOpera.gridx = 2;
+			gbc_txtSenhaOpera.gridy = 8;
+			panel.add(txtSenhaOpera, gbc_txtSenhaOpera);
+			txtSenhaOpera.setColumns(10);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		JButton btnConfrime = new JButton("Confirme");
+		btnConfrime.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+			}
+		});
 		GridBagConstraints gbc_btnConfrime = new GridBagConstraints();
+		gbc_btnConfrime.insets = new Insets(0, 0, 0, 5);
 		gbc_btnConfrime.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnConfrime.gridx = 2;
 		gbc_btnConfrime.gridy = 9;

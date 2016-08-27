@@ -11,6 +11,18 @@ create table agencia(
 	numero varchar(255),
 	cidade varchar(255),
 	primary key(id));
+	
+create table conta(
+	id serial,
+	nome varchar(255),
+	idade int,
+	cpf int,
+	agencia int,
+	tipoConta varchar(255),
+	senhaAcesso varchar(255),
+	senhaOperacoes varchar(255),
+	numeroConta int,
+	primary key (id));
 
 
 
