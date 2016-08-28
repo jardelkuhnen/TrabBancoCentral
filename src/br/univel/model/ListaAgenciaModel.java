@@ -60,7 +60,7 @@ public class ListaAgenciaModel extends AbstractTableModel {
 
 		switch (col) {
 		case 0:
-			return "Nome";
+			return "Agência";
 		case 1:
 			return "Número";
 		case 2:

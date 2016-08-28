@@ -5,6 +5,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -18,7 +20,7 @@ import br.univel.dao.AgenciaDao;
 import br.univel.model.Agencia;
 import br.univel.model.ListaAgenciaModel;
 
-public class ListaAgencia extends PadraoBancario {
+public class ListaAgencia extends PadraoBancario implements WindowListener {
 
 	private JPanel contentPane;
 	private JTable tblAgencia;
@@ -27,6 +29,7 @@ public class ListaAgencia extends PadraoBancario {
 
 	public ListaAgencia() {
 		super();
+		addWindowListener(this);
 		setExtendedState(PadraoBancario.MAXIMIZED_BOTH);
 		setTitle("Listagem de Agências");
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
@@ -96,6 +99,41 @@ public class ListaAgencia extends PadraoBancario {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		preencheTela();
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+
 	}
 
 }

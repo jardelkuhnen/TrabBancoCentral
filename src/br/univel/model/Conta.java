@@ -1,13 +1,11 @@
 package br.univel.model;
 
-import br.univel.enun.TipoConta;
-
 public class Conta {
 
 	private Integer id;
 	private String nome;
 	private Integer idade;
-	private Integer cpf;
+	private String cpf;
 	private String agencia;
 	private Integer numeroConta;
 	private String tipoConta;
@@ -39,11 +37,11 @@ public class Conta {
 		this.idade = idade;
 	}
 
-	public Integer getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Integer cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 

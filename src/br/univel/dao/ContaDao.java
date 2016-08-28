@@ -13,7 +13,7 @@ import br.univel.model.Conta;
 public class ContaDao {
 
 	private static final String SQL_INSERT = "INSERT INTO CONTA (NOME, IDADE, CPF, AGENCIA, TIPOCONTA, SENHAACESSO, SENHAOPERACOES, NUMEROCONTA) VALUES (?,?,?,?,?,?,?,?)";
-	
+
 	public void add(Conta conta) {
 
 		Connection con = null;
@@ -35,7 +35,7 @@ public class ContaDao {
 			conta.setId(rs.getInt(1));
 			JOptionPane.showMessageDialog(null,
 					conta.getTipoConta() + " " + conta.getNumeroConta() + " inserida com sucesso!!!");
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -46,7 +46,7 @@ public class ContaDao {
 
 		stmt.setString(1, conta.getNome());
 		stmt.setInt(2, conta.getIdade());
-		stmt.setInt(3, conta.getCpf());
+		stmt.setString(3, conta.getCpf());
 		stmt.setString(4, conta.getAgencia());
 		stmt.setString(5, conta.getTipoConta().toString());
 		stmt.setString(6, conta.getSenhaAcesso());

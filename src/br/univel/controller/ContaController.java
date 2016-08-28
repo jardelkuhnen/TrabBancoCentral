@@ -7,6 +7,7 @@ import br.univel.dao.ContaDao;
 import br.univel.interfacee.Command;
 import br.univel.model.Conta;
 import br.univel.model.MD5Hash;
+import br.univel.view.CadConta;
 
 public class ContaController {
 
@@ -15,6 +16,7 @@ public class ContaController {
 		Integer agExiste = new AgenciaDao().getNumero(conta.getAgencia());
 
 		if (agExiste > 0) {
+
 			Command commandUser = new MD5Hash(conta.getUsuarioAcesso());
 			String userAcessoHash = commandUser.execute();
 
@@ -23,11 +25,12 @@ public class ContaController {
 
 			conta.setUsuarioAcesso(userAcessoHash);
 			conta.setSenhaAcesso(senhaAcessoHash);
-			
+
 			new ContaDao().add(conta);
 
 		} else {
-			JOptionPane.showInternalMessageDialog(null, "Agência inexistente!", "Atenção", JOptionPane.WARNING_MESSAGE);
+			String mensagem = "Agência " + conta.getAgencia() + " inexistente!!!";
+			JOptionPane.showMessageDialog(null, mensagem, "Atenção", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}

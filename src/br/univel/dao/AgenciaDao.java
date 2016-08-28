@@ -14,7 +14,7 @@ import br.univel.model.Agencia;
 
 public class AgenciaDao {
 
-	private static String SQL_SELECT_AGENCIA = "SELECT COUNT(*) FROM AGENCIA WHERE AGENCIA = ?";
+	private static String SQL_SELECT_AGENCIA = "SELECT COUNT(*) FROM AGENCIA WHERE NUMERO = ?";
 	private static String SQL_GET_AGENCI_ID = "SELECT * FROM AGENCIA WHERE ID = ?";
 	private static String SQL_UPDATE = "UPDATE AGENCIA SET NOME = ?, NUMERO = ?, CIDADE = ? WHERE ID = ?";
 	private static String SQL_SELECT_ALL = "SELECT * FROM AGENCIA ORDER BY ID";
@@ -142,7 +142,7 @@ public class AgenciaDao {
 			if (linhasInseridas == 0)
 				throw new RuntimeException("Falha ao inserir dados na tabela Agencia");
 
-			JOptionPane.showMessageDialog(null, "Agência inserida com sucesso!!!");
+			JOptionPane.showMessageDialog(null, "Agência atualizada com sucesso!!!");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

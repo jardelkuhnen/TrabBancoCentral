@@ -18,6 +18,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.text.ParseException;
+import java.util.Random;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -224,18 +225,30 @@ public class CadConta extends PadraoBancario {
 		btnConfrime.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				ContaController contaController = new ContaController();
-				Conta conta = new Conta();
-				conta.setNome(txtNome.getText().trim());
-				conta.setIdade(Integer.parseInt(txtIdade.getText()));
-				conta.setCpf(Integer.parseInt(txtCpf.getText()));
-				conta.setAgencia(txtAgencia.getText());
-				conta.setTipoConta(cmbTipoConta.getSelectedItem().toString());
-				conta.setSenhaAcesso(txtSenhaAcesso.getText());
-				conta.setSenhaOperacoes(txtSenhaOpera.getText());
-				conta.setUsuarioAcesso(txtUsuario.getText().trim());
+				if (txtAgencia.getText().equals("") || txtNome.getText().equals("") || txtIdade.getText().equals("")
+						|| txtCpf.getText().equals("") || txtAgencia.getText().equals("")
+						|| txtUsuario.getText().equals("") || txtSenhaAcesso.getText().equals("")
+						|| txtSenhaOpera.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Informe todos os campos!!!", "Atenção",
+							JOptionPane.ERROR_MESSAGE, null);
+					txtNome.requestFocus();
+				} else {
+					ContaController contaController = new ContaController();
+					Conta conta = new Conta();
+					conta.setNome(txtNome.getText().trim());
+					conta.setIdade(Integer.parseInt(txtIdade.getText()));
+					conta.setCpf(txtCpf.getText());
+					conta.setAgencia(txtAgencia.getText());
+					conta.setTipoConta(cmbTipoConta.getSelectedItem().toString());
+					conta.setUsuarioAcesso(txtUsuario.getText().trim());
+					conta.setSenhaAcesso(txtSenhaAcesso.getText());
+					conta.setSenhaOperacoes(txtSenhaOpera.getText());
+					conta.setNumeroConta(generateNumberConta());
 
-				contaController.add(conta);
+					limparCampos();
+					contaController.add(conta);
+
+				}
 			}
 		});
 		GridBagConstraints gbc_btnConfrime = new GridBagConstraints();
@@ -245,6 +258,31 @@ public class CadConta extends PadraoBancario {
 		gbc_btnConfrime.gridy = 10;
 		panel.add(btnConfrime, gbc_btnConfrime);
 
+	}
+
+	protected void limparCampos() {
+
+		txtAgencia.setText("");
+		txtCpf.setText("");
+		txtIdade.setText("");
+		txtNome.setText("");
+		txtSenhaAcesso.setText("");
+		txtSenhaOpera.setText("");
+		txtUsuario.setText("");
+		txtNome.requestFocus();
+	}
+
+	protected Integer generateNumberConta() {
+
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < 7; i++) {
+
+			sb.append(new Random().nextInt(9));
+
+		}
+
+		return Integer.parseInt(sb.toString());
 	}
 
 	protected void inserirConta() {
