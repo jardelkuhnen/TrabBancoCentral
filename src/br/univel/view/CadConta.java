@@ -44,11 +44,10 @@ public class CadConta extends PadraoBancario {
 
 	public CadConta() {
 		super();
-		setExtendedState(PadraoBancario.MAXIMIZED_BOTH);
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0 };
-
+		setExtendedState(MAXIMIZED_BOTH);
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridheight = 2;
@@ -256,7 +255,7 @@ public class CadConta extends PadraoBancario {
 		});
 		GridBagConstraints gbc_btnConfrime = new GridBagConstraints();
 		gbc_btnConfrime.insets = new Insets(0, 0, 5, 5);
-		gbc_btnConfrime.anchor = GridBagConstraints.NORTHEAST;
+		gbc_btnConfrime.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnConfrime.gridx = 2;
 		gbc_btnConfrime.gridy = 10;
 		panel.add(btnConfrime, gbc_btnConfrime);

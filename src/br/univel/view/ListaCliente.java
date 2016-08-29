@@ -1,18 +1,5 @@
 package br.univel.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import br.univel.controller.ContaController;
-import br.univel.dao.ContaDao;
-import br.univel.model.Conta;
-import br.univel.model.ListaAgenciaModel;
-import br.univel.model.ListaClienteModel;
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -21,38 +8,40 @@ import java.awt.event.WindowListener;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.BoxLayout;
 import javax.swing.JTable;
 
-public class ListCliente extends PadraoBancario implements WindowListener {
+import br.univel.controller.ContaController;
+import br.univel.model.Conta;
+import br.univel.model.ListaClienteModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ListaCliente extends PadraoBancario implements WindowListener {
 
 	private JPanel contentPane;
 	private JTable tblContas;
 	private List<Conta> contas;
 	private ListaClienteModel model;
 
-	public ListCliente() {
+	public ListaCliente() {
 		super();
-		setTitle("Listagem de Clientes");
-		setExtendedState(PadraoBancario.MAXIMIZED_BOTH);
-		addWindowListener(this);
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
+		gridBagLayout.rowHeights = new int[] { 0, 0 };
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
-		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 0.0 };
-
-		JPanel panel = new JPanel();
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridwidth = 3;
-		gbc_panel.insets = new Insets(0, 0, 0, 5);
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 1;
-		getContentPane().add(panel, gbc_panel);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 0.0 };
+		setTitle("Listagem de Clientes");
+		addWindowListener(this);
 
 		JScrollPane scrollPane = new JScrollPane();
-		panel.add(scrollPane);
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridwidth = 4;
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 1;
+		getContentPane().add(scrollPane, gbc_scrollPane);
 
 		tblContas = new JTable();
 		scrollPane.setViewportView(tblContas);

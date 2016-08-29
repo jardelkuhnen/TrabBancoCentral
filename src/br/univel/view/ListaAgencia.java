@@ -12,12 +12,12 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import br.univel.controller.AgenciaController;
-import br.univel.dao.AgenciaDao;
 import br.univel.model.Agencia;
 import br.univel.model.ListaAgenciaModel;
 
@@ -31,7 +31,6 @@ public class ListaAgencia extends PadraoBancario implements WindowListener {
 	public ListaAgencia() {
 		super();
 		addWindowListener(this);
-		setExtendedState(PadraoBancario.MAXIMIZED_BOTH);
 		setTitle("Listagem de Agências");
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.columnWidths = new int[] { 372, 73, 77 };
@@ -59,9 +58,15 @@ public class ListaAgencia extends PadraoBancario implements WindowListener {
 			public void actionPerformed(ActionEvent e) {
 
 				final Integer rowSelected = tblAgencia.getSelectedRow();
-				final Integer rowIndex = tblAgencia.convertRowIndexToModel(rowSelected);
-				final Integer idAgencia = (Integer) tblAgencia.getModel().getValueAt(rowIndex, -1);
-				new CadAgencia(idAgencia).setVisible(true);
+				
+				if (rowSelected <= 0) {
+					JOptionPane.showMessageDialog(ListaAgencia.this, "Selecione uma agência para editar.", "Atenção",
+							JOptionPane.WARNING_MESSAGE);
+				} else {
+					final Integer rowIndex = tblAgencia.convertRowIndexToModel(rowSelected);
+					final Integer idAgencia = (Integer) tblAgencia.getModel().getValueAt(rowIndex, -1);
+					new CadAgencia(idAgencia).setVisible(true);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -75,7 +80,6 @@ public class ListaAgencia extends PadraoBancario implements WindowListener {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				final Integer rowSelected = tblAgencia.getSelectedRow();
 				new CadAgencia(null).setVisible(true);
 			}
 		});

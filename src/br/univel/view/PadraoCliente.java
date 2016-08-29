@@ -32,7 +32,7 @@ public class PadraoCliente extends JFrame {
 	public PadraoCliente() {
 		setSize(800, 375);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 553, 403);
+		setBounds(100, 100, 600, 370);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imagens/Icone.png"));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

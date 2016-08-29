@@ -1,18 +1,13 @@
 package br.univel.view;
 
-import javax.swing.JPanel;
-
-import org.w3c.dom.stylesheets.LinkStyle;
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-
-import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 public class TelaBancario extends PadraoBancario {
 
@@ -68,6 +63,14 @@ public class TelaBancario extends PadraoBancario {
 		panel.add(btnInfo, gbc_btnInfo);
 
 		JButton btnProfi = new JButton("4 - Profissionais");
+		btnProfi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				ListaProfissionais listProfissionais = new ListaProfissionais();
+				listProfissionais.setVisible(true);
+
+			}
+		});
 		GridBagConstraints gbc_btnProfi = new GridBagConstraints();
 		gbc_btnProfi.fill = GridBagConstraints.BOTH;
 		gbc_btnProfi.insets = new Insets(0, 0, 5, 0);
@@ -101,7 +104,7 @@ public class TelaBancario extends PadraoBancario {
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				ListCliente listaClientes = new ListCliente();
+				ListaCliente listaClientes = new ListaCliente();
 				listaClientes.setVisible(true);
 			}
 		});
