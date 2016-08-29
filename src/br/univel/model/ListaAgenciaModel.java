@@ -45,11 +45,6 @@ public class ListaAgenciaModel extends AbstractTableModel {
 		}
 	}
 
-	@Override
-	public Class<?> getColumnClass(int columnIndex) {
-		return getValueAt(0, columnIndex).getClass();
-	}
-
 	public void incluir(List<Agencia> agencia) {
 		this.agencias = agencia;
 		fireTableDataChanged();

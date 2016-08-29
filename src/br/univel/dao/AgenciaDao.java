@@ -20,7 +20,7 @@ public class AgenciaDao {
 	private static String SQL_SELECT_ALL = "SELECT * FROM AGENCIA ORDER BY ID";
 	private static String SQL_INSERT = "INSERT INTO AGENCIA (NOME, NUMERO, CIDADE) VALUES (?,?,?)";
 
-	public void addAgencia(Agencia agencia) {
+	public void addAgencia(Agencia agencia) throws SQLException {
 
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -43,6 +43,8 @@ public class AgenciaDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(null, stmt, con);
 		}
 
 	}

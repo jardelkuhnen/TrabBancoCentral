@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import br.univel.controller.AgenciaController;
 import br.univel.dao.AgenciaDao;
 import br.univel.model.Agencia;
 import br.univel.model.ListaAgenciaModel;
@@ -53,11 +54,6 @@ public class ListaAgencia extends PadraoBancario implements WindowListener {
 		tblAgencia = new JTable();
 		scrollPane.setViewportView(tblAgencia);
 
-		/**
-		 * Método responsável por setar o modelo a tabela e setar os valores
-		 */
-		preencheTela();
-
 		JButton btnNewButton = new JButton("Editar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -93,7 +89,7 @@ public class ListaAgencia extends PadraoBancario implements WindowListener {
 
 	private void preencheTela() {
 		try {
-			agencias = new AgenciaDao().buscarAgencias();
+			agencias = new AgenciaController().buscarAgencias();
 			model = new ListaAgenciaModel(agencias);
 			tblAgencia.setModel(model);
 		} catch (SQLException e) {
@@ -133,7 +129,10 @@ public class ListaAgencia extends PadraoBancario implements WindowListener {
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-
+		/**
+		 * Método responsável por setar o modelo a tabela e setar os valores
+		 */
+		preencheTela();
 	}
 
 }

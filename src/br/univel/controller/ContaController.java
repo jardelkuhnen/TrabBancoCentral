@@ -1,5 +1,8 @@
 package br.univel.controller;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import br.univel.dao.AgenciaDao;
@@ -33,7 +36,11 @@ public class ContaController {
 			conta.setSenhaAcesso(senhaAcessoHash);
 
 
-			new ContaDao().add(conta);
+			try {
+				new ContaDao().add(conta);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
 			new UsuarioDao().add(usuario);
 
@@ -42,6 +49,12 @@ public class ContaController {
 			JOptionPane.showMessageDialog(null, mensagem, "Atenção", JOptionPane.ERROR_MESSAGE);
 		}
 
+	}
+
+	public List<Conta> buscarContas() throws SQLException {
+
+		
+		return new ContaDao().buscarContas();
 	}
 
 }

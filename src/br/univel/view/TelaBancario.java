@@ -1,6 +1,9 @@
 package br.univel.view;
 
 import javax.swing.JPanel;
+
+import org.w3c.dom.stylesheets.LinkStyle;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -21,8 +24,7 @@ public class TelaBancario extends PadraoBancario {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Área do Bancario");
-		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
-				.getLayout();
+		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 0.0 };
 
@@ -76,8 +78,8 @@ public class TelaBancario extends PadraoBancario {
 		JButton btnNovaConta = new JButton("2 - Nova Conta");
 		btnNovaConta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-					new CadConta().setVisible(true);
+
+				new CadConta().setVisible(true);
 			}
 		});
 		GridBagConstraints gbc_btnNovaConta = new GridBagConstraints();
@@ -96,6 +98,13 @@ public class TelaBancario extends PadraoBancario {
 		panel.add(btnBalanco, gbc_btnBalanco);
 
 		JButton btnClientes = new JButton("3 - Clientes");
+		btnClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				ListCliente listaClientes = new ListCliente();
+				listaClientes.setVisible(true);
+			}
+		});
 		GridBagConstraints gbc_btnClientes = new GridBagConstraints();
 		gbc_btnClientes.fill = GridBagConstraints.BOTH;
 		gbc_btnClientes.insets = new Insets(0, 0, 0, 5);

@@ -13,6 +13,18 @@ public class Conta {
 	private String senhaAcesso;
 	private String senhaOperacoes;
 
+	public Conta(Integer id, String nome, Integer idade, String cpf, String agencia, String tipoConta) {
+		this.id = id;
+		this.nome = nome;
+		this.idade = idade;
+		this.cpf = cpf;
+		this.agencia = agencia;
+		this.tipoConta = tipoConta;
+	}
+
+	public Conta() {
+	}
+
 	public Integer getId() {
 		return id;
 	}
