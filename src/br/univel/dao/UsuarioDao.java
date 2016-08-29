@@ -14,11 +14,12 @@ public class UsuarioDao {
 
 	Connection con;
 	private static String SQL_SELECT_ID = "SELECT * FROM USUARIO WHERE USUARIO = ? AND SENHA = ?";
-	private static String SQL_INSERT = "INSERT INTO USUARIO (ID, USUARIO, SENHA,TIPOUSUARIO) VALUES (?,?,?,?)";
+	private static String SQL_INSERT = "INSERT INTO USUARIO (USUARIO, SENHA,TIPOUSUARIO) VALUES (?,?,?)";
 	private static String SQL_UPDATE = "UPDATE USUARIO SET USUARIO = ?, SENHA = ?, TIPOUSUARIO = ? WHERE ID = ?";
 	private static String SQL_DELETE = "DELETE FROM USUARIO WHERE ID = ?";
 
 	public boolean acessoLogin(final String usuario, final String senha) {
+		
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -110,10 +111,9 @@ public class UsuarioDao {
 	}
 
 	private void writeStatement(Usuario usuario, PreparedStatement stmt) throws SQLException {
-		stmt.setInt(1, usuario.getId());
-		stmt.setString(2, usuario.getUsuario());
-		stmt.setString(3, usuario.getSenha());
-		stmt.setString(4, usuario.getTipoUsuario().toString());
+		stmt.setString(1, usuario.getUsuario());
+		stmt.setString(2, usuario.getSenha());
+		stmt.setString(3, usuario.getTipoUsuario().toString());
 	}
 
 	protected void close(ResultSet set, Statement stmt, Connection conn) {

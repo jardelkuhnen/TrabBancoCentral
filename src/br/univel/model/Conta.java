@@ -7,7 +7,7 @@ public class Conta {
 	private Integer idade;
 	private String cpf;
 	private String agencia;
-	private Integer numeroConta;
+	private String numeroConta;
 	private String tipoConta;
 	private String usuarioAcesso;
 	private String senhaAcesso;
@@ -53,11 +53,11 @@ public class Conta {
 		this.agencia = agencia;
 	}
 
-	public Integer getNumeroConta() {
+	public String getNumeroConta() {
 		return numeroConta;
 	}
 
-	public void setNumeroConta(Integer numeroConta) {
+	public void setNumeroConta(String numeroConta) {
 		this.numeroConta = numeroConta;
 	}
 

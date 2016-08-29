@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import com.sun.javafx.binding.StringFormatter;
+
 import br.univel.controller.ContaController;
 import br.univel.dao.AgenciaDao;
 import br.univel.enun.TipoConta;
@@ -240,10 +242,11 @@ public class CadConta extends PadraoBancario {
 					conta.setCpf(txtCpf.getText());
 					conta.setAgencia(txtAgencia.getText());
 					conta.setTipoConta(cmbTipoConta.getSelectedItem().toString());
-					conta.setUsuarioAcesso(txtUsuario.getText().trim());
+					conta.setUsuarioAcesso(txtUsuario.getText());
 					conta.setSenhaAcesso(txtSenhaAcesso.getText());
 					conta.setSenhaOperacoes(txtSenhaOpera.getText());
 					conta.setNumeroConta(generateNumberConta());
+					conta.setUsuarioAcesso(txtUsuario.getText());
 
 					limparCampos();
 					contaController.add(conta);
@@ -272,7 +275,7 @@ public class CadConta extends PadraoBancario {
 		txtNome.requestFocus();
 	}
 
-	protected Integer generateNumberConta() {
+	protected String generateNumberConta() {
 
 		StringBuilder sb = new StringBuilder();
 
@@ -281,8 +284,7 @@ public class CadConta extends PadraoBancario {
 			sb.append(new Random().nextInt(9));
 
 		}
-
-		return Integer.parseInt(sb.toString());
+		return sb.toString();
 	}
 
 	protected void inserirConta() {

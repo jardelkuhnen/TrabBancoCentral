@@ -141,6 +141,7 @@ public class Login extends JFrame {
 	}
 
 	protected void acessarSistema() {
+		
 		UsuarioController userControll = new UsuarioController();
 		String usuario = txtUsuario.getText().trim();
 		String senha = txtSenha.getText().trim();
@@ -160,7 +161,7 @@ public class Login extends JFrame {
 			setVisible(false);
 
 		} else {
-			JOptionPane.showMessageDialog(Login.this, "Usuário não localizado");
+			JOptionPane.showMessageDialog(Login.this, "Usuário ou senha incorretos!!!");
 			limparCampos();
 		}
 	}

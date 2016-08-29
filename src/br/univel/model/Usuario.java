@@ -9,9 +9,10 @@ public class Usuario {
 	private String senha;
 	private TipoUsuario tipoUsuario;
 
-	public Usuario(String usuario, String senha) {
+	public Usuario(String usuario, String senha, TipoUsuario tipoUsuario) {
 		this.usuario = usuario;
 		this.senha = senha;
+		this.tipoUsuario = tipoUsuario;
 	}
 
 	public int getId() {
