@@ -12,6 +12,16 @@ public class Profissional {
 	private String senhaOperacoes;
 	private TipoUsuario tipoProfissional;
 
+	public Profissional(Integer id, String nome, String usuario) {
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+
+	}
+
+	public Profissional() {
+	}
+
 	public Integer getId() {
 		return id;
 	}

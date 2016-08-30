@@ -5,7 +5,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.text.ParseException;
+import java.util.PrimitiveIterator.OfDouble;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,7 +23,7 @@ import br.univel.controller.ProfissionalController;
 import br.univel.enun.TipoUsuario;
 import br.univel.model.Profissional;
 
-public class CadProfissional extends PadraoBancario {
+public class CadProfissional extends PadraoBancario implements WindowListener {
 
 	private JPanel contentPane;
 	private JTextField txtNome;
@@ -29,10 +32,14 @@ public class CadProfissional extends PadraoBancario {
 	private JTextField txtUsuario;
 	private JTextField txtSenha;
 	private JComboBox cmbTipoProfissional;
+	private Integer idProfissional;
+	private String tipoSql = "";
 
 	public CadProfissional(Integer idProfissional) {
 		super();
+		addWindowListener(this);
 		setResizable(false);
+		this.idProfissional = idProfissional;
 		setTitle("Cadastro de Profissionais");
 		setLocationRelativeTo(null);
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
@@ -170,11 +177,6 @@ public class CadProfissional extends PadraoBancario {
 		panel.add(cmbTipoProfissional, gbc_cmbTipoProfissional);
 
 		JButton btnConfirmar = new JButton("Confirmar");
-		GridBagConstraints gbc_btnConfirmar = new GridBagConstraints();
-		gbc_btnConfirmar.anchor = GridBagConstraints.EAST;
-		gbc_btnConfirmar.gridx = 3;
-		gbc_btnConfirmar.gridy = 7;
-		panel.add(btnConfirmar, gbc_btnConfirmar);
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -185,7 +187,7 @@ public class CadProfissional extends PadraoBancario {
 							"Atenção", JOptionPane.WARNING_MESSAGE, null);
 					txtNome.requestFocus();
 				} else {
-					
+
 					Profissional profisisonal = new Profissional();
 					profisisonal.setIdade(Integer.parseInt(txtIdade.getText()));
 					profisisonal.setNome(txtNome.getText().trim());
@@ -195,11 +197,15 @@ public class CadProfissional extends PadraoBancario {
 					profisisonal.setTipoProfissional((TipoUsuario) cmbTipoProfissional.getSelectedItem());
 
 					new ProfissionalController().add(profisisonal);
-					// limparCampos();
+					limparCampos();
 				}
-
 			}
 		});
+		GridBagConstraints gbc_btnConfirmar = new GridBagConstraints();
+		gbc_btnConfirmar.anchor = GridBagConstraints.NORTHEAST;
+		gbc_btnConfirmar.gridx = 3;
+		gbc_btnConfirmar.gridy = 7;
+		panel.add(btnConfirmar, gbc_btnConfirmar);
 
 	}
 
@@ -211,6 +217,71 @@ public class CadProfissional extends PadraoBancario {
 		txtSenhaOperacoes.setText("");
 		txtUsuario.setText("");
 		cmbTipoProfissional.setSelectedItem(0);
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+
+		Profissional profissional = null;
+
+		if (this.idProfissional != null && this.idProfissional >= 0) {
+			final ProfissionalController controller = new ProfissionalController();
+
+			profissional = controller.get(this.idProfissional);
+		}
+
+	}
+
+	private void populaTela(Profissional profissional) {
+
+		if (profissional == null) {
+			txtIdade.setText("");
+			txtNome.setText("");
+			txtSenha.setText("");
+			txtSenhaOperacoes.setText("");
+			txtUsuario.setText("");
+
+		} else {
+			this.tipoSql = "update";
+			txtIdade.setToolTipText(profissional.getIdade().toString());
+			txtNome.setText(profissional.getNome());
+			txtSenha.setText(profissional.getSenhaAcesso());
+			txtSenhaOperacoes.setText(profissional.getSenhaOperacoes());
+			txtUsuario.setText(profissional.getUserName());
+			cmbTipoProfissional.setSelectedItem(profissional.getTipoProfissional());
+
+		}
+
 	}
 
 }

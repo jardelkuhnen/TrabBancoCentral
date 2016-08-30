@@ -1,7 +1,10 @@
 package br.univel.controller;
 
+import java.util.List;
+
 import br.univel.dao.ProfissionalDao;
 import br.univel.dao.UsuarioDao;
+import br.univel.enun.TipoUsuario;
 import br.univel.general.MD5Hash;
 import br.univel.general.Sha256Hash;
 import br.univel.interfacee.Command;
@@ -12,7 +15,7 @@ public class ProfissionalController {
 
 	public void add(Profissional profisisonal) {
 
-		if (profisisonal.getTipoProfissional().equals("CLIENTE")) {
+		if (profisisonal.getTipoProfissional().equals(TipoUsuario.CLIENTE)) {
 
 			Command commandUser = new Sha256Hash(profisisonal.getUserName());
 			String usuarioHash = commandUser.execute();
@@ -25,12 +28,11 @@ public class ProfissionalController {
 
 			Usuario usuario = new Usuario(usuarioHash, senhaHash, profisisonal.getTipoProfissional());
 
-
 			new ProfissionalDao().add(profisisonal);
-			
+
 			new UsuarioDao().add(usuario);
 
-		} else if (profisisonal.getTipoProfissional().equals("BANCARIO")) {
+		} else if (profisisonal.getTipoProfissional().equals(TipoUsuario.BANCARIO)) {
 
 			Command commandUser = new MD5Hash(profisisonal.getUserName());
 			String usuarioHash = commandUser.execute();
@@ -38,13 +40,27 @@ public class ProfissionalController {
 			Command commandSenha = new MD5Hash(profisisonal.getSenhaAcesso());
 			String senhaHash = commandSenha.execute();
 
+			Usuario usuario = new Usuario(usuarioHash, senhaHash, profisisonal.getTipoProfissional());
+
 			profisisonal.setSenhaAcesso(senhaHash);
 			profisisonal.setUserName(usuarioHash);
 
 			new ProfissionalDao().add(profisisonal);
 
+			new UsuarioDao().add(usuario);
+
 		}
 
+	}
+
+	public List<Profissional> buscarProfissionais() {
+
+		return new ProfissionalDao().buscarProfissionais();
+	}
+
+	public Profissional get(Integer idProfissional) {
+
+		return new ProfissionalDao().get(idProfissional);
 	}
 
 }

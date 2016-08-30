@@ -5,14 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.management.RuntimeErrorException;
 import javax.swing.JOptionPane;
 
+import br.univel.enun.TipoUsuario;
 import br.univel.model.Profissional;
 
 public class ProfissionalDao {
 
+	private static String SQL_GET_PROFISS_ID = "SELECT * FROM PROFISSIONAL WHERE ID = ?";
+	private static String SQL_SELECT_ALL = "select * from profissional order by id";
 	private static String SQL_INSERT = "INSERT INTO PROFISSIONAL (nome, idade, usuario, senhaAcesso, senhaOperacoes, tipoProfissional) VALUES (?,?,?,?,?,?)";
 
 	public void add(Profissional profisisonal) {
@@ -68,6 +73,70 @@ public class ProfissionalDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<Profissional> buscarProfissionais() {
+
+		List<Profissional> profissionais = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = Conexao.getConection();
+
+			stmt = con.prepareStatement(SQL_SELECT_ALL);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				profissionais.add(readResultSet(rs));
+			}
+
+			return profissionais;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, stmt, con);
+		}
+		return profissionais;
+	}
+
+	private Profissional readResultSet(ResultSet rs) throws SQLException {
+
+		Integer id = rs.getInt("id");
+		String nome = rs.getString("nome");
+		String usuario = rs.getString("usuario");
+
+		return new Profissional(id, nome, usuario);
+
+	}
+
+	public Profissional get(Integer idProfissional) {
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = Conexao.getConection();
+
+			stmt = con.prepareStatement(SQL_GET_PROFISS_ID);
+
+			stmt.setInt(1, idProfissional);
+
+			rs = stmt.executeQuery();
+
+			rs.next();
+
+			return readResultSet(rs);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, stmt, con);
+		}
+		return null;
+		
 	}
 
 }

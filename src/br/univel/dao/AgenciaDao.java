@@ -80,7 +80,7 @@ public class AgenciaDao {
 			close(rs, stmt, con);
 		}
 
-		return null;
+		return agencias;
 	}
 
 	private void close(ResultSet rs, PreparedStatement stmt, Connection con) throws SQLException {
