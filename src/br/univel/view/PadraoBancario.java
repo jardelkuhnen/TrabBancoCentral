@@ -12,6 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import br.univel.general.GetHorarioLocal;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -72,7 +75,7 @@ public class PadraoBancario extends JFrame {
 
 		lblDataAcess = new JLabel("");
 		lblDataAcess.setForeground(new Color(0, 0, 205));
-		lblDataAcess.setText(getHorarioLocal());
+		lblDataAcess.setText(new GetHorarioLocal().getHorarioLocal());
 		GridBagConstraints gbc_lblDataAcess = new GridBagConstraints();
 		gbc_lblDataAcess.anchor = GridBagConstraints.EAST;
 		gbc_lblDataAcess.fill = GridBagConstraints.VERTICAL;
@@ -102,7 +105,4 @@ public class PadraoBancario extends JFrame {
 		cabecalho.add(lblFrase, gbc_lblFrase);
 	}
 
-	protected String getHorarioLocal() {
-		return new SimpleDateFormat("dd/MM/yyyy  hh:mm").format(new Date());
-	}
 }

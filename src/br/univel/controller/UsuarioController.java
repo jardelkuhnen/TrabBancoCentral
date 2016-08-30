@@ -4,9 +4,9 @@ import java.util.List;
 
 import br.univel.dao.UsuarioDao;
 import br.univel.enun.TipoUsuario;
+import br.univel.general.MD5Hash;
+import br.univel.general.Sha256Hash;
 import br.univel.interfacee.Command;
-import br.univel.model.MD5Hash;
-import br.univel.model.Sha256Hash;
 import br.univel.model.Usuario;
 
 public class UsuarioController {

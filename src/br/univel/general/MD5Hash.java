@@ -1,4 +1,4 @@
-package br.univel.model;
+package br.univel.general;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

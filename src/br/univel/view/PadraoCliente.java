@@ -5,13 +5,18 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import br.univel.general.GetHorarioLocal;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -72,7 +77,7 @@ public class PadraoCliente extends JFrame {
 
 		lblDataAcess = new JLabel("");
 		lblDataAcess.setForeground(new Color(0, 0, 205));
-		lblDataAcess.setText(getHorarioLocal());
+		lblDataAcess.setText(new GetHorarioLocal().getHorarioLocal());
 		GridBagConstraints gbc_lblDataAcess = new GridBagConstraints();
 		gbc_lblDataAcess.anchor = GridBagConstraints.EAST;
 		gbc_lblDataAcess.fill = GridBagConstraints.VERTICAL;
@@ -101,7 +106,4 @@ public class PadraoCliente extends JFrame {
 		cabecalho.add(lblFrase, gbc_lblFrase);
 	}
 
-	protected String getHorarioLocal() {
-		return new SimpleDateFormat("dd/MM/yyyy  HH:mm").format(new Date());
-	}
 }

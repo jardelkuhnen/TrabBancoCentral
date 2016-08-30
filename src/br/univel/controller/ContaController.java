@@ -9,10 +9,10 @@ import br.univel.dao.AgenciaDao;
 import br.univel.dao.ContaDao;
 import br.univel.dao.UsuarioDao;
 import br.univel.enun.TipoUsuario;
+import br.univel.general.MD5Hash;
+import br.univel.general.Sha256Hash;
 import br.univel.interfacee.Command;
 import br.univel.model.Conta;
-import br.univel.model.MD5Hash;
-import br.univel.model.Sha256Hash;
 import br.univel.model.Usuario;
 import br.univel.view.CadConta;
 

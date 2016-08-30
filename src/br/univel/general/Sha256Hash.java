@@ -1,4 +1,4 @@
-package br.univel.model;
+package br.univel.general;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

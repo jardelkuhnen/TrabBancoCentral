@@ -25,6 +25,15 @@ create table conta(
 	numeroConta varchar(255),
 	primary key (id));
 
+create table profissional(
+	id serial,
+	nome varchar(255),
+	idade int,
+	usuario varchar(255),
+	senhaAcesso varchar(255),
+	senhaOperacoes varchar(255),
+	tipoProfissional varchar(255),
+	primary key (id));
 
 
 INSERT INTO USUARIO (ID, USUARIO, SENHA TIPOUSUARIO) VALUES ('1','1','1','0');
