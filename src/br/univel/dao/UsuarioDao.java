@@ -19,7 +19,7 @@ public class UsuarioDao {
 	private static String SQL_DELETE = "DELETE FROM USUARIO WHERE ID = ?";
 
 	public boolean acessoLogin(final String usuario, final String senha) {
-		
+
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -78,36 +78,20 @@ public class UsuarioDao {
 			con = Conexao.getConection();
 			stmt = con.prepareStatement(SQL_UPDATE);
 
+			writeStatement(usuario, stmt);
 			stmt.setInt(4, id);
+
 			Integer linhasAtualizadas = stmt.executeUpdate();
 			if (linhasAtualizadas == 0) {
 				throw new RuntimeException("Registro não foi atualizado");
 			}
-
+			JOptionPane.showMessageDialog(null, "Usuário editado com sucesso");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(null, stmt, con);
 		}
 
-	}
-
-	public void remove(Integer id) {
-		Connection con = null;
-		PreparedStatement stmt = null;
-		try {
-			con = Conexao.getConection();
-			stmt = con.prepareStatement(SQL_DELETE);
-			stmt.setInt(1, id);
-			Integer linhasDeletadas = stmt.executeUpdate();
-			if (linhasDeletadas == 0) {
-				throw new RuntimeException("Registro não foi deletado");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(null, stmt, con);
-		}
 	}
 
 	private void writeStatement(Usuario usuario, PreparedStatement stmt) throws SQLException {

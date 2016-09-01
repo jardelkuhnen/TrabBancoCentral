@@ -66,7 +66,33 @@ public class ProfissionalController {
 
 	public void edit(Profissional profissional) {
 
-		new ProfissionalDao().edit(profissional);
+		if (profissional.getTipoProfissional().equals(TipoUsuario.CLIENTE)) {
+
+			Command commandUser = new Sha256Hash(profissional.getUserName());
+			String usuarioHash = commandUser.execute();
+
+			Command commandSenha = new Sha256Hash(profissional.getSenhaAcesso());
+			String senhaHash = commandSenha.execute();
+
+			profissional.setSenhaAcesso(senhaHash);
+			profissional.setUserName(usuarioHash);
+			
+			new UsuarioDao().edit(new Usuario(usuarioHash, senhaHash, TipoUsuario.CLIENTE), profissional.getId());
+			new ProfissionalDao().edit(profissional);
+
+		} else if (profissional.getTipoProfissional().equals(TipoUsuario.BANCARIO)) {
+
+			Command commandUser = new MD5Hash(profissional.getUserName());
+			String usuarioHash = commandUser.execute();
+
+			Command commandSenha = new MD5Hash(profissional.getSenhaAcesso());
+			String senhaHash = commandSenha.execute();
+
+			new UsuarioDao().edit(new Usuario(usuarioHash, senhaHash, TipoUsuario.BANCARIO), profissional.getId());
+
+			new ProfissionalDao().edit(profissional);
+		}
+
 	}
 
 }
