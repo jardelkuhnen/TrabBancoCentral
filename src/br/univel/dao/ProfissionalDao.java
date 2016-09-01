@@ -16,6 +16,7 @@ import br.univel.model.Profissional;
 
 public class ProfissionalDao {
 
+	private static String SQL_UPDATE = "UPDATE PROFISSIONAL SET NOME = ?, IDADE =?, SENHAOPERACOES = ?, SENHAACESSO = ?, USUARIO = ?, TIPOPROFISSIONAL = ? WHERE ID = ?";
 	private static String SQL_GET_PROFISS_ID = "SELECT * FROM PROFISSIONAL WHERE ID = ?";
 	private static String SQL_SELECT_ALL = "select * from profissional order by id";
 	private static String SQL_INSERT = "INSERT INTO PROFISSIONAL (nome, idade, usuario, senhaAcesso, senhaOperacoes, tipoProfissional) VALUES (?,?,?,?,?,?)";
@@ -56,9 +57,9 @@ public class ProfissionalDao {
 
 		stmt.setString(1, profisisonal.getNome());
 		stmt.setInt(2, profisisonal.getIdade());
-		stmt.setString(3, profisisonal.getUserName());
+		stmt.setString(3, profisisonal.getSenhaOperacoes());
 		stmt.setString(4, profisisonal.getSenhaAcesso());
-		stmt.setString(5, profisisonal.getSenhaOperacoes());
+		stmt.setString(5, profisisonal.getUserName());
 		stmt.setString(6, profisisonal.getTipoProfissional().toString());
 	}
 
@@ -107,12 +108,23 @@ public class ProfissionalDao {
 		Integer id = rs.getInt("id");
 		String nome = rs.getString("nome");
 		String usuario = rs.getString("usuario");
+		Integer idade = rs.getInt("idade");
+		String senhaOperacoes = rs.getString("senhaOperacoes");
+		String senhaAcesso = rs.getString("senhaAcesso");
+		String tipo = rs.getString("tipoProfissional");
 
-		return new Profissional(id, nome, usuario);
+		TipoUsuario tipoProf = TipoUsuario.CLIENTE;
+		if (tipo == "CLIENTE") {
+			tipoProf = TipoUsuario.CLIENTE;
+		} else if (tipo == "BANCARIO") {
+			tipoProf = TipoUsuario.BANCARIO;
+		}
+
+		return new Profissional(id, nome, usuario, idade, senhaAcesso, senhaOperacoes, tipoProf);
 
 	}
 
-	public Profissional get(Integer idProfissional) {
+	public Profissional get(Integer idProfissional) throws SQLException {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -130,13 +142,35 @@ public class ProfissionalDao {
 
 			return readResultSet(rs);
 
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} finally {
 			close(rs, stmt, con);
+
 		}
-		return null;
-		
+	}
+
+	public void edit(Profissional profissional) {
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+
+		try {
+			con = Conexao.getConection();
+			stmt = con.prepareStatement(SQL_UPDATE);
+			writeStatement(profissional, stmt);
+
+			stmt.setInt(7, profissional.getId());
+
+			int linhasInseridas = stmt.executeUpdate();
+
+			if (linhasInseridas == 0)
+				throw new RuntimeException("Falha ao inserir dados na tabela Profissional");
+
+			JOptionPane.showMessageDialog(null, "Profissional atualizado com sucesso!!!");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

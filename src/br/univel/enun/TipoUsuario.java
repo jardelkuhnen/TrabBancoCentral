@@ -2,7 +2,22 @@ package br.univel.enun;
 
 public enum TipoUsuario {
 
-	CLIENTE,
+	CLIENTE(0),
 
-	BANCARIO;
+	BANCARIO(1);
+
+	private Integer ordinal;
+
+	private TipoUsuario(Integer ordinal) {
+		this.ordinal = ordinal;
+	}
+
+	public Integer getOrdinal() {
+		return ordinal;
+	}
+
+	public void setOrdinal(Integer ordinal) {
+		this.ordinal = ordinal;
+	}
+
 }

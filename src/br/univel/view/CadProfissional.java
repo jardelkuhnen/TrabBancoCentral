@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.PrimitiveIterator.OfDouble;
 
@@ -37,9 +38,9 @@ public class CadProfissional extends PadraoBancario implements WindowListener {
 
 	public CadProfissional(Integer idProfissional) {
 		super();
+		this.idProfissional = idProfissional;
 		addWindowListener(this);
 		setResizable(false);
-		this.idProfissional = idProfissional;
 		setTitle("Cadastro de Profissionais");
 		setLocationRelativeTo(null);
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
@@ -141,7 +142,7 @@ public class CadProfissional extends PadraoBancario implements WindowListener {
 		panel.add(txtSenha, gbc_txtSenha);
 		txtSenha.setColumns(10);
 
-		JLabel lblUsername = new JLabel("Username");
+		JLabel lblUsername = new JLabel("Usuario");
 		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
 		gbc_lblUsername.anchor = GridBagConstraints.NORTH;
 		gbc_lblUsername.fill = GridBagConstraints.HORIZONTAL;
@@ -188,17 +189,26 @@ public class CadProfissional extends PadraoBancario implements WindowListener {
 					txtNome.requestFocus();
 				} else {
 
-					Profissional profisisonal = new Profissional();
-					profisisonal.setIdade(Integer.parseInt(txtIdade.getText()));
-					profisisonal.setNome(txtNome.getText().trim());
-					profisisonal.setSenhaAcesso(txtSenha.getText());
-					profisisonal.setSenhaOperacoes(txtSenhaOperacoes.getText());
-					profisisonal.setUserName(txtUsuario.getText());
-					profisisonal.setTipoProfissional((TipoUsuario) cmbTipoProfissional.getSelectedItem());
+					Profissional profissional = new Profissional();
+					profissional.setId(idProfissional);
+					profissional.setIdade(Integer.parseInt(txtIdade.getText()));
+					profissional.setNome(txtNome.getText().trim());
+					profissional.setSenhaAcesso(txtSenha.getText());
+					profissional.setSenhaOperacoes(txtSenhaOperacoes.getText());
+					profissional.setUserName(txtUsuario.getText());
+					profissional.setTipoProfissional((TipoUsuario) cmbTipoProfissional.getSelectedItem());
 
-					new ProfissionalController().add(profisisonal);
-					limparCampos();
+					if (tipoSql.equals("update")) {
+
+						new ProfissionalController().edit(profissional);
+						limparCampos();
+					} else {
+						new ProfissionalController().add(profissional);
+						limparCampos();
+
+					}
 				}
+
 			}
 		});
 		GridBagConstraints gbc_btnConfirmar = new GridBagConstraints();
@@ -255,10 +265,17 @@ public class CadProfissional extends PadraoBancario implements WindowListener {
 		Profissional profissional = null;
 
 		if (this.idProfissional != null && this.idProfissional >= 0) {
-			final ProfissionalController controller = new ProfissionalController();
+			try {
 
-			profissional = controller.get(this.idProfissional);
+				final ProfissionalController controller = new ProfissionalController();
+
+				profissional = controller.get(this.idProfissional);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
+
+		populaTela(profissional);
 
 	}
 
@@ -273,12 +290,12 @@ public class CadProfissional extends PadraoBancario implements WindowListener {
 
 		} else {
 			this.tipoSql = "update";
-			txtIdade.setToolTipText(profissional.getIdade().toString());
+			txtIdade.setText(profissional.getIdade().toString());
 			txtNome.setText(profissional.getNome());
 			txtSenha.setText(profissional.getSenhaAcesso());
 			txtSenhaOperacoes.setText(profissional.getSenhaOperacoes());
 			txtUsuario.setText(profissional.getUserName());
-			cmbTipoProfissional.setSelectedItem(profissional.getTipoProfissional());
+			cmbTipoProfissional.setSelectedItem(profissional.getTipoProfissional().getOrdinal());
 
 		}
 

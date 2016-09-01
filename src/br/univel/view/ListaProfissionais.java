@@ -59,7 +59,7 @@ public class ListaProfissionais extends PadraoBancario implements WindowListener
 
 				final Integer rowSelected = tblProfissionais.getSelectedRow();
 
-				if (rowSelected <= 0) {
+				if (rowSelected < 0) {
 					JOptionPane.showMessageDialog(ListaProfissionais.this, "Selecione um profissional para editar!",
 							"Atenção", JOptionPane.WARNING_MESSAGE);
 				} else {

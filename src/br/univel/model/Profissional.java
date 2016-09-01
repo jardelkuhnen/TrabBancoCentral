@@ -12,11 +12,15 @@ public class Profissional {
 	private String senhaOperacoes;
 	private TipoUsuario tipoProfissional;
 
-	public Profissional(Integer id, String nome, String usuario) {
+	public Profissional(Integer id, String nome, String usuario, Integer idade, String senhaAcesso,
+			String senhaOperacoes, TipoUsuario tipoProfissional) {
 		this.id = id;
 		this.nome = nome;
 		this.usuario = usuario;
-
+		this.idade = idade;
+		this.senhaAcesso = senhaAcesso;
+		this.senhaOperacoes = senhaOperacoes;
+		this.tipoProfissional = tipoProfissional;
 	}
 
 	public Profissional() {

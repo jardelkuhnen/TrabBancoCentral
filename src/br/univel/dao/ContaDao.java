@@ -15,7 +15,7 @@ import br.univel.model.Conta;
 
 public class ContaDao {
 
-	private static String SQL_INSERT = "INSERT INTO CONTA (NOME, IDADE, CPF, AGENCIA, TIPOCONTA, SENHAACESSO, SENHAOPERACOES, NUMEROCONTA) VALUES (?,?,?,?,?,?,?,?)";
+	private static String SQL_INSERT = "INSERT INTO CONTA (NOME, IDADE, CPF, AGENCIA, TIPOCONTA, SENHAACESSO, SENHAOPERACOES, NUMEROCONTA, SALDO) VALUES (?,?,?,?,?,?,?,?,?)";
 	private static String SQL_SELECT_ALL = "SELECT * FROM CONTA";
 
 	public void add(Conta conta) throws SQLException {
@@ -54,6 +54,7 @@ public class ContaDao {
 		stmt.setString(6, conta.getSenhaAcesso());
 		stmt.setString(7, conta.getSenhaOperacoes());
 		stmt.setString(8, conta.getNumeroConta());
+		stmt.setBigDecimal(9, conta.getSaldo());
 	}
 
 	public List<Conta> buscarContas() throws SQLException {

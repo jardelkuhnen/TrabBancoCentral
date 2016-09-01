@@ -1,5 +1,6 @@
 package br.univel.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import br.univel.dao.ProfissionalDao;
@@ -58,9 +59,14 @@ public class ProfissionalController {
 		return new ProfissionalDao().buscarProfissionais();
 	}
 
-	public Profissional get(Integer idProfissional) {
+	public Profissional get(Integer idProfissional) throws SQLException {
 
 		return new ProfissionalDao().get(idProfissional);
+	}
+
+	public void edit(Profissional profissional) {
+
+		new ProfissionalDao().edit(profissional);
 	}
 
 }

@@ -1,5 +1,7 @@
 package br.univel.model;
 
+import java.math.BigDecimal;
+
 public class Conta {
 
 	private Integer id;
@@ -12,6 +14,7 @@ public class Conta {
 	private String usuarioAcesso;
 	private String senhaAcesso;
 	private String senhaOperacoes;
+	private BigDecimal saldo;
 
 	public Conta(Integer id, String nome, Integer idade, String cpf, String agencia, String tipoConta) {
 		this.id = id;
@@ -103,6 +106,14 @@ public class Conta {
 
 	public void setSenhaOperacoes(String senhaOperacoes) {
 		this.senhaOperacoes = senhaOperacoes;
+	}
+
+	public BigDecimal getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(BigDecimal saldo) {
+		this.saldo = saldo;
 	}
 
 }

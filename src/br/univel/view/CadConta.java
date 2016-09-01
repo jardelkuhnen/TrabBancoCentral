@@ -29,6 +29,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
 
 public class CadConta extends PadraoBancario {
@@ -230,6 +231,7 @@ public class CadConta extends PadraoBancario {
 						|| txtCpf.getText().equals("") || txtAgencia.getText().equals("")
 						|| txtUsuario.getText().equals("") || txtSenhaAcesso.getText().equals("")
 						|| txtSenhaOpera.getText().equals("")) {
+
 					JOptionPane.showMessageDialog(null, "Informe todos os campos!!!", "Atenção",
 							JOptionPane.ERROR_MESSAGE, null);
 					txtNome.requestFocus();
@@ -246,11 +248,13 @@ public class CadConta extends PadraoBancario {
 					conta.setSenhaOperacoes(txtSenhaOpera.getText());
 					conta.setNumeroConta(generateNumberConta());
 					conta.setUsuarioAcesso(txtUsuario.getText());
+					conta.setSaldo(new BigDecimal(0.00));
 
-					limparCampos();
 					contaController.add(conta);
 
 				}
+
+				limparCampos();
 			}
 		});
 		GridBagConstraints gbc_btnConfrime = new GridBagConstraints();
@@ -286,7 +290,4 @@ public class CadConta extends PadraoBancario {
 		return sb.toString();
 	}
 
-	protected void inserirConta() {
-
-	}
 }

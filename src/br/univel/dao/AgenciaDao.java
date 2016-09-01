@@ -130,7 +130,6 @@ public class AgenciaDao {
 
 		Connection con = null;
 		PreparedStatement stmt = null;
-		ResultSet rs;
 
 		try {
 			con = Conexao.getConection();

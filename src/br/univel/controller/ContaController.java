@@ -35,14 +35,12 @@ public class ContaController {
 			conta.setUsuarioAcesso(userAcessoHash);
 			conta.setSenhaAcesso(senhaAcessoHash);
 
-
 			try {
 				new ContaDao().add(conta);
+				new UsuarioDao().add(usuario);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-
-			new UsuarioDao().add(usuario);
 
 		} else {
 			String mensagem = "Agência " + conta.getAgencia() + " inexistente!!!";
@@ -53,7 +51,6 @@ public class ContaController {
 
 	public List<Conta> buscarContas() throws SQLException {
 
-		
 		return new ContaDao().buscarContas();
 	}
 
