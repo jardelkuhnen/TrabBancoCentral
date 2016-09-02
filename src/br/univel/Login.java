@@ -21,8 +21,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import br.univel.controller.ContaController;
 import br.univel.controller.UsuarioController;
 import br.univel.enun.TipoUsuario;
+import br.univel.model.Conta;
 import br.univel.view.TelaBancario;
 import br.univel.view.TelaCliente;
 
@@ -141,7 +143,7 @@ public class Login extends JFrame {
 	}
 
 	protected void acessarSistema() {
-		
+
 		UsuarioController userControll = new UsuarioController();
 		String usuario = txtUsuario.getText().trim();
 		String senha = txtSenha.getText().trim();
@@ -150,8 +152,10 @@ public class Login extends JFrame {
 		boolean acessa = userControll.acessoLogin(usuario, senha, tipoUsuario);
 
 		if (acessa && tipoUsuario == TipoUsuario.CLIENTE) {
-			TelaCliente telaCli = new TelaCliente();
+			Conta conta = new ContaController().get(usuario, senha);
+			TelaCliente telaCli = new TelaCliente(conta);
 			telaCli.setVisible(true);
+
 			setVisible(false);
 
 		} else if (acessa && tipoUsuario == TipoUsuario.BANCARIO) {

@@ -16,16 +16,23 @@ public class Conta {
 	private String senhaOperacoes;
 	private BigDecimal saldo;
 
-	public Conta(Integer id, String nome, Integer idade, String cpf, String agencia, String tipoConta) {
+	public Conta() {
+	}
+
+	public Conta(Integer id, String nome, Integer idade, String cpf, String agencia, String tipoConta,
+			String usuarioAcesso, String senhaAcesso, String senhaOperacoes, String numeroConta, BigDecimal saldo) {
 		this.id = id;
 		this.nome = nome;
 		this.idade = idade;
 		this.cpf = cpf;
 		this.agencia = agencia;
 		this.tipoConta = tipoConta;
-	}
+		this.usuarioAcesso = usuarioAcesso;
+		this.senhaAcesso = senhaAcesso;
+		this.senhaOperacoes = senhaOperacoes;
+		this.numeroConta = numeroConta;
+		this.saldo = saldo;
 
-	public Conta() {
 	}
 
 	public Integer getId() {

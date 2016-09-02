@@ -36,8 +36,10 @@ public class ContaController {
 			conta.setSenhaAcesso(senhaAcessoHash);
 
 			try {
+
 				new ContaDao().add(conta);
 				new UsuarioDao().add(usuario);
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -52,6 +54,17 @@ public class ContaController {
 	public List<Conta> buscarContas() throws SQLException {
 
 		return new ContaDao().buscarContas();
+	}
+
+	public Conta get(String usuario, String senha) {
+
+		Command commandUser = new Sha256Hash(usuario);
+		String userAcessoHash = commandUser.execute();
+
+		Command commandSenha = new Sha256Hash(senha);
+		String senhaAcessoHash = commandSenha.execute();
+
+		return new ContaDao().get(userAcessoHash, senhaAcessoHash);
 	}
 
 }

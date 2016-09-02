@@ -1,5 +1,6 @@
 package br.univel.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,12 +11,12 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.univel.model.Agencia;
 import br.univel.model.Conta;
 
 public class ContaDao {
 
-	private static String SQL_INSERT = "INSERT INTO CONTA (NOME, IDADE, CPF, AGENCIA, TIPOCONTA, SENHAACESSO, SENHAOPERACOES, NUMEROCONTA, SALDO) VALUES (?,?,?,?,?,?,?,?,?)";
+	private static final String SQL_GET_CONTA = "SELECT * FROM CONTA WHERE USUARIOACESSO = ? AND SENHAACESSO = ?";
+	private static String SQL_INSERT = "INSERT INTO CONTA (NOME, IDADE, CPF, AGENCIA, TIPOCONTA, USUARIOACESSO, SENHAACESSO, SENHAOPERACOES, NUMEROCONTA, SALDO) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	private static String SQL_SELECT_ALL = "SELECT * FROM CONTA";
 
 	public void add(Conta conta) throws SQLException {
@@ -51,10 +52,39 @@ public class ContaDao {
 		stmt.setString(3, conta.getCpf());
 		stmt.setString(4, conta.getAgencia());
 		stmt.setString(5, conta.getTipoConta().toString());
-		stmt.setString(6, conta.getSenhaAcesso());
-		stmt.setString(7, conta.getSenhaOperacoes());
-		stmt.setString(8, conta.getNumeroConta());
-		stmt.setBigDecimal(9, conta.getSaldo());
+		stmt.setString(6, conta.getUsuarioAcesso());
+		stmt.setString(7, conta.getSenhaAcesso());
+		stmt.setString(8, conta.getSenhaOperacoes());
+		stmt.setString(9, conta.getNumeroConta());
+		stmt.setBigDecimal(10, conta.getSaldo());
+	}
+
+	public Conta get(String userAcessoHash, String senhaAcessoHash) {
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Conta conta = new Conta();
+
+		try {
+			con = Conexao.getConection();
+			stmt = con.prepareStatement(SQL_GET_CONTA);
+
+			stmt.setString(1, userAcessoHash);
+			stmt.setString(2, senhaAcessoHash);
+
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				conta = (Conta) readResultSet(rs);
+			}
+
+			return conta;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return conta;
 	}
 
 	public List<Conta> buscarContas() throws SQLException {
@@ -91,8 +121,14 @@ public class ContaDao {
 		String cpf = rs.getString("cpf");
 		String agencia = rs.getString("agencia");
 		String tipoConta = rs.getString("tipoConta");
+		String senhaOperacoes = rs.getString("senhaOperacoes");
+		String usuarioAcesso = rs.getString("usuarioAcesso");
+		String senhaAcesso = rs.getString("senhaAcesso");
+		String numeroConta = rs.getString("numeroConta");
+		BigDecimal saldo = rs.getBigDecimal("saldo");
 
-		return new Conta(id, nome, idade, cpf, agencia, tipoConta);
+		return new Conta(id, nome, idade, cpf, agencia, tipoConta, usuarioAcesso, senhaAcesso, senhaOperacoes,
+				numeroConta, saldo);
 	}
 
 	private void close(ResultSet rs, PreparedStatement stmt, Connection con) throws SQLException {
