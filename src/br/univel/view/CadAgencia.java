@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import br.univel.controller.AgenciaController;
+import br.univel.dao.AgenciaDao;
 import br.univel.model.Agencia;
 
 import java.awt.GridBagConstraints;
@@ -134,9 +135,19 @@ public class CadAgencia extends PadraoBancario implements WindowListener {
 					limparCampos();
 				} else {
 
-					final Agencia agencia = new Agencia(ID_CRIAR_AGENCIA, nomeAgenc, numero, cidade);
-					new AgenciaController().add(agencia);
-					limparCampos();
+					int nAgencia = new AgenciaDao().getNumero(txtNumero.getText());
+
+					if (nAgencia <= 0) {
+
+						final Agencia agencia = new Agencia(ID_CRIAR_AGENCIA, nomeAgenc, numero, cidade);
+						new AgenciaController().add(agencia);
+						limparCampos();
+					} else {
+
+						JOptionPane.showMessageDialog(CadAgencia.this, "Número de agência ja utilizado!", "Atenção",
+								JOptionPane.WARNING_MESSAGE);
+
+					}
 				}
 
 			}
