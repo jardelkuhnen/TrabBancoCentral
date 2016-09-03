@@ -5,7 +5,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import br.univel.model.Conta;
@@ -13,9 +12,10 @@ import br.univel.model.Conta;
 public class TelaCliente extends PadraoCliente {
 
 	private JPanel contentPane;
+	private Conta conta;
 
 	public TelaCliente(Conta conta) {
-		super();
+		super(conta);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);

@@ -14,8 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import br.univel.general.GetHorarioLocal;
+import br.univel.model.Conta;
 
-public class PadraoCliente extends JFrame {
+public abstract class PadraoCliente extends JFrame {
 
 	private JPanel contentPane;
 	protected JLabel lblDataAcess;
@@ -64,7 +65,7 @@ public class PadraoCliente extends JFrame {
 		this.lblSaldo = lblSaldo;
 	}
 
-	public PadraoCliente() {
+	public PadraoCliente(Conta conta) {
 		setSize(800, 375);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 370);
@@ -142,7 +143,7 @@ public class PadraoCliente extends JFrame {
 		gbc_panel.gridy = 1;
 		cabecalho.add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 103, 0, 46, 0 };
+		gbl_panel.columnWidths = new int[] { 124, 25, 46, 0 };
 		gbl_panel.rowHeights = new int[] { 26, 15, 10, 0 };
 		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
@@ -153,15 +154,16 @@ public class PadraoCliente extends JFrame {
 		GridBagConstraints gbc_lblAg = new GridBagConstraints();
 		gbc_lblAg.anchor = GridBagConstraints.EAST;
 		gbc_lblAg.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAg.gridx = 0;
+		gbc_lblAg.gridx = 1;
 		gbc_lblAg.gridy = 0;
 		panel.add(lblAg, gbc_lblAg);
 
 		lblAgencia = new JLabel("");
 		lblAgencia.setForeground(new Color(0, 0, 205));
 		GridBagConstraints gbc_lblAgencia = new GridBagConstraints();
+		gbc_lblAgencia.anchor = GridBagConstraints.WEST;
 		gbc_lblAgencia.insets = new Insets(0, 0, 5, 0);
-		gbc_lblAgencia.fill = GridBagConstraints.BOTH;
+		gbc_lblAgencia.fill = GridBagConstraints.VERTICAL;
 		gbc_lblAgencia.gridx = 2;
 		gbc_lblAgencia.gridy = 0;
 		panel.add(lblAgencia, gbc_lblAgencia);
@@ -169,14 +171,17 @@ public class PadraoCliente extends JFrame {
 		lblTipoConta = new JLabel("");
 		lblTipoConta.setForeground(new Color(0, 0, 205));
 		GridBagConstraints gbc_lblTipoConta = new GridBagConstraints();
+		gbc_lblTipoConta.anchor = GridBagConstraints.EAST;
 		gbc_lblTipoConta.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTipoConta.gridx = 0;
 		gbc_lblTipoConta.gridy = 1;
 		panel.add(lblTipoConta, gbc_lblTipoConta);
+		lblTipoConta.setText(conta.getTipoConta());
 
 		lblNumConta = new JLabel("");
 		lblNumConta.setForeground(new Color(0, 0, 205));
 		GridBagConstraints gbc_lblNumConta = new GridBagConstraints();
+		gbc_lblNumConta.anchor = GridBagConstraints.WEST;
 		gbc_lblNumConta.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNumConta.gridx = 2;
 		gbc_lblNumConta.gridy = 1;
@@ -207,5 +212,11 @@ public class PadraoCliente extends JFrame {
 		gbc_lblSaldo.gridx = 2;
 		gbc_lblSaldo.gridy = 2;
 		panel.add(lblSaldo, gbc_lblSaldo);
+
+		lblSaldo.setText(String.valueOf(conta.getSaldo()));
+		lblNumConta.setText(conta.getNumeroConta());
+		lblAgencia.setText(conta.getAgencia());
+
 	}
+
 }
