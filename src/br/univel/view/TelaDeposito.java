@@ -1,16 +1,21 @@
 package br.univel.view;
 
-import javax.swing.JPanel;
-
-import br.univel.model.Conta;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import javax.swing.JCheckBox;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import br.univel.enun.TipoConta;
+import br.univel.model.Conta;
 
 public class TelaDeposito extends PadraoCliente {
 
@@ -50,7 +55,19 @@ public class TelaDeposito extends PadraoCliente {
 		panel.setLayout(gbl_panel);
 
 		ckbContaLogada = new JCheckBox("Conta logada");
-		ckbContaLogada.setSelected(true);
+		ckbContaLogada.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if (ckbContaLogada.isSelected()) {
+					validaContaDeposito(ckbContaLogada);
+				} else {
+					validaContaDeposito(ckbContaLogada);
+				}
+
+			}
+		});
 		GridBagConstraints gbc_chckbxContaLogada = new GridBagConstraints();
 		gbc_chckbxContaLogada.insets = new Insets(0, 0, 5, 5);
 		gbc_chckbxContaLogada.gridx = 1;
@@ -101,6 +118,7 @@ public class TelaDeposito extends PadraoCliente {
 		txtConta.setColumns(10);
 
 		txtValorDeposito = new JTextField();
+		txtValorDeposito.setText(new DecimalFormat("R$ #,##0.00").format(0.00));
 		txtValorDeposito.setToolTipText("Valor a ser depositado na conta");
 		GridBagConstraints gbc_txtValorDeposito = new GridBagConstraints();
 		gbc_txtValorDeposito.insets = new Insets(0, 0, 5, 5);
@@ -125,7 +143,7 @@ public class TelaDeposito extends PadraoCliente {
 		gbc_lblTipoConta.gridy = 4;
 		panel.add(lblTipoConta, gbc_lblTipoConta);
 
-		cmbTipoConta = new JComboBox();
+		cmbTipoConta = new JComboBox(TipoConta.values());
 		cmbTipoConta.setToolTipText("Tipo da conta aonde ser depositado");
 		GridBagConstraints gbc_cmbTipoConta = new GridBagConstraints();
 		gbc_cmbTipoConta.insets = new Insets(0, 0, 5, 5);
@@ -158,7 +176,7 @@ public class TelaDeposito extends PadraoCliente {
 
 	}
 
-	private void validaContaDeposito(JCheckBox ckbContaLogada) {
+	public void validaContaDeposito(JCheckBox ckbContaLogada) {
 
 		if (ckbContaLogada.isSelected()) {
 
@@ -168,17 +186,37 @@ public class TelaDeposito extends PadraoCliente {
 			txtConta.setEnabled(false);
 			txtTitular.setText(conta.getNome());
 			txtTitular.setEnabled(false);
-			cmbTipoConta.setSelectedItem(conta.getTipoConta());
-			cmbTipoConta.setEditable(false);
+			cmbTipoConta.setSelectedItem(validaTipoConta(conta.getTipoConta()));
+			cmbTipoConta.setEnabled(false);
 
 		} else {
 			txtAgencia.setText("");
+			txtAgencia.setEnabled(true);
 			txtConta.setText("");
+			txtConta.setEnabled(true);
 			txtTitular.setText("");
-			cmbTipoConta.setSelectedIndex(0);
+			txtTitular.setEnabled(true);
+			cmbTipoConta.setSelectedItem(TipoConta.CC);
+			cmbTipoConta.setEnabled(true);
 
 		}
 
+	}
+
+	private Object validaTipoConta(final String tipoConta) {
+
+		switch (tipoConta) {
+		case "Conta Corrente":
+			return TipoConta.CC;
+		case "Conta Poupança":
+			return TipoConta.CP;
+		case "Conta Eletrônica":
+			return TipoConta.CE;
+		default:
+			break;
+		}
+
+		return TipoConta.CE;
 	}
 
 }

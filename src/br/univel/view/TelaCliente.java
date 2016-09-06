@@ -80,6 +80,7 @@ public class TelaCliente extends PadraoCliente {
 
 			}
 		});
+		
 		GridBagConstraints gbc_btnDepsito = new GridBagConstraints();
 		gbc_btnDepsito.fill = GridBagConstraints.BOTH;
 		gbc_btnDepsito.insets = new Insets(0, 0, 0, 5);
