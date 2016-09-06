@@ -176,7 +176,6 @@ public abstract class PadraoCliente extends JFrame {
 		gbc_lblTipoConta.gridx = 0;
 		gbc_lblTipoConta.gridy = 1;
 		panel.add(lblTipoConta, gbc_lblTipoConta);
-		lblTipoConta.setText(conta.getTipoConta());
 
 		lblNumConta = new JLabel("");
 		lblNumConta.setForeground(new Color(0, 0, 205));
@@ -213,10 +212,15 @@ public abstract class PadraoCliente extends JFrame {
 		gbc_lblSaldo.gridy = 2;
 		panel.add(lblSaldo, gbc_lblSaldo);
 
+		populaTelaInfConta(conta);
+
+	}
+
+	private void populaTelaInfConta(Conta conta) {
 		lblSaldo.setText(String.valueOf(conta.getSaldo()));
 		lblNumConta.setText(conta.getNumeroConta());
 		lblAgencia.setText(conta.getAgencia());
-
+		lblTipoConta.setText(conta.getTipoConta());
 	}
 
 }

@@ -8,11 +8,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import br.univel.model.Conta;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaCliente extends PadraoCliente {
 
 	private JPanel contentPane;
-	private Conta conta;
 
 	public TelaCliente(Conta conta) {
 		super(conta);
@@ -72,6 +73,13 @@ public class TelaCliente extends PadraoCliente {
 		panel.add(btnPagamentos, gbc_btnPagamentos);
 
 		JButton btnDepsito = new JButton("3- Dep\u00F3sito");
+		btnDepsito.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				new TelaDeposito(conta).setVisible(true);
+
+			}
+		});
 		GridBagConstraints gbc_btnDepsito = new GridBagConstraints();
 		gbc_btnDepsito.fill = GridBagConstraints.BOTH;
 		gbc_btnDepsito.insets = new Insets(0, 0, 0, 5);

@@ -153,6 +153,7 @@ public class Login extends JFrame {
 
 		if (acessa && tipoUsuario == TipoUsuario.CLIENTE) {
 			Conta conta = new ContaController().get(usuario, senha);
+			// Conta conta = new Conta();
 			TelaCliente telaCli = new TelaCliente(conta);
 			telaCli.setVisible(true);
 

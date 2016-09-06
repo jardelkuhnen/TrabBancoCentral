@@ -236,7 +236,7 @@ public class CadConta extends PadraoBancario {
 							JOptionPane.ERROR_MESSAGE, null);
 					txtNome.requestFocus();
 				} else {
-					
+
 					ContaController contaController = new ContaController();
 					Conta conta = new Conta();
 					conta.setNome(txtNome.getText().trim());
