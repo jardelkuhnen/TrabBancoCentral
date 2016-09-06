@@ -10,9 +10,12 @@ import java.text.DecimalFormat;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 
 import br.univel.enun.TipoConta;
 import br.univel.model.Conta;
@@ -117,7 +120,12 @@ public class TelaDeposito extends PadraoCliente {
 		panel.add(txtConta, gbc_txtConta);
 		txtConta.setColumns(10);
 
-		txtValorDeposito = new JTextField();
+		DecimalFormat dFormat = new DecimalFormat("#,###,###.00");
+		NumberFormatter formatter = new NumberFormatter(dFormat);
+		formatter.setFormat(dFormat);
+		formatter.setAllowsInvalid(false);
+		txtValorDeposito = new JFormattedTextField();
+		((JFormattedTextField) txtValorDeposito).setFormatterFactory(new DefaultFormatterFactory(formatter));
 		txtValorDeposito.setText(new DecimalFormat("R$ #,##0.00").format(0.00));
 		txtValorDeposito.setToolTipText("Valor a ser depositado na conta");
 		GridBagConstraints gbc_txtValorDeposito = new GridBagConstraints();

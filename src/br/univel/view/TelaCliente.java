@@ -3,17 +3,23 @@ package br.univel.view;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import br.univel.model.Conta;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class TelaCliente extends PadraoCliente {
 
 	private JPanel contentPane;
+	private JButton btnSaque;
+	private JButton btnTransferncia;
+	private JButton btnSaldo;
+	private JButton btnPagamentos;
+	private JButton btnDepsito;
+	private JButton btnFinaliza;
 
 	public TelaCliente(Conta conta) {
 		super(conta);
@@ -40,7 +46,7 @@ public class TelaCliente extends PadraoCliente {
 		gbl_panel.rowWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
-		JButton btnSaque = new JButton("1- Saque");
+		btnSaque = new JButton("1- Saque");
 		GridBagConstraints gbc_btnSaque = new GridBagConstraints();
 		gbc_btnSaque.fill = GridBagConstraints.BOTH;
 		gbc_btnSaque.insets = new Insets(0, 0, 5, 5);
@@ -48,7 +54,7 @@ public class TelaCliente extends PadraoCliente {
 		gbc_btnSaque.gridy = 0;
 		panel.add(btnSaque, gbc_btnSaque);
 
-		JButton btnTransferncia = new JButton("4- Transfer\u00EAncia");
+		btnTransferncia = new JButton("4- Transfer\u00EAncia");
 		GridBagConstraints gbc_btnTransferncia = new GridBagConstraints();
 		gbc_btnTransferncia.fill = GridBagConstraints.BOTH;
 		gbc_btnTransferncia.insets = new Insets(0, 0, 5, 0);
@@ -56,7 +62,7 @@ public class TelaCliente extends PadraoCliente {
 		gbc_btnTransferncia.gridy = 0;
 		panel.add(btnTransferncia, gbc_btnTransferncia);
 
-		JButton btnSaldo = new JButton("2- Saldo");
+		btnSaldo = new JButton("2- Saldo");
 		GridBagConstraints gbc_btnSaldo = new GridBagConstraints();
 		gbc_btnSaldo.fill = GridBagConstraints.BOTH;
 		gbc_btnSaldo.insets = new Insets(0, 0, 5, 5);
@@ -64,7 +70,7 @@ public class TelaCliente extends PadraoCliente {
 		gbc_btnSaldo.gridy = 1;
 		panel.add(btnSaldo, gbc_btnSaldo);
 
-		JButton btnPagamentos = new JButton("5- Pagamentos");
+		btnPagamentos = new JButton("5- Pagamentos");
 		GridBagConstraints gbc_btnPagamentos = new GridBagConstraints();
 		gbc_btnPagamentos.fill = GridBagConstraints.BOTH;
 		gbc_btnPagamentos.insets = new Insets(0, 0, 5, 0);
@@ -72,7 +78,7 @@ public class TelaCliente extends PadraoCliente {
 		gbc_btnPagamentos.gridy = 1;
 		panel.add(btnPagamentos, gbc_btnPagamentos);
 
-		JButton btnDepsito = new JButton("3- Dep\u00F3sito");
+		btnDepsito = new JButton("3- Dep\u00F3sito");
 		btnDepsito.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -80,7 +86,7 @@ public class TelaCliente extends PadraoCliente {
 
 			}
 		});
-		
+
 		GridBagConstraints gbc_btnDepsito = new GridBagConstraints();
 		gbc_btnDepsito.fill = GridBagConstraints.BOTH;
 		gbc_btnDepsito.insets = new Insets(0, 0, 0, 5);
@@ -88,13 +94,30 @@ public class TelaCliente extends PadraoCliente {
 		gbc_btnDepsito.gridy = 2;
 		panel.add(btnDepsito, gbc_btnDepsito);
 
-		JButton btnFinaliza = new JButton("6- Finalizar");
+		btnFinaliza = new JButton("6- Finalizar");
 		GridBagConstraints gbc_btnFinaliza = new GridBagConstraints();
 		gbc_btnFinaliza.fill = GridBagConstraints.BOTH;
 		gbc_btnFinaliza.gridx = 2;
 		gbc_btnFinaliza.gridy = 2;
 		panel.add(btnFinaliza, gbc_btnFinaliza);
 
+		validaOperacoesDisponiveis(conta);
+
+	}
+
+	private void validaOperacoesDisponiveis(final Conta conta) {
+
+		switch (conta.getTipoConta()) {
+		case "Conta Poupança":
+			btnPagamentos.setEnabled(false);
+			break;
+		case "Conta Eletrônica":
+			btnSaque.setEnabled(false);
+			btnDepsito.setEnabled(false);
+			break;
+		default:
+			break;
+		}
 	}
 
 }
