@@ -214,11 +214,11 @@ public class TelaDeposito extends PadraoCliente {
 	private Object validaTipoConta(final String tipoConta) {
 
 		switch (tipoConta) {
-		case "Conta Corrente":
+		case TelaCliente.CONTA_CORRENTE:
 			return TipoConta.CC;
-		case "Conta Poupança":
+		case TelaCliente.CONTA_POUPANCA:
 			return TipoConta.CP;
-		case "Conta Eletrônica":
+		case TelaCliente.CONTA_ELETRONICA:
 			return TipoConta.CE;
 		default:
 			break;

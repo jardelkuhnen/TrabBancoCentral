@@ -7,12 +7,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import br.univel.model.Conta;
 
 public class TelaCliente extends PadraoCliente {
 
+	static final String CONTA_ELETRONICA = "Conta Eletrônica";
+	static final String CONTA_POUPANCA = "Conta Poupança";
+	static final String CONTA_CORRENTE = "Conta Corrente";
 	private JPanel contentPane;
 	private JButton btnSaque;
 	private JButton btnTransferncia;
@@ -107,16 +111,23 @@ public class TelaCliente extends PadraoCliente {
 
 	private void validaOperacoesDisponiveis(final Conta conta) {
 
-		switch (conta.getTipoConta()) {
-		case "Conta Poupança":
-			btnPagamentos.setEnabled(false);
-			break;
-		case "Conta Eletrônica":
-			btnSaque.setEnabled(false);
-			btnDepsito.setEnabled(false);
-			break;
-		default:
-			break;
+		if (conta.getId() == null) {
+			JOptionPane.showMessageDialog(TelaCliente.this, "Usuário sem conta cadastrada. Verifique!", "Atenção",
+					JOptionPane.ERROR_MESSAGE);
+
+		} else {
+
+			switch (conta.getTipoConta()) {
+			case CONTA_POUPANCA:
+				btnPagamentos.setEnabled(false);
+				break;
+			case CONTA_ELETRONICA:
+				btnSaque.setEnabled(false);
+				btnDepsito.setEnabled(false);
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
