@@ -16,7 +16,7 @@ import br.univel.model.Profissional;
 
 public class ProfissionalDao {
 
-	private static String SQL_UPDATE = "UPDATE PROFISSIONAL SET NOME = ?, IDADE =?, SENHAOPERACOES = ?, SENHAACESSO = ?, USUARIO = ?, TIPOPROFISSIONAL = ? WHERE ID = ?";
+	private static String SQL_UPDATE = "UPDATE PROFISSIONAL SET NOME = ?, IDADE =?,  USUARIO = ?, SENHAACESSO = ? ,SENHAOPERACOES = ? , TIPOPROFISSIONAL = ? WHERE ID = ?";
 	private static String SQL_GET_PROFISS_ID = "SELECT * FROM PROFISSIONAL WHERE ID = ?";
 	private static String SQL_SELECT_ALL = "select * from profissional order by id";
 	private static String SQL_INSERT = "INSERT INTO PROFISSIONAL (nome, idade, usuario, senhaAcesso, senhaOperacoes, tipoProfissional) VALUES (?,?,?,?,?,?)";
@@ -57,9 +57,9 @@ public class ProfissionalDao {
 
 		stmt.setString(1, profisisonal.getNome());
 		stmt.setInt(2, profisisonal.getIdade());
-		stmt.setString(3, profisisonal.getSenhaOperacoes());
+		stmt.setString(3, profisisonal.getUserName());
 		stmt.setString(4, profisisonal.getSenhaAcesso());
-		stmt.setString(5, profisisonal.getUserName());
+		stmt.setString(5, profisisonal.getSenhaOperacoes());
 		stmt.setString(6, profisisonal.getTipoProfissional().toString());
 	}
 
