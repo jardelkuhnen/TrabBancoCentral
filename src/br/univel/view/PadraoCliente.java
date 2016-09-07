@@ -212,7 +212,7 @@ public abstract class PadraoCliente extends JFrame {
 		gbc_lblSaldo.gridy = 2;
 		panel.add(lblSaldo, gbc_lblSaldo);
 
-		 populaTelaInfConta(conta);
+		populaTelaInfConta(conta);
 
 	}
 

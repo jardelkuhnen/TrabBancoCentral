@@ -11,13 +11,15 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import br.univel.interfacee.ContaMethods;
 import br.univel.model.Conta;
 
 public class ContaDao {
 
 	private static final String SQL_GET_CONTA = "SELECT * FROM CONTA WHERE USUARIOACESSO = ? AND SENHAACESSO = ?";
-	private static String SQL_INSERT = "INSERT INTO CONTA (NOME, IDADE, CPF, AGENCIA, TIPOCONTA, USUARIOACESSO, SENHAACESSO, SENHAOPERACOES, NUMEROCONTA, SALDO) VALUES (?,?,?,?,?,?,?,?,?,?)";
-	private static String SQL_SELECT_ALL = "SELECT * FROM CONTA";
+	private static final String SQL_GET_CONTADEPOSITO = "SELECT * FROM CONTA WHERE AGENCIA = ? AND NUMEROCONTA = ? AND NOME = ?";
+	private static final String SQL_INSERT = "INSERT INTO CONTA (NOME, IDADE, CPF, AGENCIA, TIPOCONTA, USUARIOACESSO, SENHAACESSO, SENHAOPERACOES, NUMEROCONTA, SALDO) VALUES (?,?,?,?,?,?,?,?,?,?)";
+	private static final String SQL_SELECT_ALL = "SELECT * FROM CONTA";
 
 	public void add(Conta conta) throws SQLException {
 		Connection con = null;
@@ -139,6 +141,40 @@ public class ContaDao {
 		if (con != null && !con.isClosed())
 			con.close();
 
+	}
+
+	public Conta getContaDeposito(String agencia, String numero, String titular) {
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Conta conta = new Conta();
+
+		try {
+			con = Conexao.getConection();
+			stmt = con.prepareStatement(SQL_GET_CONTADEPOSITO);
+
+			stmt.setString(1, agencia);
+			stmt.setString(2, numero);
+			stmt.setString(3, titular);
+
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				conta = (Conta) readResultSet(rs);
+			}
+
+			return conta;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return conta;
+	}
+
+	public void depositar(Conta conta, BigDecimal valorDeposito) {
+
+		
+		
 	}
 
 }

@@ -1,5 +1,6 @@
 package br.univel.controller;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -9,14 +10,14 @@ import br.univel.dao.AgenciaDao;
 import br.univel.dao.ContaDao;
 import br.univel.dao.UsuarioDao;
 import br.univel.enun.TipoUsuario;
-import br.univel.general.MD5Hash;
+import br.univel.general.MovimentacaoFacade;
 import br.univel.general.Sha256Hash;
 import br.univel.interfacee.Command;
+import br.univel.interfacee.ContaMethods;
 import br.univel.model.Conta;
 import br.univel.model.Usuario;
-import br.univel.view.CadConta;
 
-public class ContaController {
+public class ContaController implements ContaMethods {
 
 	public void add(Conta conta) {
 
@@ -66,12 +67,40 @@ public class ContaController {
 
 		return new ContaDao().get(userAcessoHash, senhaAcessoHash);
 	}
-	
-	
-	public void deposito(){
-		
-		
-		
+
+	public Conta getContaDeposito(String agencia, String numero, String titular) {
+
+		return new ContaDao().getContaDeposito(agencia, numero, titular);
+	}
+
+	@Override
+	public void deposito(Conta conta, BigDecimal valorDeposito) {
+
+		new MovimentacaoFacade().deposito(conta, valorDeposito);
+	}
+
+	@Override
+	public void saque(Conta conta, BigDecimal valorSaque) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void pagamento(Conta conta, BigDecimal valorPagam) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void finalizarConta(Conta conta) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

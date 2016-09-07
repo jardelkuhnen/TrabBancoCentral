@@ -81,7 +81,7 @@ public class Login extends JFrame {
 		gbc_lblBancoCentral.gridy = 0;
 		contentPane.add(lblBancoCentral, gbc_lblBancoCentral);
 
-		txtUsuario = new JTextField("paulo");
+		txtUsuario = new JTextField("bino");
 		txtUsuario.setToolTipText("Usu\u00E1rio");
 		GridBagConstraints gbc_txtUsuario = new GridBagConstraints();
 		gbc_txtUsuario.anchor = GridBagConstraints.NORTH;
@@ -92,7 +92,7 @@ public class Login extends JFrame {
 		contentPane.add(txtUsuario, gbc_txtUsuario);
 		txtUsuario.setColumns(10);
 
-		txtSenha = new JTextField("paulo");
+		txtSenha = new JTextField("bino");
 		txtSenha.setToolTipText("Senha");
 		txtSenha.setColumns(10);
 		GridBagConstraints gbc_txtSenha = new GridBagConstraints();

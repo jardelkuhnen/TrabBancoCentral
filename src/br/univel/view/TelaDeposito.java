@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 import javax.swing.JButton;
@@ -12,11 +13,13 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 
+import br.univel.controller.ContaController;
 import br.univel.enun.TipoConta;
 import br.univel.model.Conta;
 
@@ -137,6 +140,32 @@ public class TelaDeposito extends PadraoCliente {
 		txtValorDeposito.setColumns(10);
 
 		JButton btnConfirme = new JButton("Confirme");
+		btnConfirme.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				if (txtAgencia.getText().equals("") || txtConta.getText().equals("") || txtTitular.getText().equals("")
+						|| txtValorDeposito.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Existem campos vazios. Preencha todos para realizar ação!",
+							"Atenção", JOptionPane.WARNING_MESSAGE);
+				} else {
+
+					BigDecimal valorDeposito = new BigDecimal(txtValorDeposito.getText());
+
+					if (ckbContaLogada.isSelected()) {
+						new ContaController().deposito(conta, valorDeposito);
+
+					} else {
+
+						Conta contaDeposito = new Conta();
+						contaDeposito.setAgencia(txtAgencia.getText().trim());
+						contaDeposito.setNome(txtTitular.getText().trim());
+						contaDeposito.setNumeroConta(txtConta.getText().trim());
+
+						new ContaController().deposito(contaDeposito, valorDeposito);
+					}
+				}
+			}
+		});
 		GridBagConstraints gbc_btnConfirme = new GridBagConstraints();
 		gbc_btnConfirme.insets = new Insets(0, 0, 5, 0);
 		gbc_btnConfirme.gridx = 5;
@@ -223,7 +252,6 @@ public class TelaDeposito extends PadraoCliente {
 		default:
 			break;
 		}
-
 		return TipoConta.CE;
 	}
 
