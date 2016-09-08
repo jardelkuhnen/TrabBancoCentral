@@ -23,7 +23,7 @@ create table conta(
 	senhaAcesso varchar(255),
 	senhaOperacoes varchar(255),
 	numeroConta varchar(255),
-	saldo decimal(4,2),
+	saldo bigint,
 	primary key (id));
 
 create table profissional(
@@ -37,5 +37,5 @@ create table profissional(
 	primary key (id));
 
 
-INSERT INTO USUARIO (USUARIO, SENHA, TIPOUSUARIO) VALUES ('9b0b1bcd8761ff479df81ecb41881aa29cc7c428e15162c94f89b3826d82e415','9b0b1bcd8761ff479df81ecb41881aa29cc7c428e15162c94f89b3826d82e415','CLIENTE');
-INSERT INTO USUARIO (ID, USUARIO, SENHA TIPOUSUARIO) VALUES ('2','2','2','1');
+
+

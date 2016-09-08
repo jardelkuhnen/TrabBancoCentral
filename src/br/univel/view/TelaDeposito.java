@@ -149,7 +149,7 @@ public class TelaDeposito extends PadraoCliente {
 							"Atenção", JOptionPane.WARNING_MESSAGE);
 				} else {
 
-					BigDecimal valorDeposito = new BigDecimal(txtValorDeposito.getText());
+					BigDecimal valorDeposito = new BigDecimal(txtValorDeposito.getText().replaceAll(",", "."));
 
 					if (ckbContaLogada.isSelected()) {
 						new ContaController().deposito(conta, valorDeposito);

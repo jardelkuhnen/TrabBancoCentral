@@ -20,6 +20,7 @@ public class ContaDao {
 	private static final String SQL_GET_CONTADEPOSITO = "SELECT * FROM CONTA WHERE AGENCIA = ? AND NUMEROCONTA = ? AND NOME = ?";
 	private static final String SQL_INSERT = "INSERT INTO CONTA (NOME, IDADE, CPF, AGENCIA, TIPOCONTA, USUARIOACESSO, SENHAACESSO, SENHAOPERACOES, NUMEROCONTA, SALDO) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	private static final String SQL_SELECT_ALL = "SELECT * FROM CONTA";
+	private static final String SQL_DEPOSITO = "UPDATE CONTA SET SALDO = ? WHERE NUMEROCONTA = ? AND NOME = ?";
 
 	public void add(Conta conta) throws SQLException {
 		Connection con = null;
@@ -173,8 +174,28 @@ public class ContaDao {
 
 	public void depositar(Conta conta, BigDecimal valorDeposito) {
 
-		
-		
+		Connection con = null;
+		PreparedStatement stmt = null;
+
+		try {
+			con = Conexao.getConection();
+			stmt = con.prepareStatement(SQL_DEPOSITO);
+
+			stmt.setBigDecimal(1, valorDeposito);
+			stmt.setString(2, conta.getNumeroConta());
+			stmt.setString(3, conta.getNome());
+
+			int linhasAtualizadas = stmt.executeUpdate();
+
+			if (linhasAtualizadas == 0)
+				throw new RuntimeException("Falha ao realizar depósito!");
+
+			JOptionPane.showMessageDialog(null, "Depósito realizado com sucesso!!!");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
