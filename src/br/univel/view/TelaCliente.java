@@ -51,6 +51,14 @@ public class TelaCliente extends PadraoCliente {
 		panel.setLayout(gbl_panel);
 
 		btnSaque = new JButton("1- Saque");
+		btnSaque.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				TelaSaque telaSaque = new TelaSaque(conta);
+				telaSaque.setVisible(true);
+				telaSaque.setLocationRelativeTo(null);
+			}
+		});
 		GridBagConstraints gbc_btnSaque = new GridBagConstraints();
 		gbc_btnSaque.fill = GridBagConstraints.BOTH;
 		gbc_btnSaque.insets = new Insets(0, 0, 5, 5);

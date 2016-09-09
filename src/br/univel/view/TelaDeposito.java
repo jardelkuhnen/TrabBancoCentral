@@ -153,6 +153,8 @@ public class TelaDeposito extends PadraoCliente {
 
 					if (ckbContaLogada.isSelected()) {
 						new ContaController().deposito(conta, valorDeposito);
+						limparCampos();
+						ckbContaLogada.setSelected(false);
 
 					} else {
 
@@ -161,6 +163,8 @@ public class TelaDeposito extends PadraoCliente {
 						contaDeposito.setNome(txtTitular.getText().trim());
 						contaDeposito.setNumeroConta(txtConta.getText().trim());
 
+						limparCampos();
+						cmbTipoConta.setEnabled(true);
 						new ContaController().deposito(contaDeposito, valorDeposito);
 					}
 				}
@@ -227,16 +231,22 @@ public class TelaDeposito extends PadraoCliente {
 			cmbTipoConta.setEnabled(false);
 
 		} else {
-			txtAgencia.setText("");
-			txtAgencia.setEnabled(true);
-			txtConta.setText("");
-			txtConta.setEnabled(true);
-			txtTitular.setText("");
-			txtTitular.setEnabled(true);
-			cmbTipoConta.setSelectedItem(TipoConta.CC);
-			cmbTipoConta.setEnabled(true);
+			limparCampos();
 
 		}
+
+	}
+
+	private void limparCampos() {
+		txtAgencia.setEnabled(true);
+		txtAgencia.setText("");
+		txtConta.setEnabled(true);
+		txtConta.setText("");
+		txtTitular.setEnabled(true);
+		txtTitular.setText("");
+		cmbTipoConta.setEnabled(true);
+		cmbTipoConta.setSelectedItem(TipoConta.CC);
+		txtValorDeposito.setText("00.00");
 
 	}
 

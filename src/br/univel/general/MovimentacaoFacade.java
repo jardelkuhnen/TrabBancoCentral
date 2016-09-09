@@ -15,15 +15,10 @@ public class MovimentacaoFacade implements ContaMethods {
 	@Override
 	public void deposito(Conta conta, BigDecimal valorDeposito) {
 
-		conta = new ContaDao().getContaDeposito(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
+		BigDecimal vlrAtualizar = conta.getSaldo().add(valorDeposito);
 
-		if (conta.getId() == null) {
-			JOptionPane.showMessageDialog(null, "Conta não localizada. Verifique!", "Atenção",
-					JOptionPane.WARNING_MESSAGE);
-		} else {
-			new ContaDao().depositar(conta, valorDeposito);
+		new ContaDao().depositar(conta, vlrAtualizar);
 
-		}
 	}
 
 	@Override

@@ -76,30 +76,37 @@ public class ContaController implements ContaMethods {
 	@Override
 	public void deposito(Conta conta, BigDecimal valorDeposito) {
 
-		new MovimentacaoFacade().deposito(conta, valorDeposito);
+		conta = new ContaDao().getContaDeposito(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
+
+		if (conta.getId() == null) {
+			JOptionPane.showMessageDialog(null, "Conta não localizada. Verifique!", "Atenção",
+					JOptionPane.WARNING_MESSAGE);
+		} else {
+
+			new MovimentacaoFacade().deposito(conta, valorDeposito);
+		}
 	}
 
 	@Override
 	public void saque(Conta conta, BigDecimal valorSaque) {
-		// TODO Auto-generated method stub
 
+		
+		
+		
 	}
 
 	@Override
 	public void transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void pagamento(Conta conta, BigDecimal valorPagam) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void finalizarConta(Conta conta) {
-		// TODO Auto-generated method stub
 
 	}
 
