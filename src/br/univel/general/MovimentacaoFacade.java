@@ -17,12 +17,31 @@ public class MovimentacaoFacade implements ContaMethods {
 
 		BigDecimal vlrAtualizar = conta.getSaldo().add(valorDeposito);
 
-		new ContaDao().depositar(conta, vlrAtualizar);
+		new ContaDao().updateSaldo(conta, vlrAtualizar);
 
 	}
 
 	@Override
-	public void saque(Conta conta, BigDecimal valorSaque) {
+	public void saque(Conta conta, BigDecimal valorSaque, String senhaInformada) {
+
+		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
+		BigDecimal saldoApos = conta.getSaldo();
+
+		if (conta.getSaldo().compareTo(valorSaque) == 1) {
+
+			conta.setSaldo(saldoApos.subtract(valorSaque));
+
+			new ContaDao().updateSaldo(conta, conta.getSaldo());
+
+		} else if (valorSaque.compareTo(conta.getSaldo()) == 1) {
+			JOptionPane.showMessageDialog(null, "Saldo insuficiente para saque! Seu saldo é de R$ " + conta.getSaldo(),
+					"Atenção", JOptionPane.WARNING_MESSAGE);
+		} else {
+
+			conta.setSaldo(saldoApos.subtract(valorSaque));
+
+			new ContaDao().updateSaldo(conta, conta.getSaldo());
+		}
 
 	}
 

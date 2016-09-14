@@ -20,7 +20,7 @@ public class ContaDao {
 	private static final String SQL_GET_CONTADEPOSITO = "SELECT * FROM CONTA WHERE AGENCIA = ? AND NUMEROCONTA = ? AND NOME = ?";
 	private static final String SQL_INSERT = "INSERT INTO CONTA (NOME, IDADE, CPF, AGENCIA, TIPOCONTA, USUARIOACESSO, SENHAACESSO, SENHAOPERACOES, NUMEROCONTA, SALDO) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	private static final String SQL_SELECT_ALL = "SELECT * FROM CONTA";
-	private static final String SQL_DEPOSITO = "UPDATE CONTA SET SALDO = ? WHERE NUMEROCONTA = ? AND NOME = ?";
+	private static final String SQL_UPDATE_SALDO_CONTA = "UPDATE CONTA SET SALDO = ? WHERE NUMEROCONTA = ? AND NOME = ?";
 
 	public void add(Conta conta) throws SQLException {
 		Connection con = null;
@@ -144,11 +144,11 @@ public class ContaDao {
 
 	}
 
-	public Conta getContaDeposito(String agencia, String numero, String titular) {
+	public Conta getConta(String agencia, String numero, String titular) {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		Conta conta = new Conta();
+		Conta conta = null;
 
 		try {
 			con = Conexao.getConection();
@@ -172,14 +172,14 @@ public class ContaDao {
 		return conta;
 	}
 
-	public void depositar(Conta conta, BigDecimal valorDeposito) {
+	public void updateSaldo(Conta conta, BigDecimal valorDeposito) {
 
 		Connection con = null;
 		PreparedStatement stmt = null;
 
 		try {
 			con = Conexao.getConection();
-			stmt = con.prepareStatement(SQL_DEPOSITO);
+			stmt = con.prepareStatement(SQL_UPDATE_SALDO_CONTA);
 
 			stmt.setBigDecimal(1, valorDeposito);
 			stmt.setString(2, conta.getNumeroConta());
@@ -188,9 +188,9 @@ public class ContaDao {
 			int linhasAtualizadas = stmt.executeUpdate();
 
 			if (linhasAtualizadas == 0)
-				throw new RuntimeException("Falha ao realizar depósito!");
+				throw new RuntimeException("Falha ao realizar operação!!!");
 
-			JOptionPane.showMessageDialog(null, "Depósito realizado com sucesso!!!");
+			JOptionPane.showMessageDialog(null, "Saldo atualizado com sucesso!!!");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

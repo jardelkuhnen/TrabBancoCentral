@@ -8,7 +8,7 @@ public interface ContaMethods {
 
 	public void deposito(Conta conta, BigDecimal valorDeposito);
 
-	public void saque(Conta conta, BigDecimal valorSaque);
+	public void saque(Conta conta, BigDecimal valorSaque, String senhaInformada);
 
 	public void transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf);
 

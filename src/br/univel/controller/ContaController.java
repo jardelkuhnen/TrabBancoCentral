@@ -70,13 +70,13 @@ public class ContaController implements ContaMethods {
 
 	public Conta getContaDeposito(String agencia, String numero, String titular) {
 
-		return new ContaDao().getContaDeposito(agencia, numero, titular);
+		return new ContaDao().getConta(agencia, numero, titular);
 	}
 
 	@Override
 	public void deposito(Conta conta, BigDecimal valorDeposito) {
 
-		conta = new ContaDao().getContaDeposito(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
+		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
 
 		if (conta.getId() == null) {
 			JOptionPane.showMessageDialog(null, "Conta não localizada. Verifique!", "Atenção",
@@ -85,14 +85,6 @@ public class ContaController implements ContaMethods {
 
 			new MovimentacaoFacade().deposito(conta, valorDeposito);
 		}
-	}
-
-	@Override
-	public void saque(Conta conta, BigDecimal valorSaque) {
-
-		
-		
-		
 	}
 
 	@Override
@@ -107,6 +99,13 @@ public class ContaController implements ContaMethods {
 
 	@Override
 	public void finalizarConta(Conta conta) {
+
+	}
+
+	@Override
+	public void saque(Conta conta, BigDecimal valorSaque, String senhaInformada) {
+
+		new MovimentacaoFacade().saque(conta, valorSaque, senhaInformada);
 
 	}
 

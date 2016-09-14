@@ -7,6 +7,7 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatterFactory;
@@ -14,6 +15,7 @@ import javax.swing.text.NumberFormatter;
 
 import br.univel.model.Conta;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
 
@@ -46,6 +48,13 @@ public class TelaSaque extends PadraoCliente {
 		panel.setLayout(gbl_panel);
 
 		JButton btnCinquenta = new JButton("R$ 50,00");
+		btnCinquenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(50.00));
+				senhaConfirme.setVisible(true);
+			}
+		});
 		GridBagConstraints gbc_btnCinquenta = new GridBagConstraints();
 		gbc_btnCinquenta.fill = GridBagConstraints.BOTH;
 		gbc_btnCinquenta.insets = new Insets(0, 0, 5, 5);
@@ -54,6 +63,13 @@ public class TelaSaque extends PadraoCliente {
 		panel.add(btnCinquenta, gbc_btnCinquenta);
 
 		JButton btnCem = new JButton("R$ 100,00");
+		btnCem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(100.00));
+				senhaConfirme.setVisible(true);
+			}
+		});
 		GridBagConstraints gbc_btnCem = new GridBagConstraints();
 		gbc_btnCem.fill = GridBagConstraints.BOTH;
 		gbc_btnCem.insets = new Insets(0, 0, 5, 5);
@@ -62,6 +78,13 @@ public class TelaSaque extends PadraoCliente {
 		panel.add(btnCem, gbc_btnCem);
 
 		JButton btnDuzentos = new JButton("R$ 200,00");
+		btnDuzentos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(200.00));
+				senhaConfirme.setVisible(true);
+			}
+		});
 		GridBagConstraints gbc_btnDuzentos = new GridBagConstraints();
 		gbc_btnDuzentos.fill = GridBagConstraints.BOTH;
 		gbc_btnDuzentos.insets = new Insets(0, 0, 5, 5);
@@ -70,6 +93,13 @@ public class TelaSaque extends PadraoCliente {
 		panel.add(btnDuzentos, gbc_btnDuzentos);
 
 		JButton btnTrezentos = new JButton("R$ 300,00");
+		btnTrezentos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(300.00));
+				senhaConfirme.setVisible(true);
+			}
+		});
 		GridBagConstraints gbc_btnTrezentos = new GridBagConstraints();
 		gbc_btnTrezentos.fill = GridBagConstraints.BOTH;
 		gbc_btnTrezentos.insets = new Insets(0, 0, 5, 5);
@@ -78,6 +108,14 @@ public class TelaSaque extends PadraoCliente {
 		panel.add(btnTrezentos, gbc_btnTrezentos);
 
 		JButton btnQuinhentos = new JButton("R$ 500,00");
+		btnQuinhentos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(500.00));
+				senhaConfirme.setVisible(true);
+
+			}
+		});
 		GridBagConstraints gbc_btnQuinhentos = new GridBagConstraints();
 		gbc_btnQuinhentos.fill = GridBagConstraints.BOTH;
 		gbc_btnQuinhentos.insets = new Insets(0, 0, 0, 5);
@@ -112,6 +150,14 @@ public class TelaSaque extends PadraoCliente {
 		JButton btnConfirme = new JButton("Confirme");
 		btnConfirme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				if (txtValor.getText().equals("0.00")) {
+					JOptionPane.showMessageDialog(TelaSaque.this, "Informe um valor para reaizar o saque!!!", "Atenção",
+							JOptionPane.WARNING_MESSAGE);
+				} else {
+
+					new SenhaConfirm(conta, new BigDecimal(txtValor.getText()));
+				}
 
 			}
 		});

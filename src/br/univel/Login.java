@@ -27,14 +27,15 @@ import br.univel.enun.TipoUsuario;
 import br.univel.model.Conta;
 import br.univel.view.TelaBancario;
 import br.univel.view.TelaCliente;
+import javax.swing.JPasswordField;
 
 public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
-	private JTextField txtSenha;
 	private JComboBox cbmAcesso;
 	private JLabel lblBancoCentral;
+	private JPasswordField txtSenha;
 
 	/**
 	 * Launch the application.
@@ -92,17 +93,6 @@ public class Login extends JFrame {
 		contentPane.add(txtUsuario, gbc_txtUsuario);
 		txtUsuario.setColumns(10);
 
-		txtSenha = new JTextField("jardel");
-		txtSenha.setToolTipText("Senha");
-		txtSenha.setColumns(10);
-		GridBagConstraints gbc_txtSenha = new GridBagConstraints();
-		gbc_txtSenha.anchor = GridBagConstraints.NORTH;
-		gbc_txtSenha.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtSenha.insets = new Insets(0, 0, 5, 0);
-		gbc_txtSenha.gridx = 0;
-		gbc_txtSenha.gridy = 2;
-		contentPane.add(txtSenha, gbc_txtSenha);
-
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addKeyListener(new KeyAdapter() {
 
@@ -119,6 +109,14 @@ public class Login extends JFrame {
 			}
 
 		});
+
+		txtSenha = new JPasswordField("jardel");
+		GridBagConstraints gbc_txtSenha = new GridBagConstraints();
+		gbc_txtSenha.insets = new Insets(0, 0, 5, 0);
+		gbc_txtSenha.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtSenha.gridx = 0;
+		gbc_txtSenha.gridy = 2;
+		contentPane.add(txtSenha, gbc_txtSenha);
 
 		cbmAcesso = new JComboBox(TipoUsuario.values());
 		GridBagConstraints gbc_cbmAcesso = new GridBagConstraints();
