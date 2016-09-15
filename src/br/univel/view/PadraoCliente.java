@@ -6,9 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -72,14 +69,16 @@ public abstract class PadraoCliente extends JFrame {
 		setSize(800, 375);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 370);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imagens/Icone.png"));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage("./Imagens/Icone.png"));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 77, 0, 414, 0 };
 		gbl_contentPane.rowHeights = new int[] { 89, 253, 0 };
-		gbl_contentPane.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPane.columnWeights = new double[] { 0.0, 1.0, 0.0,
+				Double.MIN_VALUE };
 		gbl_contentPane.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
@@ -95,8 +94,9 @@ public abstract class PadraoCliente extends JFrame {
 		GridBagLayout gbl_cabecalho = new GridBagLayout();
 		gbl_cabecalho.columnWidths = new int[] { 94, 208, 90, 0 };
 		gbl_cabecalho.rowHeights = new int[] { 67, 0, 0 };
-		gbl_cabecalho.columnWeights = new double[] { 0.0, 1.0, 1.0, Double.MIN_VALUE };
-		gbl_cabecalho.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_cabecalho.columnWeights = new double[] { 1.0, 1.0, 1.0,
+				Double.MIN_VALUE };
+		gbl_cabecalho.rowWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
 		cabecalho.setLayout(gbl_cabecalho);
 
 		JLabel lblBancoCentral = new JLabel("Banco Central");
@@ -120,7 +120,8 @@ public abstract class PadraoCliente extends JFrame {
 		cabecalho.add(lblDataAcess, gbc_lblDataAcess);
 
 		JLabel imagem = new JLabel("");
-		imagem.setIcon(new ImageIcon("E:\\workspace\\TrabBancoCentral\\Imagens\\Icone.png"));
+		imagem.setIcon(new ImageIcon(PadraoCliente.class
+				.getResource("/Imagem/Icone.png")));
 		GridBagConstraints gbc_imagem = new GridBagConstraints();
 		gbc_imagem.gridheight = 2;
 		gbc_imagem.insets = new Insets(0, 0, 0, 5);
@@ -148,7 +149,8 @@ public abstract class PadraoCliente extends JFrame {
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 124, 25, 46, 0 };
 		gbl_panel.rowHeights = new int[] { 26, 15, 10, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 1.0,
+				Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
@@ -215,7 +217,7 @@ public abstract class PadraoCliente extends JFrame {
 		gbc_lblSaldo.gridy = 2;
 		panel.add(lblSaldo, gbc_lblSaldo);
 
-//		populaTelaInfConta(conta);
+		// populaTelaInfConta(conta);
 
 	}
 
