@@ -22,7 +22,7 @@ public class MovimentacaoFacade implements ContaMethods {
 	}
 
 	@Override
-	public void saque(Conta conta, BigDecimal valorSaque, String senhaInformada) {
+	public boolean saque(Conta conta, BigDecimal valorSaque, String senhaInformada) {
 
 		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
 		BigDecimal saldoApos = conta.getSaldo();
@@ -36,12 +36,14 @@ public class MovimentacaoFacade implements ContaMethods {
 		} else if (valorSaque.compareTo(conta.getSaldo()) == 1) {
 			JOptionPane.showMessageDialog(null, "Saldo insuficiente para saque! Seu saldo é de R$ " + conta.getSaldo(),
 					"Atenção", JOptionPane.WARNING_MESSAGE);
+			return false;
 		} else {
 
 			conta.setSaldo(saldoApos.subtract(valorSaque));
 
 			new ContaDao().updateSaldo(conta, conta.getSaldo());
 		}
+		return true;
 
 	}
 
@@ -51,7 +53,7 @@ public class MovimentacaoFacade implements ContaMethods {
 	}
 
 	@Override
-	public void pagamento(Conta conta, BigDecimal valorPagam) {
+	public void pagamento(Conta conta, BigDecimal valorPagam, String codigoDeBarras) {
 
 	}
 

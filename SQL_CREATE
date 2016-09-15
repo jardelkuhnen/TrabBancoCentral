@@ -23,7 +23,7 @@ create table conta(
 	senhaAcesso varchar(255),
 	senhaOperacoes varchar(255),
 	numeroConta varchar(255),
-	saldo bigint,
+	saldo numeric,
 	primary key (id));
 
 create table profissional(

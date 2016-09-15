@@ -9,7 +9,6 @@ import java.sql.Statement;
 public class Conexao {
 
 	private static final String url_Banco = "jdbc:postgresql://localhost:5432/BancoCentral";
-	// private static final String driver_Class = "org.postgresql.Driver";
 	private static final String user = "postgres";
 	private static final String pass = "1";
 
@@ -22,7 +21,6 @@ public class Conexao {
 		System.out.println("Conectando ao banco de dados");
 
 		try {
-			// Class.forName(driver_Class);
 			return DriverManager.getConnection(url_Banco, user, pass);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

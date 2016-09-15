@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import br.univel.controller.ContaController;
 import br.univel.model.Conta;
 
 public class TelaCliente extends PadraoCliente {
@@ -67,6 +68,10 @@ public class TelaCliente extends PadraoCliente {
 		panel.add(btnSaque, gbc_btnSaque);
 
 		btnTransferncia = new JButton("4- Transfer\u00EAncia");
+		btnTransferncia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GridBagConstraints gbc_btnTransferncia = new GridBagConstraints();
 		gbc_btnTransferncia.fill = GridBagConstraints.BOTH;
 		gbc_btnTransferncia.insets = new Insets(0, 0, 5, 0);
@@ -83,6 +88,12 @@ public class TelaCliente extends PadraoCliente {
 		panel.add(btnSaldo, gbc_btnSaldo);
 
 		btnPagamentos = new JButton("5- Pagamentos");
+		btnPagamentos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
 		GridBagConstraints gbc_btnPagamentos = new GridBagConstraints();
 		gbc_btnPagamentos.fill = GridBagConstraints.BOTH;
 		gbc_btnPagamentos.insets = new Insets(0, 0, 5, 0);

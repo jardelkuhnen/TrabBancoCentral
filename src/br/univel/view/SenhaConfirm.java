@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import br.univel.controller.ContaController;
 import br.univel.dao.ContaDao;
+import br.univel.enun.Operacao;
 import br.univel.model.Conta;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -24,12 +25,13 @@ import javax.swing.JPasswordField;
 public class SenhaConfirm extends JFrame {
 
 	private JPanel contentPane;
-	private StringBuilder senhaInformada = new StringBuilder();
+	private StringBuilder senhaInformada;
 	private JPasswordField txtSenha;
 
 	public SenhaConfirm(Conta conta, BigDecimal valorSaque) {
 		setSize(525, 150);
 		setTitle("Senha");
+		senhaInformada = new StringBuilder();
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imagens/Icone.png"));
@@ -138,9 +140,21 @@ public class SenhaConfirm extends JFrame {
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (conta.getSenhaOperacoes().equals(senhaInformada)) {
+				senhaInformada = new StringBuilder();
+				senhaInformada.append(txtSenha.getText());
 
-					new ContaController().saque(conta, valorSaque, senhaInformada.toString());
+				if (conta.getSenhaOperacoes().equals(senhaInformada.toString())) {
+
+					boolean sacou = new ContaController().saque(conta, valorSaque, senhaInformada.toString());
+
+					senhaInformada = new StringBuilder();
+					atualizaTextField(senhaInformada);
+
+					if (sacou) {
+						OperacaoRealizada opRealizada = new OperacaoRealizada(conta, Operacao.SAQUE,
+								valorSaque.toString());
+						opRealizada.setVisible(true);
+					}
 
 				} else {
 					JOptionPane.showMessageDialog(SenhaConfirm.this, "Senha inválida!", "Atenção",

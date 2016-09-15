@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 
 import br.univel.controller.ContaController;
@@ -129,7 +130,7 @@ public class TelaDeposito extends PadraoCliente {
 		formatter.setAllowsInvalid(false);
 		txtValorDeposito = new JFormattedTextField();
 		((JFormattedTextField) txtValorDeposito).setFormatterFactory(new DefaultFormatterFactory(formatter));
-		txtValorDeposito.setText(new DecimalFormat("R$ #,##0.00").format(0.00));
+		txtValorDeposito.setText(new DecimalFormat("R$#,##0.00").format(0.00));
 		txtValorDeposito.setToolTipText("Valor a ser depositado na conta");
 		GridBagConstraints gbc_txtValorDeposito = new GridBagConstraints();
 		gbc_txtValorDeposito.insets = new Insets(0, 0, 5, 5);

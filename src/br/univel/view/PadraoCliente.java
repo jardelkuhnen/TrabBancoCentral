@@ -6,6 +6,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -212,7 +215,7 @@ public abstract class PadraoCliente extends JFrame {
 		gbc_lblSaldo.gridy = 2;
 		panel.add(lblSaldo, gbc_lblSaldo);
 
-		populaTelaInfConta(conta);
+//		populaTelaInfConta(conta);
 
 	}
 
