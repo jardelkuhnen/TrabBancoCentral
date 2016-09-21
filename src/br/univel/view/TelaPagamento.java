@@ -3,6 +3,7 @@ package br.univel.view;
 import javax.swing.JPanel;
 
 import br.univel.controller.ContaController;
+import br.univel.enun.Operacao;
 import br.univel.model.Conta;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -95,9 +96,12 @@ public class TelaPagamento extends PadraoCliente {
 		btnConfirme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				new ContaController().pagamento(conta, new BigDecimal(txtValorPag.getText().replaceAll(",", "")),
-						txtCodbarras.getText());
+				new ContaController().pagamento(conta,
+						new BigDecimal(txtValorPag.getText().replace(".", "").replace(",", "")),
+						txtCodbarras.getText().trim());
 
+				txtCodbarras.setText("");
+				txtValorPag.setText("");
 			}
 		});
 		GridBagConstraints gbc_btnConfirme = new GridBagConstraints();

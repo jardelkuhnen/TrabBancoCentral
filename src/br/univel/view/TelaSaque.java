@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 
+import br.univel.enun.Operacao;
 import br.univel.model.Conta;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -21,7 +22,10 @@ import java.awt.event.ActionEvent;
 
 public class TelaSaque extends PadraoCliente {
 
-	private JPanel contentPane;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtValor;
 
 	public TelaSaque(Conta conta) {
@@ -151,12 +155,14 @@ public class TelaSaque extends PadraoCliente {
 		btnConfirme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (txtValor.getText().equals("0.00")) {
+				if (txtValor.getText().equals("0.00") || txtValor.getText().equals("")) {
 					JOptionPane.showMessageDialog(TelaSaque.this, "Informe um valor para reaizar o saque!!!", "Atenção",
 							JOptionPane.WARNING_MESSAGE);
 				} else {
 
-					new SenhaConfirm(conta, new BigDecimal(txtValor.getText()));
+					new SenhaConfirm(conta,
+							new BigDecimal(txtValor.getText().replace(",", "").replace(".", "").toString()))
+									.setVisible(true);
 				}
 
 			}

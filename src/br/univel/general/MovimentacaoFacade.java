@@ -27,13 +27,13 @@ public class MovimentacaoFacade implements ContaMethods {
 		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
 		BigDecimal saldoApos = conta.getSaldo();
 
-		if (conta.getSaldo().compareTo(valorSaque) == 1) {
+		if (conta.getSaldo().compareTo(valorSaque) >= 0) {
 
 			conta.setSaldo(saldoApos.subtract(valorSaque));
 
 			new ContaDao().updateSaldo(conta, conta.getSaldo());
 
-		} else if (valorSaque.compareTo(conta.getSaldo()) == 1) {
+		} else if (valorSaque.compareTo(conta.getSaldo()) < 0) {
 			JOptionPane.showMessageDialog(null, "Saldo insuficiente para saque! Seu saldo é de R$ " + conta.getSaldo(),
 					"Atenção", JOptionPane.WARNING_MESSAGE);
 			return false;
@@ -53,7 +53,29 @@ public class MovimentacaoFacade implements ContaMethods {
 	}
 
 	@Override
-	public void pagamento(Conta conta, BigDecimal valorPagam, String codigoDeBarras) {
+	public boolean pagamento(Conta conta, BigDecimal valorPagam, String codigoDeBarras) {
+
+		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
+		BigDecimal saldoApos = conta.getSaldo();
+
+		if (conta.getSaldo().compareTo(valorPagam) >= 0) {
+
+			conta.setSaldo(saldoApos.subtract(valorPagam));
+
+			new ContaDao().updateSaldo(conta, conta.getSaldo());
+
+		} else if (valorPagam.compareTo(conta.getSaldo()) < 0) {
+			JOptionPane.showMessageDialog(null,
+					"Saldo insuficiente para pagamento! Seu saldo é de R$ " + conta.getSaldo(), "Atenção",
+					JOptionPane.WARNING_MESSAGE);
+			return false;
+		} else {
+
+			conta.setSaldo(saldoApos.subtract(valorPagam));
+
+			new ContaDao().updateSaldo(conta, conta.getSaldo());
+		}
+		return false;
 
 	}
 

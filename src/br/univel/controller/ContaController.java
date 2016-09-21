@@ -93,9 +93,9 @@ public class ContaController implements ContaMethods {
 	}
 
 	@Override
-	public void pagamento(Conta conta, BigDecimal valorPagam, String codigoDeBarras) {
+	public boolean pagamento(Conta conta, BigDecimal valorPagam, String codigoDeBarras) {
 
-		new MovimentacaoFacade().pagamento(conta, valorPagam, codigoDeBarras);
+		return new MovimentacaoFacade().pagamento(conta, valorPagam, codigoDeBarras);
 
 	}
 

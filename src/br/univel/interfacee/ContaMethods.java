@@ -12,7 +12,7 @@ public interface ContaMethods {
 
 	public void transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf);
 
-	public void pagamento(Conta conta, BigDecimal valorPagam, String codigoDeBarras);
+	public boolean pagamento(Conta conta, BigDecimal valorPagam, String codigoDeBarras);
 
 	public void finalizarConta(Conta conta);
 

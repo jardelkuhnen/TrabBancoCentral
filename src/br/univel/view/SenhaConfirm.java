@@ -5,6 +5,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 
 import javax.swing.JButton;
@@ -12,25 +14,26 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 
 import br.univel.controller.ContaController;
-import br.univel.dao.ContaDao;
 import br.univel.enun.Operacao;
 import br.univel.model.Conta;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JPasswordField;
 
 public class SenhaConfirm extends JFrame {
 
-	private JPanel contentPane;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private StringBuilder senhaInformada;
 	private JPasswordField txtSenha;
+	private SenhaConfirm senhaConfirm;
 
-	public SenhaConfirm(Conta conta, BigDecimal valorSaque) {
+	public SenhaConfirm(Conta conta, BigDecimal vlrSaque) {
 		setSize(525, 150);
 		setTitle("Senha");
+		senhaConfirm = this;
 		senhaInformada = new StringBuilder();
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -138,6 +141,7 @@ public class SenhaConfirm extends JFrame {
 
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 
 				senhaInformada = new StringBuilder();
@@ -145,24 +149,23 @@ public class SenhaConfirm extends JFrame {
 
 				if (conta.getSenhaOperacoes().equals(senhaInformada.toString())) {
 
-					boolean sacou = new ContaController().saque(conta, valorSaque, senhaInformada.toString());
+					boolean sacou = new ContaController().saque(conta, vlrSaque, senhaInformada.toString());
 
 					senhaInformada = new StringBuilder();
 					atualizaTextField(senhaInformada);
 
 					if (sacou) {
-						OperacaoRealizada opRealizada = new OperacaoRealizada(conta, Operacao.SAQUE,
-								valorSaque.toString());
+						OperacaoRealizada opRealizada = new OperacaoRealizada(conta, Operacao.SAQUE, vlrSaque);
 						opRealizada.setVisible(true);
+						senhaConfirm.setVisible(false);
+					} else {
+						JOptionPane.showMessageDialog(SenhaConfirm.this, "Senha inválida!", "Atenção",
+								JOptionPane.ERROR_MESSAGE);
+						senhaInformada = new StringBuilder();
+						atualizaTextField(senhaInformada);
 					}
 
-				} else {
-					JOptionPane.showMessageDialog(SenhaConfirm.this, "Senha inválida!", "Atenção",
-							JOptionPane.ERROR_MESSAGE);
-					senhaInformada = new StringBuilder();
-					atualizaTextField(senhaInformada);
 				}
-
 			}
 		});
 		GridBagConstraints gbc_btnConfirmar = new GridBagConstraints();
@@ -242,6 +245,16 @@ public class SenhaConfirm extends JFrame {
 		gbc_btnNove.gridx = 6;
 		gbc_btnNove.gridy = 2;
 		panel.add(btnNove, gbc_btnNove);
+
+	}
+
+	protected void validacaoDeposito(Conta conta, BigDecimal valor) {
+
+		boolean pagou = new ContaController().pagamento(conta, valor, "");
+
+	}
+
+	protected void validacaoSaque(Conta conta, BigDecimal valorSaque) {
 
 	}
 

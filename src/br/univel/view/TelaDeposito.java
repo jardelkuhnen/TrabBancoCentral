@@ -34,10 +34,12 @@ public class TelaDeposito extends PadraoCliente {
 	private JCheckBox ckbContaLogada;
 	private Conta conta;
 	private JComboBox cmbTipoConta;
+	private TelaDeposito telaDeposito;
 
 	public TelaDeposito(Conta conta) {
 		super(conta);
 		this.conta = conta;
+		telaDeposito = this;
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 0.0 };
@@ -150,7 +152,8 @@ public class TelaDeposito extends PadraoCliente {
 							"Atenção", JOptionPane.WARNING_MESSAGE);
 				} else {
 
-					BigDecimal valorDeposito = new BigDecimal(txtValorDeposito.getText().replaceAll(",", "."));
+					BigDecimal valorDeposito = new BigDecimal(
+							txtValorDeposito.getText().replace(",", ".").replace(".", ""));
 
 					if (ckbContaLogada.isSelected()) {
 						new ContaController().deposito(conta, valorDeposito);

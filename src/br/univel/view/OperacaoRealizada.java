@@ -20,9 +20,9 @@ public class OperacaoRealizada extends PadraoCliente {
 	private JLabel lblValor;
 	private JLabel lblOperacaoRealizada;
 	private Operacao operacao;
-	private String vlrOperacao;
+	private BigDecimal vlrOperacao;
 
-	public OperacaoRealizada(Conta conta, Operacao operacao, String vlrOperacao) {
+	public OperacaoRealizada(Conta conta, Operacao operacao, BigDecimal vlrOperacao) {
 		super(conta);
 		this.operacao = operacao;
 		this.vlrOperacao = vlrOperacao;
@@ -97,7 +97,7 @@ public class OperacaoRealizada extends PadraoCliente {
 	private void setInformacoes() {
 
 		lblOperacaoRealizada.setText("Operação " + operacao.getOperacao() + " realizada com sucesso");
-		lblValor.setText(vlrOperacao);
+		lblValor.setText(String.valueOf(vlrOperacao));
 
 	}
 

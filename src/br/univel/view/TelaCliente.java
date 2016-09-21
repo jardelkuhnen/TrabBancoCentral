@@ -18,7 +18,6 @@ public class TelaCliente extends PadraoCliente {
 	static final String CONTA_ELETRONICA = "Conta Eletrônica";
 	static final String CONTA_POUPANCA = "Conta Poupança";
 	static final String CONTA_CORRENTE = "Conta Corrente";
-	private JPanel contentPane;
 	private JButton btnSaque;
 	private JButton btnTransferncia;
 	private JButton btnSaldo;
@@ -90,8 +89,11 @@ public class TelaCliente extends PadraoCliente {
 		btnPagamentos = new JButton("5- Pagamentos");
 		btnPagamentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
+
+				TelaPagamento telaPag = new TelaPagamento(conta);
+				telaPag.setVisible(true);
+				telaPag.setLocationRelativeTo(null);
+
 			}
 		});
 		GridBagConstraints gbc_btnPagamentos = new GridBagConstraints();
