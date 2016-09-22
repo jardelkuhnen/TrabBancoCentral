@@ -55,7 +55,7 @@ public class TelaSaque extends PadraoCliente {
 		btnCinquenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(50.00));
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(50.00), null, Operacao.SAQUE);
 				senhaConfirme.setVisible(true);
 			}
 		});
@@ -70,7 +70,7 @@ public class TelaSaque extends PadraoCliente {
 		btnCem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(100.00));
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(100.00), null, Operacao.SAQUE);
 				senhaConfirme.setVisible(true);
 			}
 		});
@@ -85,7 +85,7 @@ public class TelaSaque extends PadraoCliente {
 		btnDuzentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(200.00));
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(200.00), null, Operacao.SAQUE);
 				senhaConfirme.setVisible(true);
 			}
 		});
@@ -100,7 +100,7 @@ public class TelaSaque extends PadraoCliente {
 		btnTrezentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(300.00));
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(300.00), null, Operacao.SAQUE);
 				senhaConfirme.setVisible(true);
 			}
 		});
@@ -115,7 +115,7 @@ public class TelaSaque extends PadraoCliente {
 		btnQuinhentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(500.00));
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(500.00), null, Operacao.SAQUE);
 				senhaConfirme.setVisible(true);
 
 			}
@@ -161,7 +161,7 @@ public class TelaSaque extends PadraoCliente {
 				} else {
 
 					new SenhaConfirm(conta,
-							new BigDecimal(txtValor.getText().replace(",", "").replace(".", "").toString()))
+							new BigDecimal(txtValor.getText().replace(",", "").replace(".", "").toString()), null, Operacao.SAQUE)
 									.setVisible(true);
 				}
 

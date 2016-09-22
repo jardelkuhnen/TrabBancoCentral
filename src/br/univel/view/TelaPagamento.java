@@ -96,12 +96,16 @@ public class TelaPagamento extends PadraoCliente {
 		btnConfirme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				new ContaController().pagamento(conta,
-						new BigDecimal(txtValorPag.getText().replace(".", "").replace(",", "")),
-						txtCodbarras.getText().trim());
+				BigDecimal valorPag = new BigDecimal(txtValorPag.getText().replace(".", "").replace(",", ""));
 
 				txtCodbarras.setText("");
-				txtValorPag.setText("");
+				txtValorPag.setText("0.00");
+				boolean pagou = new ContaController().pagamento(conta, valorPag, txtCodbarras.getText().trim());
+
+				if (pagou) {
+					new OperacaoRealizada(conta, Operacao.DEPOSITO, valorPag).setVisible(true);
+				}
+
 			}
 		});
 		GridBagConstraints gbc_btnConfirme = new GridBagConstraints();

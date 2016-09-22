@@ -10,7 +10,7 @@ public interface ContaMethods {
 
 	public boolean saque(Conta conta, BigDecimal valorSaque, String senhaInformada);
 
-	public void transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf);
+	public boolean transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf);
 
 	public boolean pagamento(Conta conta, BigDecimal valorPagam, String codigoDeBarras);
 

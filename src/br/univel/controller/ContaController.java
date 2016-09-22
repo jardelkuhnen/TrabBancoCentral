@@ -36,14 +36,8 @@ public class ContaController implements ContaMethods {
 			conta.setUsuarioAcesso(userAcessoHash);
 			conta.setSenhaAcesso(senhaAcessoHash);
 
-			try {
-
-				new ContaDao().add(conta);
-				new UsuarioDao().add(usuario);
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			new ContaDao().add(conta);
+			new UsuarioDao().add(usuario);
 
 		} else {
 			String mensagem = "Agência " + conta.getAgencia() + " inexistente!!!";
@@ -88,7 +82,9 @@ public class ContaController implements ContaMethods {
 	}
 
 	@Override
-	public void transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf) {
+	public boolean transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf) {
+
+		return new MovimentacaoFacade().transferencia(conta, contaRecebeTransf, valorTransf);
 
 	}
 

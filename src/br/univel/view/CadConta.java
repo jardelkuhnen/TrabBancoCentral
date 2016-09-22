@@ -35,8 +35,7 @@ public class CadConta extends PadraoBancario {
 
 	public CadConta() {
 		super();
-		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
-				.getLayout();
+		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0 };
 		setExtendedState(MAXIMIZED_BOTH);
@@ -51,12 +50,10 @@ public class CadConta extends PadraoBancario {
 		getContentPane().add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 0, 197, 225, 0, 0 };
-		gbl_panel.rowHeights = new int[] { 30, 14, 20, 14, 20, 14, 20, 14, 20,
-				23, 0, 0, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0,
+		gbl_panel.rowHeights = new int[] { 30, 14, 20, 14, 20, 14, 20, 14, 20, 23, 0, 0, 0 };
+		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		JLabel lblNome = new JLabel("Nome");
@@ -111,8 +108,7 @@ public class CadConta extends PadraoBancario {
 		}
 
 		try {
-			txtCpf = new JFormattedTextField(
-					new MaskFormatter("###.###.###-##"));
+			txtCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
 			GridBagConstraints gbc_txtCpf = new GridBagConstraints();
 			gbc_txtCpf.anchor = GridBagConstraints.NORTH;
 			gbc_txtCpf.fill = GridBagConstraints.HORIZONTAL;
@@ -141,15 +137,19 @@ public class CadConta extends PadraoBancario {
 		gbc_lblTipoConta.gridy = 5;
 		panel.add(lblTipoConta, gbc_lblTipoConta);
 
-		txtAgencia = new JTextField();
-		GridBagConstraints gbc_txtAgencia = new GridBagConstraints();
-		gbc_txtAgencia.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtAgencia.anchor = GridBagConstraints.NORTH;
-		gbc_txtAgencia.insets = new Insets(0, 0, 5, 5);
-		gbc_txtAgencia.gridx = 1;
-		gbc_txtAgencia.gridy = 6;
-		panel.add(txtAgencia, gbc_txtAgencia);
-		txtAgencia.setColumns(10);
+		try {
+			txtAgencia = new JFormattedTextField(new MaskFormatter("#####-##"));
+			GridBagConstraints gbc_txtAgencia = new GridBagConstraints();
+			gbc_txtAgencia.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtAgencia.anchor = GridBagConstraints.NORTH;
+			gbc_txtAgencia.insets = new Insets(0, 0, 5, 5);
+			gbc_txtAgencia.gridx = 1;
+			gbc_txtAgencia.gridy = 6;
+			panel.add(txtAgencia, gbc_txtAgencia);
+			txtAgencia.setColumns(10);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 
 		JComboBox cmbTipoConta = new JComboBox(TipoConta.values());
 		GridBagConstraints gbc_cmbTipoConta = new GridBagConstraints();
@@ -221,17 +221,12 @@ public class CadConta extends PadraoBancario {
 		btnConfrime.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				if (txtAgencia.getText().equals("")
-						|| txtNome.getText().equals("")
-						|| txtIdade.getText().equals("")
-						|| txtCpf.getText().equals("")
-						|| txtAgencia.getText().equals("")
-						|| txtUsuario.getText().equals("")
-						|| txtSenhaAcesso.getText().equals("")
+				if (txtAgencia.getText().equals("") || txtNome.getText().equals("") || txtIdade.getText().equals("")
+						|| txtCpf.getText().equals("") || txtAgencia.getText().equals("")
+						|| txtUsuario.getText().equals("") || txtSenhaAcesso.getText().equals("")
 						|| txtSenhaOpera.getText().equals("")) {
 
-					JOptionPane.showMessageDialog(null,
-							"Informe todos os campos!!!", "Atenção",
+					JOptionPane.showMessageDialog(null, "Informe todos os campos!!!", "Atenção",
 							JOptionPane.ERROR_MESSAGE, null);
 					txtNome.requestFocus();
 				} else {
@@ -241,9 +236,8 @@ public class CadConta extends PadraoBancario {
 					conta.setNome(txtNome.getText().trim());
 					conta.setIdade(Integer.parseInt(txtIdade.getText()));
 					conta.setCpf(txtCpf.getText());
-					conta.setAgencia(txtAgencia.getText());
-					conta.setTipoConta(cmbTipoConta.getSelectedItem()
-							.toString());
+					conta.setAgencia(txtAgencia.getText().replace("-", ""));
+					conta.setTipoConta(cmbTipoConta.getSelectedItem().toString());
 					conta.setUsuarioAcesso(txtUsuario.getText());
 					conta.setSenhaAcesso(txtSenhaAcesso.getText());
 					conta.setSenhaOperacoes(txtSenhaOpera.getText());

@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
@@ -80,7 +81,7 @@ public class OperacaoRealizada extends PadraoCliente {
 		JButton btnRetornar = new JButton("Retornar");
 		btnRetornar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				new TelaCliente(conta).setVisible(true);
 			}
 		});
 		GridBagConstraints gbc_btnRetornar = new GridBagConstraints();
@@ -97,7 +98,7 @@ public class OperacaoRealizada extends PadraoCliente {
 	private void setInformacoes() {
 
 		lblOperacaoRealizada.setText("Operação " + operacao.getOperacao() + " realizada com sucesso");
-		lblValor.setText(String.valueOf(vlrOperacao));
+		lblValor.setText(NumberFormat.getCurrencyInstance().format(vlrOperacao));
 
 	}
 

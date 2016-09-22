@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import br.univel.controller.AgenciaController;
 import br.univel.dao.AgenciaDao;
@@ -18,10 +19,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
 public class CadAgencia extends PadraoBancario implements WindowListener {
@@ -88,14 +92,18 @@ public class CadAgencia extends PadraoBancario implements WindowListener {
 		gbc_lblNewLabel.gridy = 3;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
 
-		txtNumero = new JTextField();
-		GridBagConstraints gbc_txtNumero = new GridBagConstraints();
-		gbc_txtNumero.insets = new Insets(0, 0, 5, 5);
-		gbc_txtNumero.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtNumero.gridx = 1;
-		gbc_txtNumero.gridy = 4;
-		panel.add(txtNumero, gbc_txtNumero);
-		txtNumero.setColumns(10);
+		try {
+			txtNumero = new JFormattedTextField(new MaskFormatter("#####-##"));
+			GridBagConstraints gbc_txtNumero = new GridBagConstraints();
+			gbc_txtNumero.insets = new Insets(0, 0, 5, 5);
+			gbc_txtNumero.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtNumero.gridx = 1;
+			gbc_txtNumero.gridy = 4;
+			panel.add(txtNumero, gbc_txtNumero);
+			txtNumero.setColumns(10);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		JLabel lblNewLabel_1 = new JLabel("Cidade");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -120,7 +128,7 @@ public class CadAgencia extends PadraoBancario implements WindowListener {
 			public void actionPerformed(ActionEvent arg0) {
 
 				String nomeAgenc = txtNome.getText().trim();
-				String numero = txtNumero.getText().trim();
+				String numero = txtNumero.getText().trim().replace("-", "");
 				String cidade = txtCidade.getText().trim();
 
 				if (nomeAgenc.equals("") || numero.equals("") || cidade.equals("")) {

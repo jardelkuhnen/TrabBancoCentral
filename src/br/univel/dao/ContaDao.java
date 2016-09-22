@@ -11,18 +11,17 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.univel.interfacee.ContaMethods;
 import br.univel.model.Conta;
 
 public class ContaDao {
 
 	private static final String SQL_GET_CONTA = "SELECT * FROM CONTA WHERE USUARIOACESSO = ? AND SENHAACESSO = ?";
-	private static final String SQL_GET_CONTADEPOSITO = "SELECT * FROM CONTA WHERE AGENCIA = ? AND NUMEROCONTA = ? AND NOME = ?";
+	private static final String SQL_GET_CONTA_DEPOSITO = "SELECT * FROM CONTA WHERE AGENCIA = ? AND NUMEROCONTA = ? AND NOME = ?";
 	private static final String SQL_INSERT = "INSERT INTO CONTA (NOME, IDADE, CPF, AGENCIA, TIPOCONTA, USUARIOACESSO, SENHAACESSO, SENHAOPERACOES, NUMEROCONTA, SALDO) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	private static final String SQL_SELECT_ALL = "SELECT * FROM CONTA";
 	private static final String SQL_UPDATE_SALDO_CONTA = "UPDATE CONTA SET SALDO = ? WHERE NUMEROCONTA = ? AND NOME = ?";
 
-	public void add(Conta conta) throws SQLException {
+	public void add(Conta conta) {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs;
@@ -44,7 +43,11 @@ public class ContaDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(null, stmt, con);
+			try {
+				close(null, stmt, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -90,7 +93,7 @@ public class ContaDao {
 		return conta;
 	}
 
-	public List<Conta> buscarContas() throws SQLException {
+	public List<Conta> buscarContas() {
 		List<Conta> contas = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -110,7 +113,11 @@ public class ContaDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rs, stmt, con);
+			try {
+				close(rs, stmt, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return contas;
 
@@ -152,7 +159,7 @@ public class ContaDao {
 
 		try {
 			con = Conexao.getConection();
-			stmt = con.prepareStatement(SQL_GET_CONTADEPOSITO);
+			stmt = con.prepareStatement(SQL_GET_CONTA_DEPOSITO);
 
 			stmt.setString(1, agencia);
 			stmt.setString(2, numero);

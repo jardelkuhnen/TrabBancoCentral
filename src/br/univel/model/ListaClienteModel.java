@@ -16,7 +16,7 @@ public class ListaClienteModel extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 5;
+		return 6;
 	}
 
 	@Override
@@ -41,6 +41,8 @@ public class ListaClienteModel extends AbstractTableModel {
 		case 3:
 			return conta.getAgencia();
 		case 4:
+			return conta.getNumeroConta();
+		case 5:
 			return conta.getTipoConta();
 
 		default:
@@ -62,6 +64,8 @@ public class ListaClienteModel extends AbstractTableModel {
 		case 3:
 			return "Agência";
 		case 4:
+			return "Número Conta";
+		case 5:
 			return "Tipo Conta";
 
 		default:

@@ -24,6 +24,7 @@ public class TelaCliente extends PadraoCliente {
 	private JButton btnPagamentos;
 	private JButton btnDepsito;
 	private JButton btnFinaliza;
+	private TelaCliente telaCliente;
 
 	public TelaCliente(Conta conta) {
 		super(conta);
@@ -69,6 +70,9 @@ public class TelaCliente extends PadraoCliente {
 		btnTransferncia = new JButton("4- Transfer\u00EAncia");
 		btnTransferncia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				new TelaTransferencia(conta).setVisible(true);
+				
 			}
 		});
 		GridBagConstraints gbc_btnTransferncia = new GridBagConstraints();

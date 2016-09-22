@@ -30,7 +30,7 @@ public class SenhaConfirm extends JFrame {
 	private JPasswordField txtSenha;
 	private SenhaConfirm senhaConfirm;
 
-	public SenhaConfirm(Conta conta, BigDecimal vlrSaque) {
+	public SenhaConfirm(Conta conta, BigDecimal valor, Conta contaTransferir, Operacao operacao) {
 		setSize(525, 150);
 		setTitle("Senha");
 		senhaConfirm = this;
@@ -149,20 +149,14 @@ public class SenhaConfirm extends JFrame {
 
 				if (conta.getSenhaOperacoes().equals(senhaInformada.toString())) {
 
-					boolean sacou = new ContaController().saque(conta, vlrSaque, senhaInformada.toString());
+					switch (operacao) {
+					case SAQUE:
+						validacaoSaque(conta, valor);
 
-					senhaInformada = new StringBuilder();
-					atualizaTextField(senhaInformada);
-
-					if (sacou) {
-						OperacaoRealizada opRealizada = new OperacaoRealizada(conta, Operacao.SAQUE, vlrSaque);
-						opRealizada.setVisible(true);
-						senhaConfirm.setVisible(false);
-					} else {
-						JOptionPane.showMessageDialog(SenhaConfirm.this, "Senha inválida!", "Atenção",
-								JOptionPane.ERROR_MESSAGE);
-						senhaInformada = new StringBuilder();
-						atualizaTextField(senhaInformada);
+					case TRANSFERENCIA:
+						vallidacaoTransferencia(conta, contaTransferir, valor);
+					default:
+						break;
 					}
 
 				}
@@ -248,13 +242,29 @@ public class SenhaConfirm extends JFrame {
 
 	}
 
-	protected void validacaoDeposito(Conta conta, BigDecimal valor) {
-
-		boolean pagou = new ContaController().pagamento(conta, valor, "");
-
+	protected void vallidacaoTransferencia(Conta conta, Conta contaTransferir, BigDecimal valor) {
+		
+		
+		boolean transferiu = new ContaController().transferencia(conta, contaTransferir, valor);
+		
 	}
 
+
 	protected void validacaoSaque(Conta conta, BigDecimal valorSaque) {
+		boolean sacou = new ContaController().saque(conta, valorSaque, senhaInformada.toString());
+
+		senhaInformada = new StringBuilder();
+		atualizaTextField(senhaInformada);
+
+		if (sacou) {
+			OperacaoRealizada opRealizada = new OperacaoRealizada(conta, Operacao.SAQUE, valorSaque);
+			opRealizada.setVisible(true);
+			senhaConfirm.setVisible(false);
+		} else {
+			JOptionPane.showMessageDialog(SenhaConfirm.this, "Senha inválida!", "Atenção", JOptionPane.ERROR_MESSAGE);
+			senhaInformada = new StringBuilder();
+			atualizaTextField(senhaInformada);
+		}
 
 	}
 

@@ -48,7 +48,30 @@ public class MovimentacaoFacade implements ContaMethods {
 	}
 
 	@Override
-	public void transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf) {
+	public boolean transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf) {
+
+		contaRecebeTransf = new ContaDao().getConta(contaRecebeTransf.getAgencia(), contaRecebeTransf.getNumeroConta(),
+				contaRecebeTransf.getNome());
+		BigDecimal contaRecebeSaldoApos = contaRecebeTransf.getSaldo();
+
+		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
+		BigDecimal contaSaldoApos = conta.getSaldo();
+
+		if (conta.getSaldo().compareTo(valorTransf) >= 0) {
+			conta.setSaldo(contaSaldoApos.subtract(valorTransf));
+			contaRecebeTransf.setSaldo(contaRecebeSaldoApos.add(valorTransf));
+
+			new ContaDao().updateSaldo(conta, conta.getSaldo());
+			new ContaDao().updateSaldo(contaRecebeTransf, contaRecebeTransf.getSaldo());
+			return true;
+		} else if (valorTransf.compareTo(conta.getSaldo()) < 0) {
+			JOptionPane.showMessageDialog(null,
+					"Saldo insuficiente para transferência! Seu saldo é de R$ " + conta.getSaldo(), "Atenção",
+					JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+
+		return false;
 
 	}
 
@@ -64,16 +87,13 @@ public class MovimentacaoFacade implements ContaMethods {
 
 			new ContaDao().updateSaldo(conta, conta.getSaldo());
 
+			return true;
+
 		} else if (valorPagam.compareTo(conta.getSaldo()) < 0) {
 			JOptionPane.showMessageDialog(null,
 					"Saldo insuficiente para pagamento! Seu saldo é de R$ " + conta.getSaldo(), "Atenção",
 					JOptionPane.WARNING_MESSAGE);
 			return false;
-		} else {
-
-			conta.setSaldo(saldoApos.subtract(valorPagam));
-
-			new ContaDao().updateSaldo(conta, conta.getSaldo());
 		}
 		return false;
 
