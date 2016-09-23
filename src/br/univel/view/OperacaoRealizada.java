@@ -17,6 +17,10 @@ import java.awt.Font;
 
 public class OperacaoRealizada extends PadraoCliente {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblValor;
 	private JLabel lblOperacaoRealizada;
@@ -28,6 +32,7 @@ public class OperacaoRealizada extends PadraoCliente {
 		this.operacao = operacao;
 		this.vlrOperacao = vlrOperacao;
 		setResizable(false);
+		setLocationRelativeTo(null);
 		setTitle("Operação " + operacao.getOperacao() + " realizada com sucesso");
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };

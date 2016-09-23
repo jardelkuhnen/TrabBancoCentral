@@ -72,7 +72,7 @@ public class TelaCliente extends PadraoCliente {
 			public void actionPerformed(ActionEvent e) {
 
 				new TelaTransferencia(conta).setVisible(true);
-				
+
 			}
 		});
 		GridBagConstraints gbc_btnTransferncia = new GridBagConstraints();

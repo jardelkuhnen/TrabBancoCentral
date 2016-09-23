@@ -194,7 +194,7 @@ public class TelaTransferencia extends PadraoCliente {
 				} else {
 
 					String valor = txtValor.getText().replace(".", "").replace(",", ".");
-					new SenhaConfirm(conta, new BigDecimal(valor), contaRecebeTransf, Operacao.TRANSFERENCIA)
+					new SenhaConfirm(conta, new BigDecimal(valor), contaRecebeTransf, Operacao.TRANSFERENCIA, null)
 							.setVisible(true);
 
 					limparCampos();

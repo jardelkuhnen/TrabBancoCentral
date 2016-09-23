@@ -32,7 +32,7 @@ public class SenhaConfirm extends JFrame {
 	private JPasswordField txtSenha;
 	private SenhaConfirm senhaConfirm;
 
-	public SenhaConfirm(Conta conta, BigDecimal valor, Conta contaTransferir, Operacao operacao) {
+	public SenhaConfirm(Conta conta, BigDecimal valor, Conta contaTransferir, Operacao operacao, String codBarras) {
 		setSize(525, 150);
 		setTitle("Senha");
 		senhaConfirm = this;
@@ -158,6 +158,9 @@ public class SenhaConfirm extends JFrame {
 					case TRANSFERENCIA:
 						vallidacaoTransferencia(conta, contaTransferir, valor);
 						break;
+					case PAGAMENTO:
+						validacaoPagamento(conta, valor, operacao, codBarras);
+						break;
 					default:
 						break;
 					}
@@ -247,18 +250,28 @@ public class SenhaConfirm extends JFrame {
 
 	}
 
+	protected void validacaoPagamento(Conta conta, BigDecimal valor, Operacao operacao, String codBarras) {
+
+		boolean pagou = new ContaController().pagamento(conta, valor, codBarras);
+		limparCampos();
+		if (pagou) {
+			OperacaoRealizada opRealizada = new OperacaoRealizada(conta, Operacao.PAGAMENTO, valor);
+			opRealizada.setVisible(true);
+			senhaConfirm.setVisible(false);
+		}
+
+	}
+
 	protected void vallidacaoTransferencia(Conta conta, Conta contaTransferir, BigDecimal valor) {
 
 		boolean transferiu = new ContaController().transferencia(conta, contaTransferir, valor);
-
+		
+		limparCampos();
+		
 		if (transferiu) {
 			OperacaoRealizada opRealizada = new OperacaoRealizada(contaTransferir, Operacao.TRANSFERENCIA, valor);
 			opRealizada.setVisible(true);
 			senhaConfirm.setVisible(false);
-		} else {
-			JOptionPane.showMessageDialog(SenhaConfirm.this, "Senha inválida!", "Atenção", JOptionPane.ERROR_MESSAGE);
-			senhaInformada = new StringBuilder();
-			atualizaTextField(senhaInformada);
 		}
 
 	}
@@ -266,19 +279,18 @@ public class SenhaConfirm extends JFrame {
 	protected void validacaoSaque(Conta conta, BigDecimal valorSaque) {
 		boolean sacou = new ContaController().saque(conta, valorSaque, senhaInformada.toString());
 
-		senhaInformada = new StringBuilder();
-		atualizaTextField(senhaInformada);
+		limparCampos();
 
 		if (sacou) {
 			OperacaoRealizada opRealizada = new OperacaoRealizada(conta, Operacao.SAQUE, valorSaque);
 			opRealizada.setVisible(true);
 			senhaConfirm.setVisible(false);
-		} else {
-			JOptionPane.showMessageDialog(SenhaConfirm.this, "Senha inválida!", "Atenção", JOptionPane.ERROR_MESSAGE);
-			senhaInformada = new StringBuilder();
-			atualizaTextField(senhaInformada);
 		}
+	}
 
+	private void limparCampos() {
+		senhaInformada = new StringBuilder();
+		atualizaTextField(senhaInformada);
 	}
 
 	protected void atualizaTextField(StringBuilder senhaInformada) {

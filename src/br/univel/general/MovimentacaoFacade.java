@@ -33,15 +33,10 @@ public class MovimentacaoFacade implements ContaMethods {
 
 			new ContaDao().updateSaldo(conta, conta.getSaldo());
 
-		} else if (valorSaque.compareTo(conta.getSaldo()) < 0) {
+		} else {
 			JOptionPane.showMessageDialog(null, "Saldo insuficiente para saque! Seu saldo é de R$ " + conta.getSaldo(),
 					"Atenção", JOptionPane.WARNING_MESSAGE);
 			return false;
-		} else {
-
-			conta.setSaldo(saldoApos.subtract(valorSaque));
-
-			new ContaDao().updateSaldo(conta, conta.getSaldo());
 		}
 		return true;
 
@@ -55,26 +50,24 @@ public class MovimentacaoFacade implements ContaMethods {
 		System.out.println(contaRecebeSaldoApos);
 
 		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
-		
+
 		BigDecimal contaSaldoApos = conta.getSaldo();
 
 		if (conta.getSaldo().compareTo(valorTransf) >= 0) {
-			
+
 			conta.setSaldo(contaSaldoApos.subtract(valorTransf));
 			contaRecebeTransf.setSaldo(contaRecebeSaldoApos.add(valorTransf));
 
 			new ContaDao().updateSaldo(conta, conta.getSaldo());
 			new ContaDao().updateSaldo(contaRecebeTransf, contaRecebeTransf.getSaldo());
-			
+
 			return true;
-		} else if (valorTransf.compareTo(conta.getSaldo()) < 0) {
+		} else {
 			JOptionPane.showMessageDialog(null,
 					"Saldo insuficiente para transferência! Seu saldo é de R$ " + conta.getSaldo(), "Atenção",
 					JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
-
-		return false;
 
 	}
 
@@ -100,13 +93,12 @@ public class MovimentacaoFacade implements ContaMethods {
 
 			return true;
 
-		} else if (valorPagam.compareTo(conta.getSaldo()) < 0) {
+		} else {
 			JOptionPane.showMessageDialog(null,
 					"Saldo insuficiente para pagamento! Seu saldo é de R$ " + conta.getSaldo(), "Atenção",
 					JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
-		return false;
 
 	}
 
