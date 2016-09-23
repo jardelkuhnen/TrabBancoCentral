@@ -161,7 +161,7 @@ public class TelaSaque extends PadraoCliente {
 				} else {
 
 					new SenhaConfirm(conta,
-							new BigDecimal(txtValor.getText().replace(",", "").replace(".", "").toString()), null, Operacao.SAQUE)
+							new BigDecimal(txtValor.getText().replace(".", "").replace(",", ".").toString()), null, Operacao.SAQUE)
 									.setVisible(true);
 				}
 

@@ -70,6 +70,9 @@ public class ContaController implements ContaMethods {
 	@Override
 	public void deposito(Conta conta, BigDecimal valorDeposito) {
 
+		/**
+		 * Busca as informacoes da conta no banco
+		 */
 		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
 
 		if (conta.getId() == null) {

@@ -3,6 +3,7 @@ package br.univel.view;
 import br.univel.controller.ContaController;
 import br.univel.enun.Operacao;
 import br.univel.enun.TipoConta;
+import br.univel.general.MovimentacaoFacade;
 import br.univel.model.Conta;
 import javax.swing.JPanel;
 import java.awt.GridBagConstraints;
@@ -12,6 +13,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -181,11 +183,24 @@ public class TelaTransferencia extends PadraoCliente {
 				contaRecebeTransf.setNome(txtTitular.getText().trim());
 				contaRecebeTransf.setNumeroConta(txtConta.getText().replace("-", ""));
 				contaRecebeTransf.setTipoConta(cmbTipoConta.getSelectedItem().toString());
-				
-				String valor = txtValor.getText().replace(".", "").replace(",", "");
-				new SenhaConfirm(conta, new BigDecimal(valor), contaRecebeTransf, Operacao.TRANSFERENCIA).setVisible(true);
-				
-				limparCampos();
+
+				contaRecebeTransf = new MovimentacaoFacade().validaContaTransferencia(contaRecebeTransf);
+
+				if (contaRecebeTransf == null) {
+
+					JOptionPane.showMessageDialog(TelaTransferencia.this, "Conta não localizada!", "Atenção",
+							JOptionPane.WARNING_MESSAGE);
+
+				} else {
+
+					String valor = txtValor.getText().replace(".", "").replace(",", ".");
+					new SenhaConfirm(conta, new BigDecimal(valor), contaRecebeTransf, Operacao.TRANSFERENCIA)
+							.setVisible(true);
+
+					limparCampos();
+
+				}
+
 			}
 		});
 		GridBagConstraints gbc_btnConfirme = new GridBagConstraints();

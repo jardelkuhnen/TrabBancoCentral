@@ -50,19 +50,22 @@ public class MovimentacaoFacade implements ContaMethods {
 	@Override
 	public boolean transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf) {
 
-		contaRecebeTransf = new ContaDao().getConta(contaRecebeTransf.getAgencia(), contaRecebeTransf.getNumeroConta(),
-				contaRecebeTransf.getNome());
 		BigDecimal contaRecebeSaldoApos = contaRecebeTransf.getSaldo();
 
+		System.out.println(contaRecebeSaldoApos);
+
 		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
+		
 		BigDecimal contaSaldoApos = conta.getSaldo();
 
 		if (conta.getSaldo().compareTo(valorTransf) >= 0) {
+			
 			conta.setSaldo(contaSaldoApos.subtract(valorTransf));
 			contaRecebeTransf.setSaldo(contaRecebeSaldoApos.add(valorTransf));
 
 			new ContaDao().updateSaldo(conta, conta.getSaldo());
 			new ContaDao().updateSaldo(contaRecebeTransf, contaRecebeTransf.getSaldo());
+			
 			return true;
 		} else if (valorTransf.compareTo(conta.getSaldo()) < 0) {
 			JOptionPane.showMessageDialog(null,
@@ -73,6 +76,14 @@ public class MovimentacaoFacade implements ContaMethods {
 
 		return false;
 
+	}
+
+	public Conta validaContaTransferencia(Conta contaRecebeTransf) {
+		/**
+		 * Consulta no banco as informacoes da conta a receber transferencia
+		 */
+		return contaRecebeTransf = new ContaDao().getConta(contaRecebeTransf.getAgencia(),
+				contaRecebeTransf.getNumeroConta(), contaRecebeTransf.getNome());
 	}
 
 	@Override

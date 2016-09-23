@@ -176,7 +176,7 @@ public class ContaDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return conta;
+		return null;
 	}
 
 	public void updateSaldo(Conta conta, BigDecimal valorDeposito) {

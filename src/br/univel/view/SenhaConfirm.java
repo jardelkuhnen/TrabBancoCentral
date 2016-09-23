@@ -19,6 +19,8 @@ import javax.swing.JPasswordField;
 import br.univel.controller.ContaController;
 import br.univel.enun.Operacao;
 import br.univel.model.Conta;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class SenhaConfirm extends JFrame {
 
@@ -152,9 +154,10 @@ public class SenhaConfirm extends JFrame {
 					switch (operacao) {
 					case SAQUE:
 						validacaoSaque(conta, valor);
-
+						break;
 					case TRANSFERENCIA:
 						vallidacaoTransferencia(conta, contaTransferir, valor);
+						break;
 					default:
 						break;
 					}
@@ -239,16 +242,26 @@ public class SenhaConfirm extends JFrame {
 		gbc_btnNove.gridx = 6;
 		gbc_btnNove.gridy = 2;
 		panel.add(btnNove, gbc_btnNove);
+		panel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { lblNewLabel, txtSenha, btnConfirmar,
+				btnZero, btnUm, btnDois, btnTres, btnQuatro, btnCinco, btnSeis, btnSete, btnOito, btnNove }));
 
 	}
 
 	protected void vallidacaoTransferencia(Conta conta, Conta contaTransferir, BigDecimal valor) {
-		
-		
-		boolean transferiu = new ContaController().transferencia(conta, contaTransferir, valor);
-		
-	}
 
+		boolean transferiu = new ContaController().transferencia(conta, contaTransferir, valor);
+
+		if (transferiu) {
+			OperacaoRealizada opRealizada = new OperacaoRealizada(contaTransferir, Operacao.TRANSFERENCIA, valor);
+			opRealizada.setVisible(true);
+			senhaConfirm.setVisible(false);
+		} else {
+			JOptionPane.showMessageDialog(SenhaConfirm.this, "Senha inválida!", "Atenção", JOptionPane.ERROR_MESSAGE);
+			senhaInformada = new StringBuilder();
+			atualizaTextField(senhaInformada);
+		}
+
+	}
 
 	protected void validacaoSaque(Conta conta, BigDecimal valorSaque) {
 		boolean sacou = new ContaController().saque(conta, valorSaque, senhaInformada.toString());

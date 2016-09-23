@@ -153,7 +153,7 @@ public class TelaDeposito extends PadraoCliente {
 				} else {
 
 					BigDecimal valorDeposito = new BigDecimal(
-							txtValorDeposito.getText().replace(",", ".").replace(".", ""));
+							txtValorDeposito.getText().replace(".", "").replace(",", "."));
 
 					if (ckbContaLogada.isSelected()) {
 						new ContaController().deposito(conta, valorDeposito);
