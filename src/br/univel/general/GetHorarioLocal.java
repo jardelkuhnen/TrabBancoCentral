@@ -6,9 +6,9 @@ import java.util.Calendar;
 
 public class GetHorarioLocal {
 
-	public String getHorarioLocal() {
+	public String getHorarioLocal(String formatoData) {
 
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		DateFormat dateFormat = new SimpleDateFormat(formatoData);
 		Calendar cal = Calendar.getInstance();
 
 		return dateFormat.format(cal.getTime());

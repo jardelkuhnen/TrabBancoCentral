@@ -3,10 +3,9 @@ package br.univel.interfacee;
 import java.math.BigDecimal;
 
 import br.univel.model.Conta;
+import br.univel.view.TelaDeposito;
 
 public interface ContaMethods {
-
-	public void deposito(Conta conta, BigDecimal valorDeposito);
 
 	public boolean saque(Conta conta, BigDecimal valorSaque, String senhaInformada);
 
@@ -15,5 +14,7 @@ public interface ContaMethods {
 	public boolean pagamento(Conta conta, BigDecimal valorPagam, String codigoDeBarras);
 
 	public void finalizarConta(Conta conta);
+
+	public void deposito(Conta conta, BigDecimal valorDeposito);
 
 }

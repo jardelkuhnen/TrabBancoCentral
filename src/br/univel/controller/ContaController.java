@@ -117,13 +117,9 @@ public class ContaController implements ContaMethods {
 	public Conta openBancario(String agencia, String numeroConta, String tipoConta, String titular) {
 
 		Conta conta = new ContaDao().getConta(agencia, numeroConta, titular);
-		
-		return conta;
-		
-		
 
-		
-		
+		return conta;
+
 	}
 
 }

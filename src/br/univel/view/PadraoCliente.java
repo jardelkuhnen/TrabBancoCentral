@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.math.BigDecimal;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -14,9 +15,38 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import br.univel.general.GetHorarioLocal;
+import br.univel.interfacee.ContaMethods;
 import br.univel.model.Conta;
+import br.univel.model.FormatoData;
 
-public abstract class PadraoCliente extends JFrame {
+public abstract class PadraoCliente extends JFrame implements ContaMethods {
+
+	@Override
+	public void deposito(Conta conta, BigDecimal valorDeposito) {
+		populaTelaInfConta(conta);
+	}
+
+	@Override
+	public boolean saque(Conta conta, BigDecimal valorSaque, String senhaInformada) {
+		populaTelaInfConta(conta);
+		return false;
+	}
+
+	@Override
+	public boolean transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf) {
+		populaTelaInfConta(conta);
+		return false;
+	}
+
+	@Override
+	public boolean pagamento(Conta conta, BigDecimal valorPagam, String codigoDeBarras) {
+		populaTelaInfConta(conta);
+		return false;
+	}
+
+	@Override
+	public void finalizarConta(Conta conta) {
+	}
 
 	/**
 	 * 
@@ -112,7 +142,7 @@ public abstract class PadraoCliente extends JFrame {
 
 		lblDataAcess = new JLabel("");
 		lblDataAcess.setForeground(new Color(0, 0, 205));
-		lblDataAcess.setText(new GetHorarioLocal().getHorarioLocal());
+		lblDataAcess.setText(new GetHorarioLocal().getHorarioLocal(FormatoData.getDtformattddmmyyyyhhmm()));
 		GridBagConstraints gbc_lblDataAcess = new GridBagConstraints();
 		gbc_lblDataAcess.anchor = GridBagConstraints.NORTHEAST;
 		gbc_lblDataAcess.insets = new Insets(0, 0, 5, 0);
@@ -220,7 +250,7 @@ public abstract class PadraoCliente extends JFrame {
 
 	}
 
-	private void populaTelaInfConta(Conta conta) {
+	public void populaTelaInfConta(Conta conta) {
 		lblSaldo.setText(String.valueOf(conta.getSaldo()));
 		lblNumConta.setText(conta.getNumeroConta());
 		lblAgencia.setText(conta.getAgencia());

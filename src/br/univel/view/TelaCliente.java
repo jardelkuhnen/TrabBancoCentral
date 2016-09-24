@@ -112,7 +112,7 @@ public class TelaCliente extends PadraoCliente {
 			public void actionPerformed(ActionEvent arg0) {
 
 				new TelaDeposito(conta).setVisible(true);
-
+				TelaCliente telaCliente = new TelaCliente(conta);
 			}
 		});
 

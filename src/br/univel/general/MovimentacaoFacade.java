@@ -1,25 +1,60 @@
 package br.univel.general;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import br.univel.dao.ContaDao;
 import br.univel.dao.UsuarioDao;
+import br.univel.enun.Operacao;
 import br.univel.interfacee.ContaMethods;
 import br.univel.model.Conta;
+import br.univel.view.TelaDeposito;
 
 public class MovimentacaoFacade implements ContaMethods {
 
+	final List<ContaMethods> observers = new ArrayList<>();
+
 	ContaDao contaDao = new ContaDao();
+
+	protected void addObserver(ContaMethods observer) {
+		this.observers.add(observer);
+	}
 
 	@Override
 	public void deposito(Conta conta, BigDecimal valorDeposito) {
 
 		BigDecimal vlrAtualizar = conta.getSaldo().add(valorDeposito);
 
+		conta.setSaldo(vlrAtualizar);
 		new ContaDao().updateSaldo(conta, vlrAtualizar);
+		notifyObservers(Operacao.DEPOSITO, valorDeposito, conta);
 
+	}
+
+	protected void notifyObservers(Operacao operacao, BigDecimal valor, Conta conta) {
+
+		switch (operacao) {
+		case DEPOSITO:
+			for (final ContaMethods observer : observers)
+				observer.deposito(conta, valor);
+			break;
+		case PAGAMENTO:
+			for (final ContaMethods observer : observers)
+				observer.pagamento(conta, valor, "");
+			break;
+		case SAQUE:
+			for (final ContaMethods observer : observers)
+				observer.saque(conta, valor, null);
+			break;
+		case TRANSFERENCIA:
+			for (final ContaMethods observer : observers)
+				observer.transferencia(conta, null, valor);
+		default:
+			break;
+		}
 	}
 
 	@Override
@@ -110,7 +145,8 @@ public class MovimentacaoFacade implements ContaMethods {
 
 		if (conta.getSaldo().compareTo(new BigDecimal(0.00)) > 0) {
 
-			JOptionPane.showMessageDialog(null, "Conta " + conta.getTipoConta() + " possui saldo. Impossível inativar");
+			JOptionPane.showMessageDialog(null,
+					"Sua " + conta.getTipoConta() + " possui saldo de: " + conta.getSaldo() + ". Impossível inativar");
 
 		} else {
 			new ContaDao().inativarConta(conta);

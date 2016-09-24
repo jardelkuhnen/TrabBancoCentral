@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -26,7 +27,10 @@ import br.univel.model.Conta;
 
 public class TelaDeposito extends PadraoCliente {
 
-	private JPanel contentPane;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtAgencia;
 	private JTextField txtConta;
 	private JTextField txtTitular;
@@ -106,25 +110,33 @@ public class TelaDeposito extends PadraoCliente {
 		gbc_lblInformeOValor.gridy = 2;
 		panel.add(lblInformeOValor, gbc_lblInformeOValor);
 
-		txtAgencia = new JTextField();
-		txtAgencia.setToolTipText("Ag\u00EAncia da conta");
-		GridBagConstraints gbc_txtAgencia = new GridBagConstraints();
-		gbc_txtAgencia.insets = new Insets(0, 0, 5, 5);
-		gbc_txtAgencia.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtAgencia.gridx = 1;
-		gbc_txtAgencia.gridy = 3;
-		panel.add(txtAgencia, gbc_txtAgencia);
-		txtAgencia.setColumns(10);
+		try {
+			txtAgencia = new JFormattedTextField(new MaskFormatter("#####-##"));
+			txtAgencia.setToolTipText("Ag\u00EAncia da conta");
+			GridBagConstraints gbc_txtAgencia = new GridBagConstraints();
+			gbc_txtAgencia.insets = new Insets(0, 0, 5, 5);
+			gbc_txtAgencia.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtAgencia.gridx = 1;
+			gbc_txtAgencia.gridy = 3;
+			panel.add(txtAgencia, gbc_txtAgencia);
+			txtAgencia.setColumns(10);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 
-		txtConta = new JTextField();
-		txtConta.setToolTipText("Conta a ser depositado");
-		GridBagConstraints gbc_txtConta = new GridBagConstraints();
-		gbc_txtConta.insets = new Insets(0, 0, 5, 5);
-		gbc_txtConta.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtConta.gridx = 2;
-		gbc_txtConta.gridy = 3;
-		panel.add(txtConta, gbc_txtConta);
-		txtConta.setColumns(10);
+		try {
+			txtConta = new JFormattedTextField(new MaskFormatter("#####-##"));
+			txtConta.setToolTipText("Conta a ser depositado");
+			GridBagConstraints gbc_txtConta = new GridBagConstraints();
+			gbc_txtConta.insets = new Insets(0, 0, 5, 5);
+			gbc_txtConta.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtConta.gridx = 2;
+			gbc_txtConta.gridy = 3;
+			panel.add(txtConta, gbc_txtConta);
+			txtConta.setColumns(10);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 
 		DecimalFormat dFormat = new DecimalFormat("#,###,###.00");
 		NumberFormatter formatter = new NumberFormatter(dFormat);

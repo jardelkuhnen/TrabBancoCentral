@@ -107,4 +107,24 @@ public class OperacaoRealizada extends PadraoCliente {
 
 	}
 
+	@Override
+	public boolean saque(Conta conta, BigDecimal valorSaque, String senhaInformada) {
+		return false;
+	}
+
+	@Override
+	public boolean transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf) {
+		return false;
+	}
+
+	@Override
+	public boolean pagamento(Conta conta, BigDecimal valorPagam, String codigoDeBarras) {
+		return false;
+	}
+
+	@Override
+	public void finalizarConta(Conta conta) {
+
+	}
+
 }
