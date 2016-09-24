@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import br.univel.dao.AgenciaDao;
 import br.univel.dao.ContaDao;
 import br.univel.dao.UsuarioDao;
+import br.univel.enun.SituacaoBancaria;
 import br.univel.enun.TipoUsuario;
 import br.univel.general.MovimentacaoFacade;
 import br.univel.general.Sha256Hash;
@@ -31,7 +32,8 @@ public class ContaController implements ContaMethods {
 			Command commandSenha = new Sha256Hash(conta.getSenhaAcesso());
 			String senhaAcessoHash = commandSenha.execute();
 
-			Usuario usuario = new Usuario(userAcessoHash, senhaAcessoHash, TipoUsuario.CLIENTE);
+			Usuario usuario = new Usuario(userAcessoHash, senhaAcessoHash, TipoUsuario.CLIENTE,
+					SituacaoBancaria.ATIVO.toString());
 
 			conta.setUsuarioAcesso(userAcessoHash);
 			conta.setSenhaAcesso(senhaAcessoHash);
@@ -101,13 +103,16 @@ public class ContaController implements ContaMethods {
 	@Override
 	public void finalizarConta(Conta conta) {
 
+		new MovimentacaoFacade().finalizarConta(conta);
+		
+
 	}
 
 	@Override
 	public boolean saque(Conta conta, BigDecimal valorSaque, String senhaInformada) {
 
 		return new MovimentacaoFacade().saque(conta, valorSaque, senhaInformada);
-
+		
 	}
 
 }

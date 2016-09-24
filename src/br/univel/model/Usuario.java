@@ -8,11 +8,13 @@ public class Usuario {
 	private String usuario;
 	private String senha;
 	private TipoUsuario tipoUsuario;
+	private String situacaoBancaria;
 
-	public Usuario(String usuario, String senha, TipoUsuario tipoUsuario) {
+	public Usuario(String usuario, String senha, TipoUsuario tipoUsuario, String situacaoBancaria) {
 		this.usuario = usuario;
 		this.senha = senha;
 		this.tipoUsuario = tipoUsuario;
+		this.situacaoBancaria = situacaoBancaria;
 	}
 
 	public int getId() {
@@ -45,6 +47,14 @@ public class Usuario {
 
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+
+	public String getSituacaoBancaria() {
+		return situacaoBancaria;
+	}
+
+	public void setSituacaoBancaria(String situacaoBancaria) {
+		this.situacaoBancaria = situacaoBancaria;
 	}
 
 }

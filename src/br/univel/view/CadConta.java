@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import br.univel.controller.ContaController;
+import br.univel.enun.SituacaoBancaria;
 import br.univel.enun.TipoConta;
 import br.univel.model.Conta;
 
@@ -244,7 +245,8 @@ public class CadConta extends PadraoBancario {
 					conta.setNumeroConta(generateNumberConta());
 					conta.setUsuarioAcesso(txtUsuario.getText());
 					conta.setSaldo(new BigDecimal(0.00));
-
+					conta.setSituacaoBancaria(SituacaoBancaria.ATIVO.toString());
+					
 					contaController.add(conta);
 
 				}

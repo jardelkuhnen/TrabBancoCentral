@@ -124,6 +124,18 @@ public class TelaCliente extends PadraoCliente {
 		panel.add(btnDepsito, gbc_btnDepsito);
 
 		btnFinaliza = new JButton("6- Finalizar");
+		btnFinaliza.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				Integer decisao = JOptionPane.showConfirmDialog(TelaCliente.this,
+						"Deseja relmente inativar esta conta?", "Atenção", JOptionPane.YES_NO_OPTION);
+
+				if (decisao.equals(0)) {
+					new ContaController().finalizarConta(conta);
+				}
+
+			}
+		});
 		GridBagConstraints gbc_btnFinaliza = new GridBagConstraints();
 		gbc_btnFinaliza.fill = GridBagConstraints.BOTH;
 		gbc_btnFinaliza.gridx = 2;

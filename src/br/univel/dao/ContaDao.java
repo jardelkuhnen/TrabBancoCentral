@@ -15,16 +15,17 @@ import br.univel.model.Conta;
 
 public class ContaDao {
 
-	private static final String SQL_GET_CONTA = "SELECT * FROM CONTA WHERE USUARIOACESSO = ? AND SENHAACESSO = ?";
-	private static final String SQL_GET_CONTA_DEPOSITO = "SELECT * FROM CONTA WHERE AGENCIA = ? AND NUMEROCONTA = ? AND NOME = ?";
-	private static final String SQL_INSERT = "INSERT INTO CONTA (NOME, IDADE, CPF, AGENCIA, TIPOCONTA, USUARIOACESSO, SENHAACESSO, SENHAOPERACOES, NUMEROCONTA, SALDO) VALUES (?,?,?,?,?,?,?,?,?,?)";
-	private static final String SQL_SELECT_ALL = "SELECT * FROM CONTA";
+	private static final String SQL_GET_CONTA = "SELECT * FROM CONTA WHERE USUARIOACESSO = ? AND SENHAACESSO = ? AND SITUACAO = 'ATIVO'";
+	private static final String SQL_GET_CONTA_DEPOSITO = "SELECT * FROM CONTA WHERE AGENCIA = ? AND NUMEROCONTA = ? AND NOME = ? AND SITUACAO = 'ATIVO'";
+	private static final String SQL_INSERT = "INSERT INTO CONTA (NOME, IDADE, CPF, AGENCIA, TIPOCONTA, USUARIOACESSO, SENHAACESSO, SENHAOPERACOES, NUMEROCONTA, SALDO, SITUACAO) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String SQL_SELECT_ALL = "SELECT * FROM CONTA WHERE SITUACAO = 'ATIVO'";
 	private static final String SQL_UPDATE_SALDO_CONTA = "UPDATE CONTA SET SALDO = ? WHERE NUMEROCONTA = ? AND NOME = ?";
+	private static final String SQL_INATIVAR = "UPDATE CONTA SET SITUACAO = 'INATIVO' WHERE ID = ?";
 
 	public void add(Conta conta) {
 		Connection con = null;
 		PreparedStatement stmt = null;
-		ResultSet rs;
+		ResultSet rs = null;
 		try {
 			con = Conexao.getConection();
 			stmt = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
@@ -43,11 +44,7 @@ public class ContaDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				close(null, stmt, con);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			Conexao.close(rs, stmt, con);
 		}
 	}
 
@@ -63,6 +60,7 @@ public class ContaDao {
 		stmt.setString(8, conta.getSenhaOperacoes());
 		stmt.setString(9, conta.getNumeroConta());
 		stmt.setBigDecimal(10, conta.getSaldo());
+		stmt.setString(11, conta.getSituacaoBancaria());
 	}
 
 	public Conta get(String userAcessoHash, String senhaAcessoHash) {
@@ -113,11 +111,7 @@ public class ContaDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				close(rs, stmt, con);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			Conexao.close(rs, stmt, con);
 		}
 		return contas;
 
@@ -136,19 +130,10 @@ public class ContaDao {
 		String senhaAcesso = rs.getString("senhaAcesso");
 		String numeroConta = rs.getString("numeroConta");
 		BigDecimal saldo = rs.getBigDecimal("saldo");
+		String situacaoBancaria = rs.getString("situacao");
 
 		return new Conta(id, nome, idade, cpf, agencia, tipoConta, usuarioAcesso, senhaAcesso, senhaOperacoes,
-				numeroConta, saldo);
-	}
-
-	private void close(ResultSet rs, PreparedStatement stmt, Connection con) throws SQLException {
-		if (rs != null && !rs.isClosed())
-			rs.close();
-		if (stmt != null && !stmt.isClosed())
-			stmt.close();
-		if (con != null && !con.isClosed())
-			con.close();
-
+				numeroConta, saldo, situacaoBancaria);
 	}
 
 	public Conta getConta(String agencia, String numero, String titular) {
@@ -201,6 +186,32 @@ public class ContaDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+
+	}
+
+	public void inativarConta(Conta conta) {
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+
+		con = Conexao.getConection();
+		try {
+			stmt = con.prepareStatement(SQL_INATIVAR);
+
+			stmt.setInt(1, conta.getId());
+			int linhasAtualizadas = stmt.executeUpdate();
+
+			if (linhasAtualizadas == 0) {
+				JOptionPane.showMessageDialog(null, "Conta não inativada", "Atenção", JOptionPane.ERROR_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "Conta inativada com sucesso!");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Conexao.close(null, stmt, con);
 		}
 
 	}

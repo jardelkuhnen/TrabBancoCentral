@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.univel.dao.ProfissionalDao;
 import br.univel.dao.UsuarioDao;
+import br.univel.enun.SituacaoBancaria;
 import br.univel.enun.TipoUsuario;
 import br.univel.general.MD5Hash;
 import br.univel.general.Sha256Hash;
@@ -27,7 +28,8 @@ public class ProfissionalController {
 			profisisonal.setSenhaAcesso(senhaHash);
 			profisisonal.setUserName(usuarioHash);
 
-			Usuario usuario = new Usuario(usuarioHash, senhaHash, profisisonal.getTipoProfissional());
+			Usuario usuario = new Usuario(usuarioHash, senhaHash, profisisonal.getTipoProfissional(),
+					SituacaoBancaria.ATIVO.toString());
 
 			new ProfissionalDao().add(profisisonal);
 
@@ -41,7 +43,8 @@ public class ProfissionalController {
 			Command commandSenha = new MD5Hash(profisisonal.getSenhaAcesso());
 			String senhaHash = commandSenha.execute();
 
-			Usuario usuario = new Usuario(usuarioHash, senhaHash, profisisonal.getTipoProfissional());
+			Usuario usuario = new Usuario(usuarioHash, senhaHash, profisisonal.getTipoProfissional(),
+					SituacaoBancaria.ATIVO.toString());
 
 			profisisonal.setSenhaAcesso(senhaHash);
 			profisisonal.setUserName(usuarioHash);
@@ -76,8 +79,10 @@ public class ProfissionalController {
 
 			profissional.setSenhaAcesso(senhaHash);
 			profissional.setUserName(usuarioHash);
-			
-			new UsuarioDao().edit(new Usuario(usuarioHash, senhaHash, TipoUsuario.CLIENTE), profissional.getId());
+
+			new UsuarioDao().edit(
+					new Usuario(usuarioHash, senhaHash, TipoUsuario.CLIENTE, SituacaoBancaria.ATIVO.toString()),
+					profissional.getId());
 			new ProfissionalDao().edit(profissional);
 
 		} else if (profissional.getTipoProfissional().equals(TipoUsuario.BANCARIO)) {
@@ -88,7 +93,9 @@ public class ProfissionalController {
 			Command commandSenha = new MD5Hash(profissional.getSenhaAcesso());
 			String senhaHash = commandSenha.execute();
 
-			new UsuarioDao().edit(new Usuario(usuarioHash, senhaHash, TipoUsuario.BANCARIO), profissional.getId());
+			new UsuarioDao().edit(
+					new Usuario(usuarioHash, senhaHash, TipoUsuario.BANCARIO, SituacaoBancaria.ATIVO.toString()),
+					profissional.getId());
 
 			new ProfissionalDao().edit(profissional);
 		}

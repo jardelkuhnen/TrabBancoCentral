@@ -8,15 +8,16 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import br.univel.model.Conta;
 import br.univel.model.Usuario;
 
 public class UsuarioDao {
 
 	Connection con;
-	private static String SQL_SELECT_ID = "SELECT * FROM USUARIO WHERE USUARIO = ? AND SENHA = ?";
-	private static String SQL_INSERT = "INSERT INTO USUARIO (USUARIO, SENHA,TIPOUSUARIO) VALUES (?,?,?)";
-	private static String SQL_UPDATE = "UPDATE USUARIO SET USUARIO = ?, SENHA = ?, TIPOUSUARIO = ? WHERE ID = ?";
-	private static String SQL_DELETE = "DELETE FROM USUARIO WHERE ID = ?";
+	private static String SQL_SELECT_ID = "SELECT * FROM USUARIO WHERE USUARIO = ? AND SENHA = ? AND SITUACAO = 'ATIVO'";
+	private static String SQL_INSERT = "INSERT INTO USUARIO (USUARIO, SENHA,TIPOUSUARIO, SITUACAO) VALUES (?,?,?,?)";
+	private static String SQL_UPDATE = "UPDATE USUARIO SET USUARIO = ?, SENHA = ?, TIPOUSUARIO = ? WHERE ID = ? AND SITUACAO = 'ATIVO'";
+	private static String SQL_INATIVAR_USUARIO = "UPDATE USUARIO SET SITUACAO = 'INATIVO' WHERE USUARIO = ?";
 
 	public boolean acessoLogin(final String usuario, final String senha) {
 
@@ -37,7 +38,7 @@ public class UsuarioDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rs, stmt, con);
+			Conexao.close(rs, stmt, con);
 		}
 		return false;
 
@@ -47,7 +48,7 @@ public class UsuarioDao {
 
 		Connection con = null;
 		PreparedStatement stmt = null;
-		ResultSet rs;
+		ResultSet rs = null;
 		try {
 			con = Conexao.getConection();
 			stmt = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
@@ -57,6 +58,7 @@ public class UsuarioDao {
 			if (linhasInseridas == 0) {
 				throw new RuntimeException("Falha ao inserir dados na tabela Usuário");
 			}
+
 			rs = stmt.getGeneratedKeys();
 			rs.next();
 			usuario.setId(rs.getInt(1));
@@ -65,7 +67,7 @@ public class UsuarioDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(null, stmt, con);
+			Conexao.close(rs, stmt, con);
 		}
 
 	}
@@ -89,7 +91,7 @@ public class UsuarioDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(null, stmt, con);
+			Conexao.close(null, stmt, con);
 		}
 
 	}
@@ -98,19 +100,35 @@ public class UsuarioDao {
 		stmt.setString(1, usuario.getUsuario());
 		stmt.setString(2, usuario.getSenha());
 		stmt.setString(3, usuario.getTipoUsuario().toString());
+		stmt.setString(4, usuario.getSituacaoBancaria());
 	}
 
-	protected void close(ResultSet set, Statement stmt, Connection conn) {
+	public void inativarConta(Conta conta) {
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+
+		con = Conexao.getConection();
+
 		try {
-			if (set != null && !set.isClosed())
-				set.close();
-			if (stmt != null && !stmt.isClosed())
-				stmt.close();
-			if (conn != null && !conn.isClosed())
-				conn.close();
+			stmt = con.prepareStatement(SQL_INATIVAR_USUARIO);
+
+			stmt.setString(1, conta.getUsuarioAcesso());
+
+			int linhasAtualizadas = stmt.executeUpdate();
+
+			if (linhasAtualizadas == 0) {
+				JOptionPane.showMessageDialog(null, "Erro ao inativar usuario!", "Atenção", JOptionPane.ERROR_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "Usuario inativado com suscesso");
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			Conexao.close(null, stmt, con);
 		}
+
 	}
 
 }

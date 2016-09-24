@@ -48,7 +48,7 @@ public class ProfissionalDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rs, stmt, con);
+			Conexao.close(rs, stmt, con);
 		}
 
 	}
@@ -63,18 +63,6 @@ public class ProfissionalDao {
 		stmt.setString(6, profisisonal.getTipoProfissional().toString());
 	}
 
-	protected void close(ResultSet set, Statement stmt, Connection conn) {
-		try {
-			if (set != null && !set.isClosed())
-				set.close();
-			if (stmt != null && !stmt.isClosed())
-				stmt.close();
-			if (conn != null && !conn.isClosed())
-				conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public List<Profissional> buscarProfissionais() {
 
@@ -98,7 +86,7 @@ public class ProfissionalDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rs, stmt, con);
+			Conexao.close(rs, stmt, con);
 		}
 		return profissionais;
 	}
@@ -143,8 +131,7 @@ public class ProfissionalDao {
 			return readResultSet(rs);
 
 		} finally {
-			close(rs, stmt, con);
-
+			Conexao.close(rs, stmt, con);
 		}
 	}
 
@@ -169,6 +156,8 @@ public class ProfissionalDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			Conexao.close(null, stmt, con);
 		}
 
 	}

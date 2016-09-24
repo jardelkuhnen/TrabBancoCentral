@@ -24,7 +24,7 @@ public class AgenciaDao {
 
 		Connection con = null;
 		PreparedStatement stmt = null;
-		ResultSet rs;
+		ResultSet rs = null;
 
 		try {
 			con = Conexao.getConection();
@@ -44,7 +44,7 @@ public class AgenciaDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(null, stmt, con);
+			Conexao.close(rs, stmt, con);
 		}
 
 	}
@@ -77,21 +77,12 @@ public class AgenciaDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rs, stmt, con);
+			Conexao.close(rs, stmt, con);
 		}
 
 		return agencias;
 	}
 
-	private void close(ResultSet rs, PreparedStatement stmt, Connection con) throws SQLException {
-		if (rs != null && !rs.isClosed())
-			rs.close();
-		if (stmt != null && !stmt.isClosed())
-			stmt.close();
-		if (con != null && !con.isClosed())
-			con.close();
-
-	}
 
 	// Metodo faz leitura de todos os campos da agencia no banco e adicionar no
 	// resultSet
@@ -121,7 +112,7 @@ public class AgenciaDao {
 
 			return readResultSet(rs);
 		} finally {
-			close(rs, stmt, con);
+			Conexao.close(rs, stmt, con);
 		}
 
 	}
@@ -147,6 +138,8 @@ public class AgenciaDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			Conexao.close(null, stmt, con);
 		}
 
 	}
@@ -154,7 +147,7 @@ public class AgenciaDao {
 	public Integer getNumero(String nAgencia) {
 		Connection con = null;
 		PreparedStatement stmt = null;
-		ResultSet rs;
+		ResultSet rs = null;
 		int agEncontradas = 0;
 		try {
 			con = Conexao.getConection();
@@ -170,6 +163,8 @@ public class AgenciaDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			Conexao.close(rs, stmt, con);
 		}
 		return agEncontradas;
 	}

@@ -3,6 +3,7 @@ create table usuario(
 	usuario varchar(255),
 	senha varchar(255),
 	tipoUsuario varchar(255),
+	situacao varchar(255),
 	primary key (id));
 	
 create table agencia(
@@ -24,6 +25,7 @@ create table conta(
 	senhaOperacoes varchar(255),
 	numeroConta varchar(255),
 	saldo numeric,
+	situacao varchar(255),
 	primary key (id));
 
 create table profissional(

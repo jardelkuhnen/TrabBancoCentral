@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 
 import br.univel.dao.ContaDao;
+import br.univel.dao.UsuarioDao;
 import br.univel.interfacee.ContaMethods;
 import br.univel.model.Conta;
 
@@ -104,6 +105,17 @@ public class MovimentacaoFacade implements ContaMethods {
 
 	@Override
 	public void finalizarConta(Conta conta) {
+
+		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
+
+		if (conta.getSaldo().compareTo(new BigDecimal(0.00)) > 0) {
+
+			JOptionPane.showMessageDialog(null, "Conta " + conta.getTipoConta() + " possui saldo. Impossível inativar");
+
+		} else {
+			new ContaDao().inativarConta(conta);
+			new UsuarioDao().inativarConta(conta);
+		}
 
 	}
 

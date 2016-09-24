@@ -17,12 +17,14 @@ public class Conta {
 	private String senhaAcesso;
 	private String senhaOperacoes;
 	private BigDecimal saldo;
+	private String situacaoBancaria;
 
 	public Conta() {
 	}
 
 	public Conta(Integer id, String nome, Integer idade, String cpf, String agencia, String tipoConta,
-			String usuarioAcesso, String senhaAcesso, String senhaOperacoes, String numeroConta, BigDecimal saldo) {
+			String usuarioAcesso, String senhaAcesso, String senhaOperacoes, String numeroConta, BigDecimal saldo,
+			String situacaoBancaria) {
 		this.id = id;
 		this.nome = nome;
 		this.idade = idade;
@@ -34,7 +36,7 @@ public class Conta {
 		this.senhaOperacoes = senhaOperacoes;
 		this.numeroConta = numeroConta;
 		this.saldo = saldo;
-
+		this.situacaoBancaria = situacaoBancaria;
 	}
 
 	public Integer getId() {
@@ -123,6 +125,14 @@ public class Conta {
 
 	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
+	}
+
+	public String getSituacaoBancaria() {
+		return situacaoBancaria;
+	}
+
+	public void setSituacaoBancaria(String situacaoBancaria) {
+		this.situacaoBancaria = situacaoBancaria;
 	}
 
 }
