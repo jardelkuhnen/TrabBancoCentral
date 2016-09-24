@@ -156,6 +156,9 @@ public class ContaDao {
 				conta = (Conta) readResultSet(rs);
 			}
 
+			if (conta == null) {
+				JOptionPane.showMessageDialog(null, "Conta não localizada!", "Atenção", JOptionPane.ERROR_MESSAGE);
+			}
 			return conta;
 
 		} catch (SQLException e) {

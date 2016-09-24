@@ -104,7 +104,6 @@ public class ContaController implements ContaMethods {
 	public void finalizarConta(Conta conta) {
 
 		new MovimentacaoFacade().finalizarConta(conta);
-		
 
 	}
 
@@ -112,6 +111,18 @@ public class ContaController implements ContaMethods {
 	public boolean saque(Conta conta, BigDecimal valorSaque, String senhaInformada) {
 
 		return new MovimentacaoFacade().saque(conta, valorSaque, senhaInformada);
+
+	}
+
+	public Conta openBancario(String agencia, String numeroConta, String tipoConta, String titular) {
+
+		Conta conta = new ContaDao().getConta(agencia, numeroConta, titular);
+		
+		return conta;
+		
+		
+
+		
 		
 	}
 
