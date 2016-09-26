@@ -36,7 +36,8 @@ public class PadraoBancario extends JFrame {
 
 	public PadraoBancario() {
 		setSize(553, 310);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imagens/Icone.png"));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage("./Imagens/Icone.png"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 370);
 		contentPane = new JPanel();
@@ -45,7 +46,8 @@ public class PadraoBancario extends JFrame {
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 77, 103, 414, 0 };
 		gbl_contentPane.rowHeights = new int[] { 89, 253, 0 };
-		gbl_contentPane.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPane.columnWeights = new double[] { 0.0, 1.0, 0.0,
+				Double.MIN_VALUE };
 		gbl_contentPane.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
@@ -61,8 +63,10 @@ public class PadraoBancario extends JFrame {
 		GridBagLayout gbl_cabecalho = new GridBagLayout();
 		gbl_cabecalho.columnWidths = new int[] { 94, 208, 90, 0 };
 		gbl_cabecalho.rowHeights = new int[] { 26, 0, 26, 0 };
-		gbl_cabecalho.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
-		gbl_cabecalho.rowWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_cabecalho.columnWeights = new double[] { 0.0, 1.0, 0.0,
+				Double.MIN_VALUE };
+		gbl_cabecalho.rowWeights = new double[] { 0.0, 1.0, 0.0,
+				Double.MIN_VALUE };
 		cabecalho.setLayout(gbl_cabecalho);
 
 		JLabel lblBancoCentral = new JLabel("Banco Central");
@@ -77,7 +81,8 @@ public class PadraoBancario extends JFrame {
 
 		lblDataAcess = new JLabel("");
 		lblDataAcess.setForeground(new Color(0, 0, 205));
-		lblDataAcess.setText(new GetHorarioLocal().getHorarioLocal(FormatoData.getDtformattddmmyyyyhhmm()));
+		lblDataAcess.setText(new GetHorarioLocal().getHorarioLocal(FormatoData
+				.getDtformattddmmyyyyhhmm()));
 		GridBagConstraints gbc_lblDataAcess = new GridBagConstraints();
 		gbc_lblDataAcess.anchor = GridBagConstraints.EAST;
 		gbc_lblDataAcess.fill = GridBagConstraints.VERTICAL;
@@ -87,7 +92,8 @@ public class PadraoBancario extends JFrame {
 		cabecalho.add(lblDataAcess, gbc_lblDataAcess);
 
 		JLabel imagem = new JLabel("");
-		imagem.setIcon(new ImageIcon(PadraoCliente.class.getResource("/Imagem/Icone.png")));
+		imagem.setIcon(new ImageIcon(PadraoCliente.class
+				.getResource("/Imagem/Icone.png")));
 
 		GridBagConstraints gbc_imagem = new GridBagConstraints();
 		gbc_imagem.gridheight = 3;

@@ -64,7 +64,8 @@ public class Login extends JFrame {
 	public Login() {
 		setResizable(false);
 		setTitle("Login");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imagens/Icone.png"));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage("./Imagens/Icone.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 254, 193);
 		contentPane = new JPanel();
@@ -74,7 +75,8 @@ public class Login extends JFrame {
 		gbl_contentPane.columnWidths = new int[] { 203, 0 };
 		gbl_contentPane.rowHeights = new int[] { 53, 20, 20, 23, 0, 0 };
 		gbl_contentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
 		lblBancoCentral = new JLabel("Banco Central");
@@ -155,7 +157,7 @@ public class Login extends JFrame {
 
 		if (acessa && tipoUsuario == TipoUsuario.CLIENTE) {
 			Conta conta = new ContaController().get(usuario, senha);
-			
+
 			TelaCliente telaCli = new TelaCliente(conta);
 			telaCli.setVisible(true);
 
@@ -168,7 +170,8 @@ public class Login extends JFrame {
 			setVisible(false);
 
 		} else {
-			JOptionPane.showMessageDialog(Login.this, "Usuário ou senha incorretos!!!");
+			JOptionPane.showMessageDialog(Login.this,
+					"Usuário ou senha incorretos!!!");
 			limparCampos();
 		}
 	}

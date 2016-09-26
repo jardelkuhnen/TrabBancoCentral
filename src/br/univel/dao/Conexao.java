@@ -6,11 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 public class Conexao {
 
-	private static final String url_Banco = "jdbc:postgresql://localhost:5432/BancoCentral";
-	private static final String user = "postgres";
-	private static final String pass = "1";
+	private static final String URL_BANCO = "jdbc:postgresql://localhost:5432/BancoCentral";
+	private static final String USER = "postgres";
+	private static final String PASS = "1";
 
 	public static ResultSet rs;
 	public Statement stmt;
@@ -21,8 +23,11 @@ public class Conexao {
 		System.out.println("Conectando ao banco de dados");
 
 		try {
-			return DriverManager.getConnection(url_Banco, user, pass);
+			return DriverManager.getConnection(URL_BANCO, USER, PASS);
 		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,
+					"Erro ao conectar com o banco de dados. \n\n" + e,
+					"Atenção", JOptionPane.ERROR_MESSAGE);
 			throw new RuntimeException(e);
 		}
 

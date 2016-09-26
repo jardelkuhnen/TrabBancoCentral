@@ -24,7 +24,7 @@ public class TelaCliente extends PadraoCliente {
 	private JButton btnPagamentos;
 	private JButton btnDepsito;
 	private JButton btnFinaliza;
-	private TelaCliente telaCliente;
+	private PadraoCliente padraoCliente;
 
 	public TelaCliente(Conta conta) {
 		super(conta);
@@ -32,7 +32,8 @@ public class TelaCliente extends PadraoCliente {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Área do Cliente");
-		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
+		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
+				.getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 1.0 };
 
@@ -47,7 +48,8 @@ public class TelaCliente extends PadraoCliente {
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 290, 31, 292, 0 };
 		gbl_panel.rowHeights = new int[] { 67, 77, 64, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0,
+				Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
@@ -127,8 +129,10 @@ public class TelaCliente extends PadraoCliente {
 		btnFinaliza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				Integer decisao = JOptionPane.showConfirmDialog(TelaCliente.this,
-						"Deseja relmente inativar esta conta?", "Atenção", JOptionPane.YES_NO_OPTION);
+				Integer decisao = JOptionPane.showConfirmDialog(
+						TelaCliente.this,
+						"Deseja relmente inativar esta conta?", "Atenção",
+						JOptionPane.YES_NO_OPTION);
 
 				if (decisao.equals(0)) {
 					new ContaController().finalizarConta(conta);
@@ -149,7 +153,8 @@ public class TelaCliente extends PadraoCliente {
 	private void validaOperacoesDisponiveis(final Conta conta) {
 
 		if (conta.getId() == null) {
-			JOptionPane.showMessageDialog(TelaCliente.this, "Usuário sem conta cadastrada. Verifique!", "Atenção",
+			JOptionPane.showMessageDialog(TelaCliente.this,
+					"Usuário sem conta cadastrada. Verifique!", "Atenção",
 					JOptionPane.ERROR_MESSAGE);
 
 		} else {

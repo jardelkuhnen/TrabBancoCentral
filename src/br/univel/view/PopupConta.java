@@ -35,7 +35,8 @@ public class PopupConta extends JFrame {
 		setTitle("Seleção de conta");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imagens/Icone.png"));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage("./Imagens/Icone.png"));
 		setBounds(100, 100, 274, 225);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -47,8 +48,10 @@ public class PopupConta extends JFrame {
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 27, 82, 116, 0, 0 };
 		gbl_panel.rowHeights = new int[] { 17, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0,
+				Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		JLabel lblAg = new JLabel("AG");
@@ -142,8 +145,9 @@ public class PopupConta extends JFrame {
 				String tipoConta = cmbTipoConta.getSelectedItem().toString();
 				String titular = txtTitular.getText().trim();
 
-				Conta conta = new ContaController().openBancario(agencia, numeroConta, tipoConta, titular);
-				
+				Conta conta = new ContaController().openBancario(agencia,
+						numeroConta, tipoConta, titular);
+
 				if (conta != null) {
 					new TelaCliente(conta).setVisible(true);
 				}
