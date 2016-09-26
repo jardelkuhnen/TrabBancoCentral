@@ -5,15 +5,20 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import br.univel.controller.ContaController;
+import br.univel.general.MovimentacaoFacade;
+import br.univel.interfacee.AtualizacaoDeConta;
 import br.univel.model.Conta;
 
-public class TelaCliente extends PadraoCliente {
+public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 
 	static final String CONTA_ELETRONICA = "Conta Eletrônica";
 	static final String CONTA_POUPANCA = "Conta Poupança";
@@ -26,8 +31,11 @@ public class TelaCliente extends PadraoCliente {
 	private JButton btnFinaliza;
 	private PadraoCliente padraoCliente;
 
+	public MovimentacaoFacade facade = new MovimentacaoFacade();
+
 	public TelaCliente(Conta conta) {
 		super(conta);
+		facade.addObservers(this);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -60,6 +68,7 @@ public class TelaCliente extends PadraoCliente {
 				TelaSaque telaSaque = new TelaSaque(conta);
 				telaSaque.setVisible(true);
 				telaSaque.setLocationRelativeTo(null);
+				facade.addObservers(telaSaque);
 			}
 		});
 		GridBagConstraints gbc_btnSaque = new GridBagConstraints();
@@ -73,7 +82,10 @@ public class TelaCliente extends PadraoCliente {
 		btnTransferncia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				new TelaTransferencia(conta).setVisible(true);
+				TelaTransferencia telaTransf = new TelaTransferencia(conta);
+				telaTransf.setVisible(true);
+				telaTransf.setLocationRelativeTo(null);
+				facade.addObservers(telaTransf);
 
 			}
 		});
@@ -99,6 +111,7 @@ public class TelaCliente extends PadraoCliente {
 				TelaPagamento telaPag = new TelaPagamento(conta);
 				telaPag.setVisible(true);
 				telaPag.setLocationRelativeTo(null);
+				facade.addObservers(telaPag);
 
 			}
 		});
@@ -113,8 +126,10 @@ public class TelaCliente extends PadraoCliente {
 		btnDepsito.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				new TelaDeposito(conta).setVisible(true);
-				TelaCliente telaCliente = new TelaCliente(conta);
+				TelaDeposito telaDep = new TelaDeposito(conta);
+				telaDep.setVisible(true);
+				telaDep.setLocationRelativeTo(null);
+				facade.addObservers(telaDep);
 			}
 		});
 
@@ -171,6 +186,11 @@ public class TelaCliente extends PadraoCliente {
 				break;
 			}
 		}
+	}
+
+	@Override
+	public void contaAlterada(Conta conta) {
+		PadraoCliente.populaTelaInfConta(conta);
 	}
 
 }

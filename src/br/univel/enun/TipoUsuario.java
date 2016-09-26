@@ -5,6 +5,8 @@ public enum TipoUsuario {
 	CLIENTE(0),
 
 	BANCARIO(1);
+	
+	
 
 	private Integer ordinal;
 

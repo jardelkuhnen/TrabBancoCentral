@@ -6,7 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
-import java.math.BigDecimal;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -15,11 +14,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import br.univel.general.GetHorarioLocal;
-import br.univel.interfacee.ContaMethods;
+import br.univel.general.MovimentacaoFacade;
+import br.univel.interfacee.AtualizacaoDeConta;
 import br.univel.model.Conta;
 import br.univel.model.FormatoData;
 
-public abstract class PadraoCliente extends JFrame {
+public abstract class PadraoCliente extends JFrame implements
+		AtualizacaoDeConta {
 
 	/**
 	 * 

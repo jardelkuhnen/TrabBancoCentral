@@ -2,7 +2,10 @@ package br.univel.enun;
 
 public enum Operacao {
 
-	SAQUE(0, "saque"), DEPOSITO(1, "depósito"), TRANSFERENCIA(2, "transferência"), PAGAMENTO(3, "pagamento");
+	SAQUE(0, "saque"), 
+	DEPOSITO(1, "depósito"), 
+	TRANSFERENCIA(2, "transferência"), 
+	PAGAMENTO(3, "pagamento");
 
 	private String operacao;
 

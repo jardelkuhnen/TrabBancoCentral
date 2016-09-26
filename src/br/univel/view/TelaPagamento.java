@@ -31,7 +31,8 @@ public class TelaPagamento extends PadraoCliente {
 	 */
 	public TelaPagamento(Conta conta) {
 		super(conta);
-		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
+		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
+				.getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 0.0 };
 		setTitle("Pagamento de Contas");
@@ -48,8 +49,10 @@ public class TelaPagamento extends PadraoCliente {
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 0, 0, 313, 0 };
 		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		JLabel lblCdigoDeBarras = new JLabel("C\u00F3digo de Barras");
@@ -82,7 +85,8 @@ public class TelaPagamento extends PadraoCliente {
 		formatter.setFormat(dFormat);
 		formatter.setAllowsInvalid(false);
 		txtValorPag = new JFormattedTextField();
-		((JFormattedTextField) txtValorPag).setFormatterFactory(new DefaultFormatterFactory(formatter));
+		((JFormattedTextField) txtValorPag)
+				.setFormatterFactory(new DefaultFormatterFactory(formatter));
 		txtValorPag.setText(new DecimalFormat("R$ #,##0.00").format(0.00));
 		GridBagConstraints gbc_txtValorPag = new GridBagConstraints();
 		gbc_txtValorPag.insets = new Insets(0, 0, 5, 0);
@@ -96,12 +100,14 @@ public class TelaPagamento extends PadraoCliente {
 		btnConfirme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				BigDecimal valorPag = new BigDecimal(txtValorPag.getText().replace(".", "").replace(",", "."));
+				BigDecimal valorPag = new BigDecimal(txtValorPag.getText()
+						.replace(".", "").replace(",", "."));
 
 				txtCodbarras.setText("");
 				txtValorPag.setText("0.00");
 
-				new SenhaConfirm(conta, valorPag, null, Operacao.PAGAMENTO, txtCodbarras.getText()).setVisible(true);
+				new SenhaConfirm(conta, valorPag, null, Operacao.PAGAMENTO,
+						txtCodbarras.getText()).setVisible(true);
 
 			}
 		});
@@ -112,6 +118,13 @@ public class TelaPagamento extends PadraoCliente {
 		gbc_btnConfirme.gridy = 5;
 		panel.add(btnConfirme, gbc_btnConfirme);
 
+	}
+
+	@Override
+	public void contaAlterada(Conta conta) {
+
+		PadraoCliente.populaTelaInfConta(conta);
+		
 	}
 
 }

@@ -114,4 +114,11 @@ public class OperacaoRealizada extends PadraoCliente {
 
 	}
 
+	@Override
+	public void contaAlterada(Conta conta) {
+
+		PadraoCliente.populaTelaInfConta(conta);
+
+	}
+
 }

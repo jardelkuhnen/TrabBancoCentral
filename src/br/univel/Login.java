@@ -24,9 +24,11 @@ import javax.swing.border.EmptyBorder;
 import br.univel.controller.ContaController;
 import br.univel.controller.UsuarioController;
 import br.univel.enun.TipoUsuario;
+import br.univel.general.MovimentacaoFacade;
 import br.univel.model.Conta;
 import br.univel.view.TelaBancario;
 import br.univel.view.TelaCliente;
+
 import javax.swing.JPasswordField;
 
 public class Login extends JFrame {
@@ -40,6 +42,8 @@ public class Login extends JFrame {
 	private JComboBox cbmAcesso;
 	private JLabel lblBancoCentral;
 	private JPasswordField txtSenha;
+
+	private MovimentacaoFacade facade = new MovimentacaoFacade();
 
 	/**
 	 * Launch the application.
@@ -156,10 +160,12 @@ public class Login extends JFrame {
 		boolean acessa = userControll.acessoLogin(usuario, senha, tipoUsuario);
 
 		if (acessa && tipoUsuario == TipoUsuario.CLIENTE) {
+			
 			Conta conta = new ContaController().get(usuario, senha);
 
 			TelaCliente telaCli = new TelaCliente(conta);
 			telaCli.setVisible(true);
+			facade.addObservers(telaCli);
 
 			setVisible(false);
 

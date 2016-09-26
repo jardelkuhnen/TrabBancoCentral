@@ -8,15 +8,26 @@ import javax.swing.JOptionPane;
 
 import br.univel.dao.ContaDao;
 import br.univel.dao.UsuarioDao;
-import br.univel.enun.Operacao;
+import br.univel.interfacee.AtualizacaoDeConta;
 import br.univel.interfacee.ContaMethods;
 import br.univel.model.Conta;
-import br.univel.view.PadraoCliente;
-import br.univel.view.TelaDeposito;
 
 public class MovimentacaoFacade implements ContaMethods {
 
 	ContaDao contaDao = new ContaDao();
+
+	final List<AtualizacaoDeConta> observers = new ArrayList<>();
+
+	public void addObservers(AtualizacaoDeConta observer) {
+		this.observers.add(observer);
+	}
+
+	protected void notifyObservers(Conta conta) {
+
+		for (final AtualizacaoDeConta observer : observers) {
+			observer.contaAlterada(conta);
+		}
+	}
 
 	@Override
 	public void deposito(Conta conta, BigDecimal valorDeposito) {
@@ -26,7 +37,7 @@ public class MovimentacaoFacade implements ContaMethods {
 		conta.setSaldo(vlrAtualizar);
 		new ContaDao().updateSaldo(conta, vlrAtualizar);
 
-		PadraoCliente.populaTelaInfConta(conta);
+		notifyObservers(conta);
 
 	}
 
@@ -44,8 +55,9 @@ public class MovimentacaoFacade implements ContaMethods {
 
 			new ContaDao().updateSaldo(conta, conta.getSaldo());
 
-			PadraoCliente.populaTelaInfConta(conta);
+			notifyObservers(conta);
 
+			return true;
 		} else {
 			JOptionPane.showMessageDialog(
 					null,
@@ -54,7 +66,6 @@ public class MovimentacaoFacade implements ContaMethods {
 					JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
-		return true;
 
 	}
 
@@ -80,8 +91,7 @@ public class MovimentacaoFacade implements ContaMethods {
 			new ContaDao().updateSaldo(contaRecebeTransf,
 					contaRecebeTransf.getSaldo());
 
-			PadraoCliente.populaTelaInfConta(conta);
-
+			notifyObservers(conta);
 			return true;
 		} else {
 			JOptionPane.showMessageDialog(null,
@@ -117,7 +127,7 @@ public class MovimentacaoFacade implements ContaMethods {
 
 			new ContaDao().updateSaldo(conta, conta.getSaldo());
 
-			PadraoCliente.populaTelaInfConta(conta);
+			notifyObservers(conta);
 
 			return true;
 
@@ -142,6 +152,8 @@ public class MovimentacaoFacade implements ContaMethods {
 			JOptionPane.showMessageDialog(null, "Sua " + conta.getTipoConta()
 					+ " possui saldo de: " + conta.getSaldo()
 					+ ". Impossível inativar");
+
+			notifyObservers(conta);
 
 		} else {
 			new ContaDao().inativarConta(conta);
