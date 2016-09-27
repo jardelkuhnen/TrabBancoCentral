@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import br.univel.dao.AgenciaDao;
 import br.univel.dao.ContaDao;
 import br.univel.dao.UsuarioDao;
+import br.univel.enun.Operacao;
 import br.univel.enun.SituacaoBancaria;
 import br.univel.enun.TipoUsuario;
 import br.univel.general.MovimentacaoFacade;
@@ -16,6 +17,7 @@ import br.univel.general.Sha256Hash;
 import br.univel.interfacee.Command;
 import br.univel.interfacee.ContaMethods;
 import br.univel.model.Conta;
+import br.univel.model.Movimentacao;
 import br.univel.model.Usuario;
 
 public class ContaController implements ContaMethods {
@@ -32,8 +34,8 @@ public class ContaController implements ContaMethods {
 			Command commandSenha = new Sha256Hash(conta.getSenhaAcesso());
 			String senhaAcessoHash = commandSenha.execute();
 
-			Usuario usuario = new Usuario(userAcessoHash, senhaAcessoHash, TipoUsuario.CLIENTE,
-					SituacaoBancaria.ATIVO.toString());
+			Usuario usuario = new Usuario(userAcessoHash, senhaAcessoHash,
+					TipoUsuario.CLIENTE, SituacaoBancaria.ATIVO.toString());
 
 			conta.setUsuarioAcesso(userAcessoHash);
 			conta.setSenhaAcesso(senhaAcessoHash);
@@ -42,8 +44,10 @@ public class ContaController implements ContaMethods {
 			new UsuarioDao().add(usuario);
 
 		} else {
-			String mensagem = "Agência " + conta.getAgencia() + " inexistente!!!";
-			JOptionPane.showMessageDialog(null, mensagem, "Atenção", JOptionPane.ERROR_MESSAGE);
+			String mensagem = "Agência " + conta.getAgencia()
+					+ " inexistente!!!";
+			JOptionPane.showMessageDialog(null, mensagem, "Atenção",
+					JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -75,10 +79,12 @@ public class ContaController implements ContaMethods {
 		/**
 		 * Busca as informacoes da conta no banco
 		 */
-		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
+		conta = new ContaDao().getConta(conta.getAgencia(),
+				conta.getNumeroConta(), conta.getNome());
 
 		if (conta.getId() == null) {
-			JOptionPane.showMessageDialog(null, "Conta não localizada. Verifique!", "Atenção",
+			JOptionPane.showMessageDialog(null,
+					"Conta não localizada. Verifique!", "Atenção",
 					JOptionPane.WARNING_MESSAGE);
 		} else {
 
@@ -87,16 +93,20 @@ public class ContaController implements ContaMethods {
 	}
 
 	@Override
-	public boolean transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf) {
+	public boolean transferencia(Conta conta, Conta contaRecebeTransf,
+			BigDecimal valorTransf) {
 
-		return new MovimentacaoFacade().transferencia(conta, contaRecebeTransf, valorTransf);
+		return new MovimentacaoFacade().transferencia(conta, contaRecebeTransf,
+				valorTransf);
 
 	}
 
 	@Override
-	public boolean pagamento(Conta conta, BigDecimal valorPagam, String codigoDeBarras) {
+	public boolean pagamento(Conta conta, BigDecimal valorPagam,
+			String codigoDeBarras) {
 
-		return new MovimentacaoFacade().pagamento(conta, valorPagam, codigoDeBarras);
+		return new MovimentacaoFacade().pagamento(conta, valorPagam,
+				codigoDeBarras);
 
 	}
 
@@ -108,17 +118,25 @@ public class ContaController implements ContaMethods {
 	}
 
 	@Override
-	public boolean saque(Conta conta, BigDecimal valorSaque, String senhaInformada) {
+	public boolean saque(Conta conta, BigDecimal valorSaque,
+			String senhaInformada) {
 
-		return new MovimentacaoFacade().saque(conta, valorSaque, senhaInformada);
+		return new MovimentacaoFacade()
+				.saque(conta, valorSaque, senhaInformada);
 
 	}
 
-	public Conta openBancario(String agencia, String numeroConta, String tipoConta, String titular) {
+	public Conta openBancario(String agencia, String numeroConta,
+			String tipoConta, String titular) {
 
 		Conta conta = new ContaDao().getConta(agencia, numeroConta, titular);
 
 		return conta;
+
+	}
+
+	@Override
+	public void operacao(Movimentacao operacao) {
 
 	}
 

@@ -37,6 +37,13 @@ create table profissional(
 	senhaOperacoes varchar(255),
 	tipoProfissional varchar(255),
 	primary key (id));
+	
+create table movimentacao(
+	id serial,
+	operacao varchar(255),
+	data date,
+	valor numeric,
+	primary key (id));
 
 
 

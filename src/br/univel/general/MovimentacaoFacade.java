@@ -2,21 +2,27 @@ package br.univel.general;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import br.univel.dao.ContaDao;
 import br.univel.dao.UsuarioDao;
+import br.univel.enun.Operacao;
 import br.univel.interfacee.AtualizacaoDeConta;
 import br.univel.interfacee.ContaMethods;
 import br.univel.model.Conta;
+import br.univel.model.FormatoData;
+import br.univel.model.Movimentacao;
 
 public class MovimentacaoFacade implements ContaMethods {
 
 	ContaDao contaDao = new ContaDao();
 
-	final List<AtualizacaoDeConta> observers = new ArrayList<>();
+	List<AtualizacaoDeConta> observers = new ArrayList<>();
+
+	Movimentacao movimentacao = new Movimentacao();
 
 	public void addObservers(AtualizacaoDeConta observer) {
 		this.observers.add(observer);
@@ -55,6 +61,13 @@ public class MovimentacaoFacade implements ContaMethods {
 
 			new ContaDao().updateSaldo(conta, conta.getSaldo());
 
+			movimentacao.setOperacao(Operacao.SAQUE.getOperacao());
+			movimentacao.setValor(valorSaque);
+
+			Date data = gerarData();
+			movimentacao.setData(data);
+
+			new ContaDao().insertMovimentacao(movimentacao);
 			notifyObservers(conta);
 
 			return true;
@@ -67,6 +80,14 @@ public class MovimentacaoFacade implements ContaMethods {
 			return false;
 		}
 
+	}
+
+	private Date gerarData() {
+
+		String data = new GetHorarioLocal().getHorarioLocal(FormatoData
+				.getDtformattddmmyyyy());
+
+		return null;
 	}
 
 	@Override
@@ -159,6 +180,11 @@ public class MovimentacaoFacade implements ContaMethods {
 			new ContaDao().inativarConta(conta);
 			new UsuarioDao().inativarConta(conta);
 		}
+
+	}
+
+	@Override
+	public void operacao(Movimentacao operacao) {
 
 	}
 

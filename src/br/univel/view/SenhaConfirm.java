@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,7 +19,11 @@ import javax.swing.JPasswordField;
 
 import br.univel.controller.ContaController;
 import br.univel.enun.Operacao;
+import br.univel.general.GetHorarioLocal;
 import br.univel.model.Conta;
+import br.univel.model.FormatoData;
+import br.univel.model.Movimentacao;
+
 import java.awt.Component;
 
 public class SenhaConfirm extends JFrame {
@@ -31,25 +36,29 @@ public class SenhaConfirm extends JFrame {
 	private JPasswordField txtSenha;
 	private SenhaConfirm senhaConfirm;
 
-	public SenhaConfirm(Conta conta, BigDecimal valor, Conta contaTransferir, Operacao operacao, String codBarras) {
+	public SenhaConfirm(Conta conta, BigDecimal valor, Conta contaTransferir,
+			Operacao operacao, String codBarras) {
 		setSize(525, 150);
 		setTitle("Senha");
 		senhaConfirm = this;
 		senhaInformada = new StringBuilder();
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imagens/Icone.png"));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage("./Imagens/Icone.png"));
 
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 24, 139, 39, 39, 39, 39, 39, 0 };
 		gbl_panel.rowHeights = new int[] { 32, 34, 31, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
-		JLabel lblNewLabel = new JLabel("Digite sua senha utilizando o teclado virtual");
+		JLabel lblNewLabel = new JLabel(
+				"Digite sua senha utilizando o teclado virtual");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
@@ -247,26 +256,32 @@ public class SenhaConfirm extends JFrame {
 
 	}
 
-	protected void validacaoPagamento(Conta conta, BigDecimal valor, Operacao operacao, String codBarras) {
+	protected void validacaoPagamento(Conta conta, BigDecimal valor,
+			Operacao operacao, String codBarras) {
 
-		boolean pagou = new ContaController().pagamento(conta, valor, codBarras);
+		boolean pagou = new ContaController()
+				.pagamento(conta, valor, codBarras);
 		limparCampos();
 		if (pagou) {
-			OperacaoRealizada opRealizada = new OperacaoRealizada(conta, Operacao.PAGAMENTO, valor);
+			OperacaoRealizada opRealizada = new OperacaoRealizada(conta,
+					Operacao.PAGAMENTO, valor);
 			opRealizada.setVisible(true);
 			senhaConfirm.setVisible(false);
 		}
 
 	}
 
-	protected void vallidacaoTransferencia(Conta conta, Conta contaTransferir, BigDecimal valor) {
+	protected void vallidacaoTransferencia(Conta conta, Conta contaTransferir,
+			BigDecimal valor) {
 
-		boolean transferiu = new ContaController().transferencia(conta, contaTransferir, valor);
+		boolean transferiu = new ContaController().transferencia(conta,
+				contaTransferir, valor);
 
 		limparCampos();
 
 		if (transferiu) {
-			OperacaoRealizada opRealizada = new OperacaoRealizada(contaTransferir, Operacao.TRANSFERENCIA, valor);
+			OperacaoRealizada opRealizada = new OperacaoRealizada(
+					contaTransferir, Operacao.TRANSFERENCIA, valor);
 			opRealizada.setVisible(true);
 			senhaConfirm.setVisible(false);
 		}
@@ -274,12 +289,14 @@ public class SenhaConfirm extends JFrame {
 	}
 
 	protected void validacaoSaque(Conta conta, BigDecimal valorSaque) {
-		boolean sacou = new ContaController().saque(conta, valorSaque, senhaInformada.toString());
+		boolean sacou = new ContaController().saque(conta, valorSaque,
+				senhaInformada.toString());
 
 		limparCampos();
 
 		if (sacou) {
-			OperacaoRealizada opRealizada = new OperacaoRealizada(conta, Operacao.SAQUE, valorSaque);
+			OperacaoRealizada opRealizada = new OperacaoRealizada(conta,
+					Operacao.SAQUE, valorSaque);
 			opRealizada.setVisible(true);
 			senhaConfirm.setVisible(false);
 		}

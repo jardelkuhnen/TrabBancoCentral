@@ -43,8 +43,6 @@ public class Login extends JFrame {
 	private JLabel lblBancoCentral;
 	private JPasswordField txtSenha;
 
-	private MovimentacaoFacade facade = new MovimentacaoFacade();
-
 	/**
 	 * Launch the application.
 	 */
@@ -160,12 +158,11 @@ public class Login extends JFrame {
 		boolean acessa = userControll.acessoLogin(usuario, senha, tipoUsuario);
 
 		if (acessa && tipoUsuario == TipoUsuario.CLIENTE) {
-			
+
 			Conta conta = new ContaController().get(usuario, senha);
 
 			TelaCliente telaCli = new TelaCliente(conta);
 			telaCli.setVisible(true);
-			facade.addObservers(telaCli);
 
 			setVisible(false);
 
