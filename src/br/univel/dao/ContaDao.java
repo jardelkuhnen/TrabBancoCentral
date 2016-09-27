@@ -2,11 +2,11 @@ package br.univel.dao;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +31,7 @@ public class ContaDao {
 		ResultSet rs = null;
 		try {
 			con = Conexao.getConection();
-			stmt = con.prepareStatement(SQL_INSERT,
-					Statement.RETURN_GENERATED_KEYS);
+			stmt = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
 			writeStatemento(conta, stmt);
 
 			int linhasInseridas = stmt.executeUpdate();
@@ -42,8 +41,8 @@ public class ContaDao {
 			rs = stmt.getGeneratedKeys();
 			rs.next();
 			conta.setId(rs.getInt(1));
-			JOptionPane.showMessageDialog(null, conta.getTipoConta() + " "
-					+ conta.getNumeroConta() + " inserida com sucesso!!!");
+			JOptionPane.showMessageDialog(null,
+					conta.getTipoConta() + " " + conta.getNumeroConta() + " inserida com sucesso!!!");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -52,8 +51,7 @@ public class ContaDao {
 		}
 	}
 
-	private void writeStatemento(Conta conta, PreparedStatement stmt)
-			throws SQLException {
+	private void writeStatemento(Conta conta, PreparedStatement stmt) throws SQLException {
 
 		stmt.setString(1, conta.getNome());
 		stmt.setInt(2, conta.getIdade());
@@ -137,9 +135,8 @@ public class ContaDao {
 		BigDecimal saldo = rs.getBigDecimal("saldo");
 		String situacaoBancaria = rs.getString("situacao");
 
-		return new Conta(id, nome, idade, cpf, agencia, tipoConta,
-				usuarioAcesso, senhaAcesso, senhaOperacoes, numeroConta, saldo,
-				situacaoBancaria);
+		return new Conta(id, nome, idade, cpf, agencia, tipoConta, usuarioAcesso, senhaAcesso, senhaOperacoes,
+				numeroConta, saldo, situacaoBancaria);
 	}
 
 	public Conta getConta(String agencia, String numero, String titular) {
@@ -163,8 +160,7 @@ public class ContaDao {
 			}
 
 			if (conta == null) {
-				JOptionPane.showMessageDialog(null, "Conta não localizada!",
-						"Atenção", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Conta não localizada!", "Atenção", JOptionPane.ERROR_MESSAGE);
 			}
 			return conta;
 
@@ -192,8 +188,7 @@ public class ContaDao {
 			if (linhasAtualizadas == 0)
 				throw new RuntimeException("Falha ao realizar operação!!!");
 
-			JOptionPane.showMessageDialog(null,
-					"Saldo atualizado com sucesso!!!");
+			JOptionPane.showMessageDialog(null, "Saldo atualizado com sucesso!!!");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -214,11 +209,9 @@ public class ContaDao {
 			int linhasAtualizadas = stmt.executeUpdate();
 
 			if (linhasAtualizadas == 0) {
-				JOptionPane.showMessageDialog(null, "Conta não inativada",
-						"Atenção", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Conta não inativada", "Atenção", JOptionPane.ERROR_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(null,
-						"Conta inativada com sucesso!");
+				JOptionPane.showMessageDialog(null, "Conta inativada com sucesso!");
 			}
 
 		} catch (SQLException e) {
@@ -237,11 +230,11 @@ public class ContaDao {
 		try {
 			con = Conexao.getConection();
 
-			stmt = con.prepareStatement(SQL_INSERT_MOVIMENTAO,
-					Statement.RETURN_GENERATED_KEYS);
+			stmt = con.prepareStatement(SQL_INSERT_MOVIMENTAO, Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setString(1, movimentacao.getOperacao());
-			stmt.setDate(2, (Date) movimentacao.getData());
+			// stmt.setDate(2, (Date) movimentacao.getData());
+			stmt.setTimestamp(2, new Timestamp(movimentacao.getData().getTime()));
 			stmt.setBigDecimal(3, movimentacao.getValor());
 
 			stmt.execute();

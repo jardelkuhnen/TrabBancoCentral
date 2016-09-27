@@ -40,8 +40,7 @@ public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Área do Cliente");
-		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
-				.getLayout();
+		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 1.0 };
 
@@ -56,8 +55,7 @@ public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 290, 31, 292, 0 };
 		gbl_panel.rowHeights = new int[] { 67, 77, 64, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0,
-				Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
@@ -97,6 +95,13 @@ public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 		panel.add(btnTransferncia, gbc_btnTransferncia);
 
 		btnSaldo = new JButton("2- Saldo");
+		btnSaldo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				SaldoCliente saldo = new SaldoCliente(conta);
+				saldo.setVisible(true);
+			}
+		});
 		GridBagConstraints gbc_btnSaldo = new GridBagConstraints();
 		gbc_btnSaldo.fill = GridBagConstraints.BOTH;
 		gbc_btnSaldo.insets = new Insets(0, 0, 5, 5);
@@ -144,10 +149,8 @@ public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 		btnFinaliza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				Integer decisao = JOptionPane.showConfirmDialog(
-						TelaCliente.this,
-						"Deseja relmente inativar esta conta?", "Atenção",
-						JOptionPane.YES_NO_OPTION);
+				Integer decisao = JOptionPane.showConfirmDialog(TelaCliente.this,
+						"Deseja relmente inativar esta conta?", "Atenção", JOptionPane.YES_NO_OPTION);
 
 				if (decisao.equals(0)) {
 					new ContaController().finalizarConta(conta);
@@ -168,8 +171,7 @@ public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 	private void validaOperacoesDisponiveis(final Conta conta) {
 
 		if (conta.getId() == null) {
-			JOptionPane.showMessageDialog(TelaCliente.this,
-					"Usuário sem conta cadastrada. Verifique!", "Atenção",
+			JOptionPane.showMessageDialog(TelaCliente.this, "Usuário sem conta cadastrada. Verifique!", "Atenção",
 					JOptionPane.ERROR_MESSAGE);
 
 		} else {
