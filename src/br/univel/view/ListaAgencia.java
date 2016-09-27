@@ -58,7 +58,7 @@ public class ListaAgencia extends PadraoBancario implements WindowListener {
 			public void actionPerformed(ActionEvent e) {
 
 				final Integer rowSelected = tblAgencia.getSelectedRow();
-				
+
 				if (rowSelected <= 0) {
 					JOptionPane.showMessageDialog(ListaAgencia.this, "Selecione uma agência para editar.", "Atenção",
 							JOptionPane.WARNING_MESSAGE);
@@ -89,16 +89,15 @@ public class ListaAgencia extends PadraoBancario implements WindowListener {
 		gbc_btnAdicionar.gridy = 2;
 		getContentPane().add(btnAdicionar, gbc_btnAdicionar);
 
+		preencheTela();
+
 	}
 
 	private void preencheTela() {
-		try {
-			agencias = new AgenciaController().buscarAgencias();
-			model = new ListaAgenciaModel(agencias);
-			tblAgencia.setModel(model);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		
+		agencias = new AgenciaController().buscarAgencias();
+		model = new ListaAgenciaModel(agencias);
+		tblAgencia.setModel(model);
 	}
 
 	@Override

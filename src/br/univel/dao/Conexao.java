@@ -23,8 +23,6 @@ public class Conexao {
 
 	public static Connection getConection() {
 
-		System.out.println("Conectando ao banco de dados");
-
 		try {
 			return DriverManager.getConnection(URL_BANCO, USER, PASS);
 		} catch (SQLException e) {
@@ -35,14 +33,14 @@ public class Conexao {
 
 	}
 
-	public static void close(ResultSet set, Statement stmt, Connection conn) {
+	public static void close(ResultSet rs, Statement stmt, Connection con) {
 		try {
-			if (set != null && !set.isClosed())
-				set.close();
+			if (rs != null && !rs.isClosed())
+				rs.close();
 			if (stmt != null && !stmt.isClosed())
 				stmt.close();
-			if (conn != null && !conn.isClosed())
-				conn.close();
+			if (con != null && !con.isClosed())
+				con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

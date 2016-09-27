@@ -24,11 +24,13 @@ public class ContaDao {
 	private static final String SQL_UPDATE_SALDO_CONTA = "UPDATE CONTA SET SALDO = ? WHERE NUMEROCONTA = ? AND NOME = ?";
 	private static final String SQL_INATIVAR = "UPDATE CONTA SET SITUACAO = 'INATIVO' WHERE ID = ?";
 	private static final String SQL_INSERT_MOVIMENTAO = "INSERT INTO MOVIMENTACAO (OPERACAO, DATA, VALOR) VALUES (?,?,?)";
+	private static final String SQL_SELECT_ALL_MOVIMENTACAO = "SELECT * FROM MOVIMENTACAO ORDER BY ID";
+
+	Connection con = null;
+	PreparedStatement stmt = null;
+	ResultSet rs = null;
 
 	public void add(Conta conta) {
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		try {
 			con = Conexao.getConection();
 			stmt = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
@@ -68,9 +70,6 @@ public class ContaDao {
 
 	public Conta get(String userAcessoHash, String senhaAcessoHash) {
 
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		Conta conta = new Conta();
 
 		try {
@@ -96,9 +95,6 @@ public class ContaDao {
 
 	public List<Conta> buscarContas() {
 		List<Conta> contas = new ArrayList<>();
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
 
 		try {
 			con = Conexao.getConection();
@@ -140,9 +136,7 @@ public class ContaDao {
 	}
 
 	public Conta getConta(String agencia, String numero, String titular) {
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
+
 		Conta conta = null;
 
 		try {
@@ -172,9 +166,6 @@ public class ContaDao {
 
 	public void updateSaldo(Conta conta, BigDecimal valorDeposito) {
 
-		Connection con = null;
-		PreparedStatement stmt = null;
-
 		try {
 			con = Conexao.getConection();
 			stmt = con.prepareStatement(SQL_UPDATE_SALDO_CONTA);
@@ -197,9 +188,6 @@ public class ContaDao {
 	}
 
 	public void inativarConta(Conta conta) {
-
-		Connection con = null;
-		PreparedStatement stmt = null;
 
 		con = Conexao.getConection();
 		try {
@@ -224,9 +212,6 @@ public class ContaDao {
 
 	public void insertMovimentacao(Movimentacao movimentacao) {
 
-		Connection con = null;
-		PreparedStatement stmt = null;
-
 		try {
 			con = Conexao.getConection();
 
@@ -246,6 +231,37 @@ public class ContaDao {
 
 		}
 
+	}
+
+	public List<Movimentacao> buscarMovimentacoes() {
+
+		List<Movimentacao> movimentacoes = new ArrayList<>();
+
+		try {
+			con = Conexao.getConection();
+			stmt = con.prepareStatement(SQL_SELECT_ALL_MOVIMENTACAO);
+
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+
+				Movimentacao movimentacao = new Movimentacao();
+				movimentacao.setData(rs.getTimestamp("data"));
+				movimentacao.setOperacao(rs.getString("operacao"));
+				movimentacao.setValor(rs.getBigDecimal("valor"));
+				movimentacao.setId(rs.getInt("id"));
+				movimentacoes.add(movimentacao);
+
+			}
+
+			return movimentacoes;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Conexao.close(rs, stmt, con);
+		}
+
+		return movimentacoes;
 	}
 
 }

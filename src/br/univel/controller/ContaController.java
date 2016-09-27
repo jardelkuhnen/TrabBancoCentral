@@ -124,4 +124,10 @@ public class ContaController implements ContaMethods {
 
 	}
 
+	public List<Movimentacao> buscarMovimentacao() {
+
+		
+		return new ContaDao().buscarMovimentacoes();
+	}
+
 }

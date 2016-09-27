@@ -1,35 +1,33 @@
 package br.univel.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.sql.SQLException;
+import java.text.ParseException;
 
-import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import br.univel.controller.AgenciaController;
 import br.univel.dao.AgenciaDao;
 import br.univel.model.Agencia;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
-
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.awt.event.ActionEvent;
-
 public class CadAgencia extends PadraoBancario implements WindowListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final int ID_CRIAR_AGENCIA = 0;
 	private JPanel contentPane;
 	private JTextField txtNome;

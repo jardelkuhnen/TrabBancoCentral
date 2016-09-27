@@ -29,7 +29,7 @@ public class AgenciaController {
 
 	}
 
-	public List<Agencia> buscarAgencias() throws SQLException {
+	public List<Agencia> buscarAgencias() {
 
 		return new AgenciaDao().buscarAgencias();
 	}

@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.event.WindowStateListener;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -17,6 +18,8 @@ import br.univel.controller.ContaController;
 import br.univel.general.MovimentacaoFacade;
 import br.univel.interfacee.AtualizacaoDeConta;
 import br.univel.model.Conta;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 
 public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 

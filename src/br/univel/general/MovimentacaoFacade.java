@@ -18,6 +18,7 @@ import br.univel.interfacee.ContaMethods;
 import br.univel.model.Conta;
 import br.univel.model.FormatoData;
 import br.univel.model.Movimentacao;
+import br.univel.view.PadraoCliente;
 
 public class MovimentacaoFacade implements ContaMethods {
 
@@ -60,11 +61,14 @@ public class MovimentacaoFacade implements ContaMethods {
 	public boolean saque(Conta conta, BigDecimal valorSaque, String senhaInformada) {
 
 		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
+
 		BigDecimal saldoApos = conta.getSaldo();
 
 		if (conta.getSaldo().compareTo(valorSaque) >= 0) {
 
-			conta.setSaldo(saldoApos.subtract(valorSaque));
+			saldoApos = saldoApos.subtract(valorSaque);
+
+			conta.setSaldo(new BigDecimal(saldoApos.toString()));
 
 			new ContaDao().updateSaldo(conta, conta.getSaldo());
 

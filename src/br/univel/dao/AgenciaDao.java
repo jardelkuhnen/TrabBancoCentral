@@ -20,11 +20,11 @@ public class AgenciaDao {
 	private static String SQL_SELECT_ALL = "SELECT * FROM AGENCIA ORDER BY ID";
 	private static String SQL_INSERT = "INSERT INTO AGENCIA (NOME, NUMERO, CIDADE) VALUES (?,?,?)";
 
-	public void addAgencia(Agencia agencia) throws SQLException {
+	Connection con = null;
+	PreparedStatement stmt = null;
+	ResultSet rs = null;
 
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
+	public void addAgencia(Agencia agencia) throws SQLException {
 
 		try {
 			con = Conexao.getConection();
@@ -57,12 +57,8 @@ public class AgenciaDao {
 
 	}
 
-	public List<Agencia> buscarAgencias() throws SQLException {
-
+	public List<Agencia> buscarAgencias() {
 		List<Agencia> agencias = new ArrayList<>();
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
 
 		try {
 			con = Conexao.getConection();
@@ -83,7 +79,6 @@ public class AgenciaDao {
 		return agencias;
 	}
 
-
 	// Metodo faz leitura de todos os campos da agencia no banco e adicionar no
 	// resultSet
 	private Agencia readResultSet(ResultSet rs) throws SQLException {
@@ -97,9 +92,6 @@ public class AgenciaDao {
 
 	public Agencia get(Integer idAgencia) throws SQLException {
 
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		try {
 
 			con = Conexao.getConection();
@@ -119,9 +111,6 @@ public class AgenciaDao {
 
 	public void edit(Agencia agencia) {
 
-		Connection con = null;
-		PreparedStatement stmt = null;
-
 		try {
 			con = Conexao.getConection();
 			stmt = con.prepareStatement(SQL_UPDATE);
@@ -138,16 +127,14 @@ public class AgenciaDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			Conexao.close(null, stmt, con);
 		}
 
 	}
 
 	public Integer getNumero(String nAgencia) {
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
+
 		int agEncontradas = 0;
 		try {
 			con = Conexao.getConection();
@@ -163,7 +150,7 @@ public class AgenciaDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			Conexao.close(rs, stmt, con);
 		}
 		return agEncontradas;

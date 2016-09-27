@@ -3,25 +3,38 @@ package br.univel.view;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.text.ParseException;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
+import br.univel.controller.ContaController;
 import br.univel.model.Conta;
+import br.univel.model.ListaSaldoModel;
+import br.univel.model.Movimentacao;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class SaldoCliente extends PadraoCliente {
+public class SaldoCliente extends PadraoCliente implements WindowListener {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtDataDe;
 	private JTextField txtDataAte;
 	private JTextField txtSaldo;
-	private JTable table;
+	private JTable tblMovimentacoes;
+	private List<Movimentacao> movimentacoes;
+	private ListaSaldoModel model;
 
 	public SaldoCliente(Conta conta) {
 		super(conta);
+		addWindowListener(this);
 		setTitle("Saldo Cliente");
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.columnWidths = new int[] { 251 };
@@ -43,7 +56,7 @@ public class SaldoCliente extends PadraoCliente {
 		gbl_panel.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 7;
@@ -53,9 +66,9 @@ public class SaldoCliente extends PadraoCliente {
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 0;
 		panel.add(scrollPane, gbc_scrollPane);
-		
-		table = new JTable();
-		scrollPane.setViewportView(table);
+
+		tblMovimentacoes = new JTable();
+		scrollPane.setViewportView(tblMovimentacoes);
 
 		JButton voltaAno = new JButton("|<");
 		GridBagConstraints gbc_voltaAno = new GridBagConstraints();
@@ -81,23 +94,31 @@ public class SaldoCliente extends PadraoCliente {
 		gbc_voltaDia.gridy = 7;
 		panel.add(voltaDia, gbc_voltaDia);
 
-		txtDataDe = new JTextField();
-		GridBagConstraints gbc_txtDataDe = new GridBagConstraints();
-		gbc_txtDataDe.insets = new Insets(0, 0, 0, 5);
-		gbc_txtDataDe.fill = GridBagConstraints.BOTH;
-		gbc_txtDataDe.gridx = 3;
-		gbc_txtDataDe.gridy = 7;
-		panel.add(txtDataDe, gbc_txtDataDe);
-		txtDataDe.setColumns(10);
+		try {
+			txtDataDe = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			GridBagConstraints gbc_txtDataDe = new GridBagConstraints();
+			gbc_txtDataDe.insets = new Insets(0, 0, 0, 5);
+			gbc_txtDataDe.fill = GridBagConstraints.BOTH;
+			gbc_txtDataDe.gridx = 3;
+			gbc_txtDataDe.gridy = 7;
+			panel.add(txtDataDe, gbc_txtDataDe);
+			txtDataDe.setColumns(10);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
-		txtDataAte = new JTextField();
-		GridBagConstraints gbc_txtDataAte = new GridBagConstraints();
-		gbc_txtDataAte.insets = new Insets(0, 0, 0, 5);
-		gbc_txtDataAte.fill = GridBagConstraints.BOTH;
-		gbc_txtDataAte.gridx = 4;
-		gbc_txtDataAte.gridy = 7;
-		panel.add(txtDataAte, gbc_txtDataAte);
-		txtDataAte.setColumns(10);
+		try {
+			txtDataAte = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			GridBagConstraints gbc_txtDataAte = new GridBagConstraints();
+			gbc_txtDataAte.insets = new Insets(0, 0, 0, 5);
+			gbc_txtDataAte.fill = GridBagConstraints.BOTH;
+			gbc_txtDataAte.gridx = 4;
+			gbc_txtDataAte.gridy = 7;
+			panel.add(txtDataAte, gbc_txtDataAte);
+			txtDataAte.setColumns(10);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		JButton avancaDia = new JButton(">");
 		GridBagConstraints gbc_avancaDia = new GridBagConstraints();
@@ -131,7 +152,7 @@ public class SaldoCliente extends PadraoCliente {
 		gbc_btnImprimir.gridy = 7;
 		panel.add(btnImprimir, gbc_btnImprimir);
 
-		txtSaldo = new JTextField();
+		txtSaldo = new JTextField("Valor movimentado R$\n" + buscaValor());
 		GridBagConstraints gbc_txtSaldo = new GridBagConstraints();
 		gbc_txtSaldo.fill = GridBagConstraints.BOTH;
 		gbc_txtSaldo.gridx = 9;
@@ -141,9 +162,57 @@ public class SaldoCliente extends PadraoCliente {
 
 	}
 
+	private String buscaValor() {
+
+		return null;
+	}
+
+	public void preencherTela() {
+
+		movimentacoes = new ContaController().buscarMovimentacao();
+		model = new ListaSaldoModel(movimentacoes);
+		tblMovimentacoes.setModel(model);
+	}
+
 	@Override
 	public void contaAlterada(Conta conta) {
+		PadraoCliente.populaTelaInfConta(conta);
+	}
 
+	@Override
+	public void windowActivated(WindowEvent e) {
+
+		preencherTela();
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		preencherTela();
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		preencherTela();
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		preencherTela();
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		preencherTela();
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		preencherTela();
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		preencherTela();
 	}
 
 }
