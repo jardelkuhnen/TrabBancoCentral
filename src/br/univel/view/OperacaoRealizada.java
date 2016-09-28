@@ -21,7 +21,6 @@ public class OperacaoRealizada extends PadraoCliente {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JLabel lblValor;
 	private JLabel lblOperacaoRealizada;
 	private Operacao operacao;
@@ -92,6 +91,7 @@ public class OperacaoRealizada extends PadraoCliente {
 		JButton btnRetornar = new JButton("Retornar");
 		btnRetornar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				new TelaCliente(conta).setVisible(true);
 			}
 		});
@@ -113,6 +113,5 @@ public class OperacaoRealizada extends PadraoCliente {
 		lblValor.setText(NumberFormat.getCurrencyInstance().format(vlrOperacao));
 
 	}
-
 
 }

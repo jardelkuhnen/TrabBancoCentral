@@ -62,7 +62,7 @@ public class PadraoBancario extends JFrame {
 		contentPane.add(cabecalho, gbc_cabecalho);
 		GridBagLayout gbl_cabecalho = new GridBagLayout();
 		gbl_cabecalho.columnWidths = new int[] { 94, 208, 90, 0 };
-		gbl_cabecalho.rowHeights = new int[] { 26, 0, 26, 0 };
+		gbl_cabecalho.rowHeights = new int[] { 62, 0, 26, 0 };
 		gbl_cabecalho.columnWeights = new double[] { 0.0, 1.0, 0.0,
 				Double.MIN_VALUE };
 		gbl_cabecalho.rowWeights = new double[] { 0.0, 1.0, 0.0,
@@ -70,7 +70,7 @@ public class PadraoBancario extends JFrame {
 		cabecalho.setLayout(gbl_cabecalho);
 
 		JLabel lblBancoCentral = new JLabel("Banco Central");
-		lblBancoCentral.setForeground(new Color(0, 0, 205));
+		lblBancoCentral.setForeground(Color.DARK_GRAY);
 		lblBancoCentral.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_lblBancoCentral = new GridBagConstraints();
 		gbc_lblBancoCentral.fill = GridBagConstraints.BOTH;
@@ -80,7 +80,7 @@ public class PadraoBancario extends JFrame {
 		cabecalho.add(lblBancoCentral, gbc_lblBancoCentral);
 
 		lblDataAcess = new JLabel("");
-		lblDataAcess.setForeground(new Color(0, 0, 205));
+		lblDataAcess.setForeground(Color.DARK_GRAY);
 		lblDataAcess.setText(new GetHorarioLocal().getHorarioLocal(FormatoData
 				.getDtformattddmmyyyyhhmm()));
 		GridBagConstraints gbc_lblDataAcess = new GridBagConstraints();
@@ -92,6 +92,7 @@ public class PadraoBancario extends JFrame {
 		cabecalho.add(lblDataAcess, gbc_lblDataAcess);
 
 		JLabel imagem = new JLabel("");
+		imagem.setForeground(Color.LIGHT_GRAY);
 		imagem.setIcon(new ImageIcon(PadraoCliente.class
 				.getResource("/Imagem/Icone.png")));
 
@@ -103,7 +104,7 @@ public class PadraoBancario extends JFrame {
 		cabecalho.add(imagem, gbc_imagem);
 
 		JLabel lblFrase = new JLabel("Aqui seu dinheiro rende mais");
-		lblFrase.setForeground(new Color(0, 0, 205));
+		lblFrase.setForeground(Color.DARK_GRAY);
 		lblFrase.setFont(new Font("Tahoma", Font.BOLD, 14));
 		GridBagConstraints gbc_lblFrase = new GridBagConstraints();
 		gbc_lblFrase.fill = GridBagConstraints.BOTH;

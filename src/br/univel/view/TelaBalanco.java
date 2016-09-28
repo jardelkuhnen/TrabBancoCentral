@@ -237,14 +237,19 @@ public class TelaBalanco extends PadraoBancario implements WindowListener {
 		for (int i = 0; i < balancos.size(); i++) {
 
 			switch (balancos.get(i).getOperacao()) {
+			
 			case "saque":
 				saque.add(balancos.get(i).getValor());
+				break;
 			case "transferência":
 				transf.add(balancos.get(i).getValor());
+				break;
 			case "pagamento":
 				pagam.add(balancos.get(i).getValor());
+				break;
 			case "depósito":
 				depos.add(balancos.get(i).getValor());
+				break;
 			default:
 				break;
 			}
