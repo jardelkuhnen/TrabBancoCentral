@@ -5,11 +5,11 @@ import java.util.List;
 
 import br.univel.dao.ProfissionalDao;
 import br.univel.dao.UsuarioDao;
-import br.univel.enun.SituacaoBancaria;
-import br.univel.enun.TipoUsuario;
+import br.univel.enums.SituacaoBancaria;
+import br.univel.enums.TipoUsuario;
 import br.univel.general.MD5Hash;
 import br.univel.general.Sha256Hash;
-import br.univel.interfacee.Command;
+import br.univel.interfaces.Command;
 import br.univel.model.Profissional;
 import br.univel.model.Usuario;
 

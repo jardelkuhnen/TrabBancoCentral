@@ -1,4 +1,4 @@
-package br.univel.enun;
+package br.univel.enums;
 
 public enum SituacaoBancaria {
 

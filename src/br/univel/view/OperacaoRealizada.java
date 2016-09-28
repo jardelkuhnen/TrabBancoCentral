@@ -2,7 +2,7 @@ package br.univel.view;
 
 import javax.swing.JPanel;
 
-import br.univel.enun.Operacao;
+import br.univel.enums.Operacao;
 import br.univel.model.Conta;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

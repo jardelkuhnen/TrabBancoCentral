@@ -12,9 +12,9 @@ import javax.swing.JOptionPane;
 
 import br.univel.dao.ContaDao;
 import br.univel.dao.UsuarioDao;
-import br.univel.enun.Operacao;
-import br.univel.interfacee.AtualizacaoDeConta;
-import br.univel.interfacee.ContaMethods;
+import br.univel.enums.Operacao;
+import br.univel.interfaces.AtualizacaoDeConta;
+import br.univel.interfaces.ContaMethods;
 import br.univel.model.Conta;
 import br.univel.model.FormatoData;
 import br.univel.model.Movimentacao;

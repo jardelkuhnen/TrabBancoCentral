@@ -21,7 +21,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import br.univel.controller.ContaController;
-import br.univel.enun.TipoConta;
+import br.univel.enums.TipoConta;
 import br.univel.model.Conta;
 
 public class PopupConta extends JFrame {

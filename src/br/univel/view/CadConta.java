@@ -19,8 +19,8 @@ import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import br.univel.controller.ContaController;
-import br.univel.enun.SituacaoBancaria;
-import br.univel.enun.TipoConta;
+import br.univel.enums.SituacaoBancaria;
+import br.univel.enums.TipoConta;
 import br.univel.model.Conta;
 
 public class CadConta extends PadraoBancario {

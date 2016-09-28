@@ -1,4 +1,4 @@
-package br.univel.interfacee;
+package br.univel.interfaces;
 
 import br.univel.model.Conta;
 

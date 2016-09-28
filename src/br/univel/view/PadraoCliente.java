@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.univel.general.GetHorarioLocal;
 import br.univel.general.MovimentacaoFacade;
-import br.univel.interfacee.AtualizacaoDeConta;
+import br.univel.interfaces.AtualizacaoDeConta;
 import br.univel.model.Conta;
 import br.univel.model.FormatoData;
 

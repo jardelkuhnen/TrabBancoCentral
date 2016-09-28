@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import br.univel.controller.ProfissionalController;
-import br.univel.enun.TipoUsuario;
+import br.univel.enums.TipoUsuario;
 import br.univel.model.Profissional;
 
 public class CadProfissional extends PadraoBancario implements WindowListener {

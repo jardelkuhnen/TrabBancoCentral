@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
 import br.univel.controller.ContaController;
-import br.univel.enun.Operacao;
+import br.univel.enums.Operacao;
 import br.univel.general.GetHorarioLocal;
 import br.univel.model.Conta;
 import br.univel.model.FormatoData;

@@ -20,8 +20,8 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 
-import br.univel.enun.Operacao;
-import br.univel.enun.TipoConta;
+import br.univel.enums.Operacao;
+import br.univel.enums.TipoConta;
 import br.univel.general.MovimentacaoFacade;
 import br.univel.model.Conta;
 

@@ -1,6 +1,6 @@
 package br.univel.model;
 
-import br.univel.enun.TipoUsuario;
+import br.univel.enums.TipoUsuario;
 
 public class Profissional {
 

@@ -1,4 +1,4 @@
-package br.univel.interfacee;
+package br.univel.interfaces;
 
 public interface Command {
 

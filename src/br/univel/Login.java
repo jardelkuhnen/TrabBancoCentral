@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.univel.controller.ContaController;
 import br.univel.controller.UsuarioController;
-import br.univel.enun.TipoUsuario;
+import br.univel.enums.TipoUsuario;
 import br.univel.general.MovimentacaoFacade;
 import br.univel.model.Conta;
 import br.univel.view.TelaBancario;

@@ -22,7 +22,7 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 
 import br.univel.controller.ContaController;
-import br.univel.enun.TipoConta;
+import br.univel.enums.TipoConta;
 import br.univel.model.Conta;
 
 public class TelaDeposito extends PadraoCliente {

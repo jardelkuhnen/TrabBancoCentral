@@ -11,7 +11,7 @@ import java.util.List;
 import javax.management.RuntimeErrorException;
 import javax.swing.JOptionPane;
 
-import br.univel.enun.TipoUsuario;
+import br.univel.enums.TipoUsuario;
 import br.univel.model.Profissional;
 
 public class ProfissionalDao {

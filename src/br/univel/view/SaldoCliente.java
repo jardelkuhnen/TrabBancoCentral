@@ -21,6 +21,7 @@ import br.univel.model.Movimentacao;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JLabel;
 
 public class SaldoCliente extends PadraoCliente implements WindowListener {
 
@@ -51,17 +52,17 @@ public class SaldoCliente extends PadraoCliente implements WindowListener {
 		gbc_panel.gridy = 1;
 		getContentPane().add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 0, 0, 0, 69, 70, 45, 0, 62, 47, 58, 0 };
+		gbl_panel.columnWidths = new int[] { 0, 0, 0, 69, 70, 45, 0, 62, 51, 18, 36, 0 };
 		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 41, 32, 0 };
-		gbl_panel.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 7;
-		gbc_scrollPane.gridwidth = 10;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.gridwidth = 11;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 0;
@@ -151,11 +152,19 @@ public class SaldoCliente extends PadraoCliente implements WindowListener {
 		gbc_btnImprimir.gridx = 8;
 		gbc_btnImprimir.gridy = 7;
 		panel.add(btnImprimir, gbc_btnImprimir);
+		
+		JLabel lblSaldoper = new JLabel("");
+		GridBagConstraints gbc_lblSaldoper = new GridBagConstraints();
+		gbc_lblSaldoper.insets = new Insets(0, 0, 0, 5);
+		gbc_lblSaldoper.anchor = GridBagConstraints.EAST;
+		gbc_lblSaldoper.gridx = 9;
+		gbc_lblSaldoper.gridy = 7;
+		panel.add(lblSaldoper, gbc_lblSaldoper);
 
-		txtSaldo = new JTextField("Valor movimentado R$\n" + buscaValor());
+		txtSaldo = new JTextField("");
 		GridBagConstraints gbc_txtSaldo = new GridBagConstraints();
 		gbc_txtSaldo.fill = GridBagConstraints.BOTH;
-		gbc_txtSaldo.gridx = 9;
+		gbc_txtSaldo.gridx = 10;
 		gbc_txtSaldo.gridy = 7;
 		panel.add(txtSaldo, gbc_txtSaldo);
 		txtSaldo.setColumns(10);

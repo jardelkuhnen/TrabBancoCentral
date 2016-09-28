@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import br.univel.interfacee.Command;
+import br.univel.interfaces.Command;
 
 public class Sha256Hash implements Command {
 	private String text;

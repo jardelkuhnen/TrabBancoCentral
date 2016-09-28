@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import br.univel.interfacee.Command;
+import br.univel.interfaces.Command;
 
 public class MD5Hash implements Command {
 	private String text;

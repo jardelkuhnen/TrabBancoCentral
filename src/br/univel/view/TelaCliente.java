@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 import br.univel.controller.ContaController;
 import br.univel.general.MovimentacaoFacade;
-import br.univel.interfacee.AtualizacaoDeConta;
+import br.univel.interfaces.AtualizacaoDeConta;
 import br.univel.model.Conta;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -103,6 +103,7 @@ public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 
 				SaldoCliente saldo = new SaldoCliente(conta);
 				saldo.setVisible(true);
+				saldo.setExtendedState(MAXIMIZED_BOTH);
 			}
 		});
 		GridBagConstraints gbc_btnSaldo = new GridBagConstraints();

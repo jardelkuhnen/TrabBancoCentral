@@ -2,7 +2,7 @@ package br.univel.model;
 
 import java.math.BigDecimal;
 
-import br.univel.enun.TipoConta;
+import br.univel.enums.TipoConta;
 
 public class Conta {
 
