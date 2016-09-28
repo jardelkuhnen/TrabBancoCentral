@@ -11,13 +11,16 @@ import java.text.DecimalFormat;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 
 import br.univel.enums.Operacao;
+import br.univel.general.MovimentacaoFacade;
 import br.univel.model.Conta;
+import br.univel.model.Movimentacao;
 
 public class TelaPagamento extends PadraoCliente {
 
@@ -28,11 +31,14 @@ public class TelaPagamento extends PadraoCliente {
 	private JTextField txtCodbarras;
 	private JTextField txtValorPag;
 
+	MovimentacaoFacade facade;
+
 	/**
 	 * Create the frame.
 	 */
-	public TelaPagamento(Conta conta) {
+	public TelaPagamento(Conta conta, MovimentacaoFacade facade) {
 		super(conta);
+		this.facade = facade;
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 0.0 };
@@ -98,12 +104,21 @@ public class TelaPagamento extends PadraoCliente {
 		btnConfirme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				BigDecimal valorPag = new BigDecimal(txtValorPag.getText().replace(".", "").replace(",", "."));
+				if (txtValorPag.getText().equals("") || txtCodbarras.getText().equals("")) {
+					JOptionPane.showMessageDialog(TelaPagamento.this,
+							"Informe o código de barras e o valor do documento.", "Atenção",
+							JOptionPane.WARNING_MESSAGE);
+					txtCodbarras.requestFocus();
+				} else {
 
-				txtCodbarras.setText("");
-				txtValorPag.setText("0.00");
+					BigDecimal valorPag = new BigDecimal(txtValorPag.getText().replace(".", "").replace(",", "."));
 
-				new SenhaConfirm(conta, valorPag, null, Operacao.PAGAMENTO, txtCodbarras.getText()).setVisible(true);
+					txtCodbarras.setText("");
+					txtValorPag.setText("0.00");
+
+					new SenhaConfirm(conta, valorPag, null, Operacao.PAGAMENTO, txtCodbarras.getText(), facade)
+							.setVisible(true);
+				}
 
 			}
 		});
@@ -113,13 +128,6 @@ public class TelaPagamento extends PadraoCliente {
 		gbc_btnConfirme.gridx = 2;
 		gbc_btnConfirme.gridy = 5;
 		panel.add(btnConfirme, gbc_btnConfirme);
-
-	}
-
-	@Override
-	public void contaAlterada(Conta conta) {
-
-		PadraoCliente.populaTelaInfConta(conta);
 
 	}
 

@@ -1,7 +1,5 @@
 package br.univel.controller;
 
-import java.util.List;
-
 import br.univel.dao.UsuarioDao;
 import br.univel.enums.TipoUsuario;
 import br.univel.general.MD5Hash;

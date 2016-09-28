@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import br.univel.dao.AgenciaDao;
 import br.univel.dao.ContaDao;
 import br.univel.dao.UsuarioDao;
-import br.univel.enums.Operacao;
 import br.univel.enums.SituacaoBancaria;
 import br.univel.enums.TipoUsuario;
 import br.univel.general.MovimentacaoFacade;

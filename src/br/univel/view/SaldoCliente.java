@@ -183,10 +183,6 @@ public class SaldoCliente extends PadraoCliente implements WindowListener {
 		tblMovimentacoes.setModel(model);
 	}
 
-	@Override
-	public void contaAlterada(Conta conta) {
-		PadraoCliente.populaTelaInfConta(conta);
-	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {

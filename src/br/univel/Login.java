@@ -18,18 +18,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import br.univel.controller.ContaController;
 import br.univel.controller.UsuarioController;
 import br.univel.enums.TipoUsuario;
-import br.univel.general.MovimentacaoFacade;
 import br.univel.model.Conta;
 import br.univel.view.TelaBancario;
 import br.univel.view.TelaCliente;
-
-import javax.swing.JPasswordField;
 
 public class Login extends JFrame {
 
@@ -63,11 +61,11 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	public Login() {
 		setResizable(false);
 		setTitle("Login");
-		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage("./Imagens/Icone.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imagens/Icone.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 254, 193);
 		contentPane = new JPanel();
@@ -77,8 +75,7 @@ public class Login extends JFrame {
 		gbl_contentPane.columnWidths = new int[] { 203, 0 };
 		gbl_contentPane.rowHeights = new int[] { 53, 20, 20, 23, 0, 0 };
 		gbl_contentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
 		lblBancoCentral = new JLabel("Banco Central");
@@ -126,7 +123,7 @@ public class Login extends JFrame {
 		gbc_txtSenha.gridy = 2;
 		contentPane.add(txtSenha, gbc_txtSenha);
 
-		cbmAcesso = new JComboBox(TipoUsuario.values());
+		cbmAcesso = new JComboBox<TipoUsuario>(TipoUsuario.values());
 		GridBagConstraints gbc_cbmAcesso = new GridBagConstraints();
 		gbc_cbmAcesso.insets = new Insets(0, 0, 5, 0);
 		gbc_cbmAcesso.fill = GridBagConstraints.HORIZONTAL;
@@ -173,8 +170,7 @@ public class Login extends JFrame {
 			setVisible(false);
 
 		} else {
-			JOptionPane.showMessageDialog(Login.this,
-					"Usuário ou senha incorretos!!!");
+			JOptionPane.showMessageDialog(Login.this, "Usuário ou senha incorretos!!!");
 			limparCampos();
 		}
 	}

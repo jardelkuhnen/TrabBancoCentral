@@ -37,12 +37,15 @@ public class TelaTransferencia extends PadraoCliente {
 	private JTextField txtValor;
 	private JComboBox cmbTipoConta;
 
+	MovimentacaoFacade facade;
+	
 	/**
 	 * Create the frame.
 	 */
-	public TelaTransferencia(Conta conta) {
+	public TelaTransferencia(Conta conta, MovimentacaoFacade facade) {
 		super(conta);
 		setSize(575, 430);
+		this.facade = facade;
 		setResizable(false);
 		setLocationRelativeTo(null);
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
@@ -206,7 +209,7 @@ public class TelaTransferencia extends PadraoCliente {
 					String valor = txtValor.getText().replace(".", "")
 							.replace(",", ".");
 					new SenhaConfirm(conta, new BigDecimal(valor),
-							contaRecebeTransf, Operacao.TRANSFERENCIA, null)
+							contaRecebeTransf, Operacao.TRANSFERENCIA, null, facade)
 							.setVisible(true);
 
 					limparCampos();
@@ -233,10 +236,5 @@ public class TelaTransferencia extends PadraoCliente {
 
 	}
 
-	@Override
-	public void contaAlterada(Conta conta) {
-
-		PadraoCliente.populaTelaInfConta(conta);
-	}
 
 }

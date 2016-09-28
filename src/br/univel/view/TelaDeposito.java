@@ -292,10 +292,5 @@ public class TelaDeposito extends PadraoCliente {
 		return TipoConta.CE;
 	}
 
-	@Override
-	public void contaAlterada(Conta conta) {
-
-		PadraoCliente.populaTelaInfConta(conta);
-	}
 
 }

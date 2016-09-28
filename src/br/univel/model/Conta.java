@@ -2,8 +2,6 @@ package br.univel.model;
 
 import java.math.BigDecimal;
 
-import br.univel.enums.TipoConta;
-
 public class Conta {
 
 	private Integer id;

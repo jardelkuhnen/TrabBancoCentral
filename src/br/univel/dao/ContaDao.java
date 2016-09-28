@@ -218,7 +218,6 @@ public class ContaDao {
 			stmt = con.prepareStatement(SQL_INSERT_MOVIMENTAO, Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setString(1, movimentacao.getOperacao());
-			// stmt.setDate(2, (Date) movimentacao.getData());
 			stmt.setTimestamp(2, new Timestamp(movimentacao.getData().getTime()));
 			stmt.setBigDecimal(3, movimentacao.getValor());
 

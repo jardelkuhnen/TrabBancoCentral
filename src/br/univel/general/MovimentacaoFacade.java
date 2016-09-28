@@ -5,7 +5,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -18,7 +17,8 @@ import br.univel.interfaces.ContaMethods;
 import br.univel.model.Conta;
 import br.univel.model.FormatoData;
 import br.univel.model.Movimentacao;
-import br.univel.view.PadraoCliente;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 
 public class MovimentacaoFacade implements ContaMethods {
 
@@ -29,10 +29,10 @@ public class MovimentacaoFacade implements ContaMethods {
 	Movimentacao movimentacao = new Movimentacao();
 
 	public void addObservers(AtualizacaoDeConta observer) {
-		this.observers.add(observer);
+
 	}
 
-	protected void notifyObservers(Conta conta) {
+	public void notifyObservers(Conta conta) {
 
 		for (final AtualizacaoDeConta observer : observers) {
 			observer.contaAlterada(conta);

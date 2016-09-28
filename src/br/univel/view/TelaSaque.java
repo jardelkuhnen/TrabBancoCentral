@@ -14,6 +14,7 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 
 import br.univel.enums.Operacao;
+import br.univel.general.MovimentacaoFacade;
 import br.univel.model.Conta;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -28,12 +29,14 @@ public class TelaSaque extends PadraoCliente {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtValor;
 
-	public TelaSaque(Conta conta) {
+	MovimentacaoFacade facade;
+
+	public TelaSaque(Conta conta, MovimentacaoFacade facade) {
 		super(conta);
 		setTitle("Saque");
+		this.facade = facade;
 		setResizable(false);
-		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
-				.getLayout();
+		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 0.0 };
 
@@ -48,18 +51,17 @@ public class TelaSaque extends PadraoCliente {
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 253, -19, 239, 82, 0 };
 		gbl_panel.rowHeights = new int[] { 60, 51, 22, 37, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0,
-				Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0,
-				Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		JButton btnCinquenta = new JButton("R$ 50,00");
 		btnCinquenta.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta,
-						new BigDecimal(50.00), null, Operacao.SAQUE, null);
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(50.00), null, Operacao.SAQUE, null,
+						facade);
 				senhaConfirme.setVisible(true);
 			}
 		});
@@ -74,8 +76,8 @@ public class TelaSaque extends PadraoCliente {
 		btnCem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta,
-						new BigDecimal(100.00), null, Operacao.SAQUE, null);
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(100.00), null, Operacao.SAQUE, null,
+						facade);
 				senhaConfirme.setVisible(true);
 			}
 		});
@@ -90,8 +92,8 @@ public class TelaSaque extends PadraoCliente {
 		btnDuzentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta,
-						new BigDecimal(200.00), null, Operacao.SAQUE, null);
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(200.00), null, Operacao.SAQUE, null,
+						facade);
 				senhaConfirme.setVisible(true);
 			}
 		});
@@ -106,8 +108,8 @@ public class TelaSaque extends PadraoCliente {
 		btnTrezentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta,
-						new BigDecimal(300.00), null, Operacao.SAQUE, null);
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(300.00), null, Operacao.SAQUE, null,
+						facade);
 				senhaConfirme.setVisible(true);
 			}
 		});
@@ -122,8 +124,8 @@ public class TelaSaque extends PadraoCliente {
 		btnQuinhentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta,
-						new BigDecimal(500.00), null, Operacao.SAQUE, null);
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(500.00), null, Operacao.SAQUE, null,
+						facade);
 				senhaConfirme.setVisible(true);
 
 			}
@@ -149,8 +151,7 @@ public class TelaSaque extends PadraoCliente {
 		formatter.setFormat(dFormat);
 		formatter.setAllowsInvalid(false);
 		txtValor = new JFormattedTextField();
-		((JFormattedTextField) txtValor)
-				.setFormatterFactory(new DefaultFormatterFactory(formatter));
+		((JFormattedTextField) txtValor).setFormatterFactory(new DefaultFormatterFactory(formatter));
 		txtValor.setText(new DecimalFormat("R$ #,##0.00").format(0.00));
 		GridBagConstraints gbc_txtValor = new GridBagConstraints();
 		gbc_txtValor.fill = GridBagConstraints.BOTH;
@@ -164,16 +165,14 @@ public class TelaSaque extends PadraoCliente {
 		btnConfirme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (txtValor.getText().equals("0.00")
-						|| txtValor.getText().equals("")) {
-					JOptionPane.showMessageDialog(TelaSaque.this,
-							"Informe um valor para reaizar o saque!!!",
-							"Atenção", JOptionPane.WARNING_MESSAGE);
+				if (txtValor.getText().equals("0.00") || txtValor.getText().equals("")) {
+					JOptionPane.showMessageDialog(TelaSaque.this, "Informe um valor para reaizar o saque!!!", "Atenção",
+							JOptionPane.WARNING_MESSAGE);
 				} else {
 
-					new SenhaConfirm(conta, new BigDecimal(txtValor.getText()
-							.replace(".", "").replace(",", ".").toString()),
-							null, Operacao.SAQUE, null).setVisible(true);
+					new SenhaConfirm(conta,
+							new BigDecimal(txtValor.getText().replace(".", "").replace(",", ".").toString()), null,
+							Operacao.SAQUE, null, facade).setVisible(true);
 				}
 
 			}
@@ -186,9 +185,4 @@ public class TelaSaque extends PadraoCliente {
 
 	}
 
-	@Override
-	public void contaAlterada(Conta conta) {
-
-		PadraoCliente.populaTelaInfConta(conta);
-	}
 }

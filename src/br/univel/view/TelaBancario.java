@@ -11,7 +11,11 @@ import javax.swing.JPanel;
 
 public class TelaBancario extends PadraoBancario {
 
-	private JPanel contentPane;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public TelaBancario() {
 		super();

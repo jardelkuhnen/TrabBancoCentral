@@ -3,11 +3,14 @@ package br.univel.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 public class ListaAgenciaModel extends AbstractTableModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	List<Agencia> agencias = new ArrayList<>();
 
 	public ListaAgenciaModel(final List<Agencia> agencias) {

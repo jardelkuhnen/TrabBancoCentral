@@ -7,6 +7,10 @@ import javax.swing.table.AbstractTableModel;
 
 public class ListaClienteModel extends AbstractTableModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	List<Conta> contas = new ArrayList<>();
 
 	public ListaClienteModel(List<Conta> contas) {

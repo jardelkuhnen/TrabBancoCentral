@@ -7,6 +7,10 @@ import javax.swing.table.AbstractTableModel;
 
 public class ListaProfissinoalModel extends AbstractTableModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	List<Profissional> profissionais = new ArrayList<>();
 
 	public ListaProfissinoalModel(List<Profissional> profissionais) {

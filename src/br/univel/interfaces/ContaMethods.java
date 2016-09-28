@@ -3,7 +3,6 @@ package br.univel.interfaces;
 import java.math.BigDecimal;
 
 import br.univel.model.Conta;
-import br.univel.model.Movimentacao;
 
 public interface ContaMethods {
 

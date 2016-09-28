@@ -5,10 +5,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.event.WindowStateListener;
-import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -18,11 +14,13 @@ import br.univel.controller.ContaController;
 import br.univel.general.MovimentacaoFacade;
 import br.univel.interfaces.AtualizacaoDeConta;
 import br.univel.model.Conta;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 
 public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static final String CONTA_ELETRONICA = "Conta Eletrônica";
 	static final String CONTA_POUPANCA = "Conta Poupança";
 	static final String CONTA_CORRENTE = "Conta Corrente";
@@ -66,7 +64,7 @@ public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 		btnSaque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				TelaSaque telaSaque = new TelaSaque(conta);
+				TelaSaque telaSaque = new TelaSaque(conta, facade);
 				telaSaque.setVisible(true);
 				telaSaque.setLocationRelativeTo(null);
 				// facade.addObservers(telaSaque);
@@ -83,7 +81,7 @@ public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 		btnTransferncia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				TelaTransferencia telaTransf = new TelaTransferencia(conta);
+				TelaTransferencia telaTransf = new TelaTransferencia(conta, facade);
 				telaTransf.setVisible(true);
 				telaTransf.setLocationRelativeTo(null);
 				// facade.addObservers(telaTransf);
@@ -117,7 +115,7 @@ public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 		btnPagamentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				TelaPagamento telaPag = new TelaPagamento(conta);
+				TelaPagamento telaPag = new TelaPagamento(conta, facade);
 				telaPag.setVisible(true);
 				telaPag.setLocationRelativeTo(null);
 				// facade.addObservers(telaPag);
@@ -192,11 +190,6 @@ public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 				break;
 			}
 		}
-	}
-
-	@Override
-	public void contaAlterada(Conta conta) {
-		PadraoCliente.populaTelaInfConta(conta);
 	}
 
 }
