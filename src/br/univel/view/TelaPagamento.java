@@ -113,6 +113,7 @@ public class TelaPagamento extends PadraoCliente {
 
 					BigDecimal valorPag = new BigDecimal(txtValorPag.getText().replace(".", "").replace(",", "."));
 
+					
 					txtCodbarras.setText("");
 					txtValorPag.setText("0.00");
 
