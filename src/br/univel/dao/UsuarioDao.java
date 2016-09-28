@@ -13,17 +13,17 @@ import br.univel.model.Usuario;
 
 public class UsuarioDao {
 
-	Connection con;
 	private static String SQL_SELECT_ID = "SELECT * FROM USUARIO WHERE USUARIO = ? AND SENHA = ? AND SITUACAO = 'ATIVO'";
 	private static String SQL_INSERT = "INSERT INTO USUARIO (USUARIO, SENHA,TIPOUSUARIO, SITUACAO) VALUES (?,?,?,?)";
 	private static String SQL_UPDATE = "UPDATE USUARIO SET USUARIO = ?, SENHA = ?, TIPOUSUARIO = ? WHERE ID = ? AND SITUACAO = 'ATIVO'";
 	private static String SQL_INATIVAR_USUARIO = "UPDATE USUARIO SET SITUACAO = 'INATIVO' WHERE USUARIO = ?";
 
+	Connection con = null;
+	PreparedStatement stmt = null;
+	ResultSet rs = null;
+
 	public boolean acessoLogin(final String usuario, final String senha) {
 
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		try {
 			con = Conexao.getConection();
 			stmt = con.prepareStatement(SQL_SELECT_ID);
@@ -46,23 +46,23 @@ public class UsuarioDao {
 
 	public void add(Usuario usuario) {
 
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		try {
 			con = Conexao.getConection();
-			stmt = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+			stmt = con.prepareStatement(SQL_INSERT,
+					Statement.RETURN_GENERATED_KEYS);
 			writeStatement(usuario, stmt);
 
 			int linhasInseridas = stmt.executeUpdate();
 			if (linhasInseridas == 0) {
-				throw new RuntimeException("Falha ao inserir dados na tabela Usuário");
+				throw new RuntimeException(
+						"Falha ao inserir dados na tabela Usuário");
 			}
 
 			rs = stmt.getGeneratedKeys();
 			rs.next();
 			usuario.setId(rs.getInt(1));
-			JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso");
+			JOptionPane.showMessageDialog(null,
+					"Usuário cadastrado com sucesso");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -73,8 +73,6 @@ public class UsuarioDao {
 	}
 
 	public void edit(Usuario usuario, Integer id) {
-		Connection con = null;
-		PreparedStatement stmt = null;
 
 		try {
 			con = Conexao.getConection();
@@ -96,7 +94,8 @@ public class UsuarioDao {
 
 	}
 
-	private void writeStatement(Usuario usuario, PreparedStatement stmt) throws SQLException {
+	private void writeStatement(Usuario usuario, PreparedStatement stmt)
+			throws SQLException {
 		stmt.setString(1, usuario.getUsuario());
 		stmt.setString(2, usuario.getSenha());
 		stmt.setString(3, usuario.getTipoUsuario().toString());
@@ -104,9 +103,6 @@ public class UsuarioDao {
 	}
 
 	public void inativarConta(Conta conta) {
-
-		Connection con = null;
-		PreparedStatement stmt = null;
 
 		con = Conexao.getConection();
 
@@ -118,9 +114,12 @@ public class UsuarioDao {
 			int linhasAtualizadas = stmt.executeUpdate();
 
 			if (linhasAtualizadas == 0) {
-				JOptionPane.showMessageDialog(null, "Erro ao inativar usuario!", "Atenção", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,
+						"Erro ao inativar usuario!", "Atenção",
+						JOptionPane.ERROR_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(null, "Usuario inativado com suscesso");
+				JOptionPane.showMessageDialog(null,
+						"Usuario inativado com suscesso");
 			}
 
 		} catch (SQLException e) {

@@ -21,29 +21,32 @@ public class ProfissionalDao {
 	private static String SQL_SELECT_ALL = "select * from profissional order by id";
 	private static String SQL_INSERT = "INSERT INTO PROFISSIONAL (nome, idade, usuario, senhaAcesso, senhaOperacoes, tipoProfissional) VALUES (?,?,?,?,?,?)";
 
-	public void add(Profissional profisisonal) {
+	Connection con = null;
+	PreparedStatement stmt = null;
+	ResultSet rs = null;
 
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
+	public void add(Profissional profisisonal) {
 
 		try {
 			con = Conexao.getConection();
 
-			stmt = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+			stmt = con.prepareStatement(SQL_INSERT,
+					Statement.RETURN_GENERATED_KEYS);
 			writeStatement(profisisonal, stmt);
 
 			int linhasInseridas = stmt.executeUpdate();
 
 			if (linhasInseridas == 0) {
-				throw new RuntimeErrorException(null, "Falha ao inserir dados na tabela Profissionais!");
+				throw new RuntimeErrorException(null,
+						"Falha ao inserir dados na tabela Profissionais!");
 			}
 
 			rs = stmt.getGeneratedKeys();
 			rs.next();
 
 			profisisonal.setId(rs.getInt(1));
-			JOptionPane.showMessageDialog(null, "Profissional inserido com sucesso!!!");
+			JOptionPane.showMessageDialog(null,
+					"Profissional inserido com sucesso!!!");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,7 +56,8 @@ public class ProfissionalDao {
 
 	}
 
-	private void writeStatement(Profissional profisisonal, PreparedStatement stmt) throws SQLException {
+	private void writeStatement(Profissional profisisonal,
+			PreparedStatement stmt) throws SQLException {
 
 		stmt.setString(1, profisisonal.getNome());
 		stmt.setInt(2, profisisonal.getIdade());
@@ -63,13 +67,9 @@ public class ProfissionalDao {
 		stmt.setString(6, profisisonal.getTipoProfissional().toString());
 	}
 
-
 	public List<Profissional> buscarProfissionais() {
 
 		List<Profissional> profissionais = new ArrayList<>();
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
 
 		try {
 			con = Conexao.getConection();
@@ -108,14 +108,12 @@ public class ProfissionalDao {
 			tipoProf = TipoUsuario.BANCARIO;
 		}
 
-		return new Profissional(id, nome, usuario, idade, senhaAcesso, senhaOperacoes, tipoProf);
+		return new Profissional(id, nome, usuario, idade, senhaAcesso,
+				senhaOperacoes, tipoProf);
 
 	}
 
 	public Profissional get(Integer idProfissional) throws SQLException {
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
 
 		try {
 			con = Conexao.getConection();
@@ -137,9 +135,6 @@ public class ProfissionalDao {
 
 	public void edit(Profissional profissional) {
 
-		Connection con = null;
-		PreparedStatement stmt = null;
-
 		try {
 			con = Conexao.getConection();
 			stmt = con.prepareStatement(SQL_UPDATE);
@@ -150,13 +145,15 @@ public class ProfissionalDao {
 			int linhasInseridas = stmt.executeUpdate();
 
 			if (linhasInseridas == 0)
-				throw new RuntimeException("Falha ao inserir dados na tabela Profissional");
+				throw new RuntimeException(
+						"Falha ao inserir dados na tabela Profissional");
 
-			JOptionPane.showMessageDialog(null, "Profissional atualizado com sucesso!!!");
+			JOptionPane.showMessageDialog(null,
+					"Profissional atualizado com sucesso!!!");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			Conexao.close(null, stmt, con);
 		}
 

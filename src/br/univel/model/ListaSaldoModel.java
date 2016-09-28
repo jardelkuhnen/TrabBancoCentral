@@ -38,7 +38,7 @@ public class ListaSaldoModel extends AbstractTableModel {
 		case 0:
 			return movimentacao.getOperacao();
 		case 1:
-			return movimentacao.getData();
+			return movimentacao.getData().toGMTString();
 		case 2:
 
 			switch (movimentacao.getOperacao()) {

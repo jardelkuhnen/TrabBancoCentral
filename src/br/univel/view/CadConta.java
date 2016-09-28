@@ -25,7 +25,10 @@ import br.univel.model.Conta;
 
 public class CadConta extends PadraoBancario {
 
-	private JPanel contentPane;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtNome;
 	private JTextField txtIdade;
 	private JTextField txtCpf;
@@ -36,7 +39,8 @@ public class CadConta extends PadraoBancario {
 
 	public CadConta() {
 		super();
-		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
+		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
+				.getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0 };
 		setExtendedState(MAXIMIZED_BOTH);
@@ -51,10 +55,12 @@ public class CadConta extends PadraoBancario {
 		getContentPane().add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 0, 197, 225, 0, 0 };
-		gbl_panel.rowHeights = new int[] { 30, 14, 20, 14, 20, 14, 20, 14, 20, 23, 0, 0, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		gbl_panel.rowHeights = new int[] { 30, 14, 20, 14, 20, 14, 20, 14, 20,
+				23, 0, 0, 0 };
+		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0,
 				Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		JLabel lblNome = new JLabel("Nome");
@@ -109,7 +115,8 @@ public class CadConta extends PadraoBancario {
 		}
 
 		try {
-			txtCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+			txtCpf = new JFormattedTextField(
+					new MaskFormatter("###.###.###-##"));
 			GridBagConstraints gbc_txtCpf = new GridBagConstraints();
 			gbc_txtCpf.anchor = GridBagConstraints.NORTH;
 			gbc_txtCpf.fill = GridBagConstraints.HORIZONTAL;
@@ -152,7 +159,7 @@ public class CadConta extends PadraoBancario {
 			e1.printStackTrace();
 		}
 
-		JComboBox cmbTipoConta = new JComboBox(TipoConta.values());
+		JComboBox<TipoConta> cmbTipoConta = new JComboBox<TipoConta>(TipoConta.values());
 		GridBagConstraints gbc_cmbTipoConta = new GridBagConstraints();
 		gbc_cmbTipoConta.anchor = GridBagConstraints.NORTH;
 		gbc_cmbTipoConta.fill = GridBagConstraints.HORIZONTAL;
@@ -222,12 +229,17 @@ public class CadConta extends PadraoBancario {
 		btnConfrime.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				if (txtAgencia.getText().equals("") || txtNome.getText().equals("") || txtIdade.getText().equals("")
-						|| txtCpf.getText().equals("") || txtAgencia.getText().equals("")
-						|| txtUsuario.getText().equals("") || txtSenhaAcesso.getText().equals("")
+				if (txtAgencia.getText().equals("")
+						|| txtNome.getText().equals("")
+						|| txtIdade.getText().equals("")
+						|| txtCpf.getText().equals("")
+						|| txtAgencia.getText().equals("")
+						|| txtUsuario.getText().equals("")
+						|| txtSenhaAcesso.getText().equals("")
 						|| txtSenhaOpera.getText().equals("")) {
 
-					JOptionPane.showMessageDialog(null, "Informe todos os campos!!!", "Atenção",
+					JOptionPane.showMessageDialog(null,
+							"Informe todos os campos!!!", "Atenção",
 							JOptionPane.ERROR_MESSAGE, null);
 					txtNome.requestFocus();
 				} else {
@@ -238,7 +250,8 @@ public class CadConta extends PadraoBancario {
 					conta.setIdade(Integer.parseInt(txtIdade.getText()));
 					conta.setCpf(txtCpf.getText());
 					conta.setAgencia(txtAgencia.getText().replace("-", ""));
-					conta.setTipoConta(cmbTipoConta.getSelectedItem().toString());
+					conta.setTipoConta(cmbTipoConta.getSelectedItem()
+							.toString());
 					conta.setUsuarioAcesso(txtUsuario.getText());
 					conta.setSenhaAcesso(txtSenhaAcesso.getText());
 					conta.setSenhaOperacoes(txtSenhaOpera.getText());
@@ -246,7 +259,7 @@ public class CadConta extends PadraoBancario {
 					conta.setUsuarioAcesso(txtUsuario.getText());
 					conta.setSaldo(new BigDecimal(0.00));
 					conta.setSituacaoBancaria(SituacaoBancaria.ATIVO.toString());
-					
+
 					contaController.add(conta);
 
 				}

@@ -6,8 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -16,19 +14,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import br.univel.general.GetHorarioLocal;
-import br.univel.general.MovimentacaoFacade;
 import br.univel.interfaces.AtualizacaoDeConta;
 import br.univel.model.Conta;
 import br.univel.model.FormatoData;
 
-public abstract class PadraoCliente extends JFrame implements AtualizacaoDeConta, Observer {
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-
-		PadraoCliente.populaTelaInfConta((Conta) arg1);
-
-	}
+public abstract class PadraoCliente extends JFrame implements
+		AtualizacaoDeConta {
 
 	/**
 	 * 
@@ -85,14 +76,16 @@ public abstract class PadraoCliente extends JFrame implements AtualizacaoDeConta
 		setSize(800, 375);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 370);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imagens/Icone.png"));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage("./Imagens/Icone.png"));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 77, 0, 414, 0 };
 		gbl_contentPane.rowHeights = new int[] { 89, 253, 0 };
-		gbl_contentPane.columnWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPane.columnWeights = new double[] { 0.0, 1.0, 0.0,
+				Double.MIN_VALUE };
 		gbl_contentPane.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
@@ -108,7 +101,8 @@ public abstract class PadraoCliente extends JFrame implements AtualizacaoDeConta
 		GridBagLayout gbl_cabecalho = new GridBagLayout();
 		gbl_cabecalho.columnWidths = new int[] { 94, 208, 90, 0 };
 		gbl_cabecalho.rowHeights = new int[] { 67, 0, 0 };
-		gbl_cabecalho.columnWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_cabecalho.columnWeights = new double[] { 0.0, 0.0, 1.0,
+				Double.MIN_VALUE };
 		gbl_cabecalho.rowWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
 		cabecalho.setLayout(gbl_cabecalho);
 
@@ -125,7 +119,8 @@ public abstract class PadraoCliente extends JFrame implements AtualizacaoDeConta
 
 		lblDataAcess = new JLabel("");
 		lblDataAcess.setForeground(new Color(0, 0, 205));
-		lblDataAcess.setText(new GetHorarioLocal().getHorarioLocal(FormatoData.getDtformattddmmyyyyhhmm()));
+		lblDataAcess.setText(new GetHorarioLocal().getHorarioLocal(FormatoData
+				.getDtformattddmmyyyyhhmm()));
 		GridBagConstraints gbc_lblDataAcess = new GridBagConstraints();
 		gbc_lblDataAcess.anchor = GridBagConstraints.NORTHEAST;
 		gbc_lblDataAcess.insets = new Insets(0, 0, 5, 0);
@@ -134,7 +129,8 @@ public abstract class PadraoCliente extends JFrame implements AtualizacaoDeConta
 		cabecalho.add(lblDataAcess, gbc_lblDataAcess);
 
 		JLabel imagem = new JLabel("");
-		imagem.setIcon(new ImageIcon(PadraoCliente.class.getResource("/Imagem/Icone.png")));
+		imagem.setIcon(new ImageIcon(PadraoCliente.class
+				.getResource("/Imagem/Icone.png")));
 		GridBagConstraints gbc_imagem = new GridBagConstraints();
 		gbc_imagem.anchor = GridBagConstraints.WEST;
 		gbc_imagem.gridheight = 2;
@@ -163,7 +159,8 @@ public abstract class PadraoCliente extends JFrame implements AtualizacaoDeConta
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 124, 25, 46, 0 };
 		gbl_panel.rowHeights = new int[] { 26, 15, 10, 0 };
-		gbl_panel.columnWeights = new double[] { 1.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 1.0, 0.0, 0.0,
+				Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 

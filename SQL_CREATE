@@ -45,6 +45,14 @@ create table movimentacao(
 	valor numeric,
 	primary key (id));
 
+create table balanco(
+	id serial,
+	agencia varchar(255),
+	conta varchar(255),
+	operacao varchar(255),
+	valor numeric,
+	data date,
+	primary key (id));
 
 
 

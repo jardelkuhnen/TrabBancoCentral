@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 
 public class TelaBancario extends PadraoBancario {
 
-
 	/**
 	 * 
 	 */
@@ -23,7 +22,8 @@ public class TelaBancario extends PadraoBancario {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Área do Bancario");
-		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
+		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
+				.getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 0.0 };
 
@@ -106,6 +106,14 @@ public class TelaBancario extends PadraoBancario {
 		panel.add(btnNovaConta, gbc_btnNovaConta);
 
 		JButton btnBalanco = new JButton("5 - Balan\u00E7o");
+		btnBalanco.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				TelaBalanco balanco = new TelaBalanco();
+				balanco.setVisible(true);
+				balanco.setExtendedState(MAXIMIZED_BOTH);
+			}
+		});
 		GridBagConstraints gbc_btnBalanco = new GridBagConstraints();
 		gbc_btnBalanco.fill = GridBagConstraints.BOTH;
 		gbc_btnBalanco.insets = new Insets(0, 0, 5, 0);

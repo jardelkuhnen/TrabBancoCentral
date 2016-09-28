@@ -10,12 +10,13 @@ import javax.swing.JOptionPane;
 
 public class Conexao {
 
-	private static final String URL_BANCO = "jdbc:postgresql://localhost:5432/BancoCentral";
-	private static final String USER = "postgres";
-	private static final String PASS = "1";
-	// private static final String URL_BANCO = "jdbc:h2:~/BancoCentral";
-	// private static final String USER = "sa";
-	// private static final String PASS = "sa";
+	// private static final String URL_BANCO =
+	// "jdbc:postgresql://localhost:5432/BancoCentral";
+	// private static final String USER = "postgres";
+	// private static final String PASS = "1";
+	 private static final String URL_BANCO = "jdbc:h2:~/BancoCentral";
+	 private static final String USER = "sa";
+	 private static final String PASS = "sa";
 
 	public static ResultSet rs;
 	public Statement stmt;

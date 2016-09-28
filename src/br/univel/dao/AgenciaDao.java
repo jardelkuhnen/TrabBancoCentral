@@ -5,15 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import br.univel.model.Agencia;
+import br.univel.model.Balanco;
 
 public class AgenciaDao {
 
+	private static String SQL_INSERT_BALANCO = "INSERT INTO BALANCO (AGENCIA, CONTA, OPERACAO, VALOR, DATA) VALUES (?,?,?,?,?)";
+	private static String SQL_SELECT_BALANCO = "SELECT * FROM BALANCO WHERE AGENCIA = ?";
 	private static String SQL_SELECT_AGENCIA = "SELECT COUNT(*) FROM AGENCIA WHERE NUMERO = ?";
 	private static String SQL_GET_AGENCI_ID = "SELECT * FROM AGENCIA WHERE ID = ?";
 	private static String SQL_UPDATE = "UPDATE AGENCIA SET NOME = ?, NUMERO = ?, CIDADE = ? WHERE ID = ?";
@@ -28,18 +32,21 @@ public class AgenciaDao {
 
 		try {
 			con = Conexao.getConection();
-			stmt = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+			stmt = con.prepareStatement(SQL_INSERT,
+					Statement.RETURN_GENERATED_KEYS);
 			writeStatement(agencia, stmt);
 
 			int linhasInseridas = stmt.executeUpdate();
 
 			if (linhasInseridas == 0)
-				throw new RuntimeException("Falha ao inserir dados na tabela Agencia");
+				throw new RuntimeException(
+						"Falha ao inserir dados na tabela Agencia");
 
 			rs = stmt.getGeneratedKeys();
 			rs.next();
 			agencia.setId(rs.getInt(1));
-			JOptionPane.showMessageDialog(null, "Agência inserida com sucesso!!!");
+			JOptionPane.showMessageDialog(null,
+					"Agência inserida com sucesso!!!");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -49,7 +56,8 @@ public class AgenciaDao {
 
 	}
 
-	private void writeStatement(Agencia agencia, PreparedStatement stmt) throws SQLException {
+	private void writeStatement(Agencia agencia, PreparedStatement stmt)
+			throws SQLException {
 
 		stmt.setString(1, agencia.getNome());
 		stmt.setString(2, agencia.getNumero());
@@ -121,9 +129,11 @@ public class AgenciaDao {
 			int linhasInseridas = stmt.executeUpdate();
 
 			if (linhasInseridas == 0)
-				throw new RuntimeException("Falha ao inserir dados na tabela Agencia");
+				throw new RuntimeException(
+						"Falha ao inserir dados na tabela Agencia");
 
-			JOptionPane.showMessageDialog(null, "Agência atualizada com sucesso!!!");
+			JOptionPane.showMessageDialog(null,
+					"Agência atualizada com sucesso!!!");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -154,6 +164,75 @@ public class AgenciaDao {
 			Conexao.close(rs, stmt, con);
 		}
 		return agEncontradas;
+	}
+
+	public List<Balanco> getBalanco(String agencia) {
+
+		List<Balanco> balancos = new ArrayList<Balanco>();
+
+		try {
+			con = Conexao.getConection();
+
+			stmt = con.prepareStatement(SQL_SELECT_BALANCO);
+
+			stmt.setString(1, agencia);
+
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				balancos.add(readResultBalanco(rs));
+			}
+
+			return balancos;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Conexao.close(rs, stmt, con);
+		}
+
+		return balancos;
+	}
+
+	private Balanco readResultBalanco(ResultSet rs) {
+
+		Balanco balanco = new Balanco();
+		try {
+			balanco.setAgenca(rs.getString("agencia"));
+			balanco.setConta(rs.getString("conta"));
+			balanco.setOperacao(rs.getString("operacao"));
+			balanco.setValor(rs.getBigDecimal("valor"));
+			balanco.setData(rs.getDate("data"));
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return balanco;
+	}
+
+	public void insertBalanco(Balanco balanco) {
+
+		try {
+			con = Conexao.getConection();
+
+			stmt = con.prepareStatement(SQL_INSERT_BALANCO,
+					Statement.RETURN_GENERATED_KEYS);
+
+			stmt.setString(1, balanco.getAgenca());
+			stmt.setString(2, balanco.getConta());
+			stmt.setString(3, balanco.getOperacao());
+			stmt.setBigDecimal(4, balanco.getValor());
+			stmt.setTimestamp(5, new Timestamp(balanco.getData().getTime()));
+
+			stmt.execute();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Conexao.close(rs, stmt, con);
+		}
+
 	}
 
 }
