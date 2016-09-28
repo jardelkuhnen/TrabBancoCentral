@@ -58,57 +58,71 @@ public class TelaBalanco extends PadraoBancario implements WindowListener {
 		gbc_panel.gridy = 1;
 		getContentPane().add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 0, 0 };
+		gbl_panel.columnWidths = new int[] { 0, 0, 0 };
 		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0 };
-		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		JPanel panel_2 = new JPanel();
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+		gbc_panel_2.gridwidth = 2;
 		gbc_panel_2.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_2.fill = GridBagConstraints.BOTH;
 		gbc_panel_2.gridx = 0;
 		gbc_panel_2.gridy = 0;
 		panel.add(panel_2, gbc_panel_2);
-		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[] { 440, 111, 0 };
-		gbl_panel_2.rowHeights = new int[] { 28, 0 };
-		gbl_panel_2.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
-		gbl_panel_2.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
-		panel_2.setLayout(gbl_panel_2);
 
 		try {
+			GridBagLayout gbl_panel_2 = new GridBagLayout();
+			gbl_panel_2.columnWidths = new int[] { 363, 86, 106, 0 };
+			gbl_panel_2.rowHeights = new int[] { 28, 0 };
+			gbl_panel_2.columnWeights = new double[] { 1.0, 0.0, 0.0,
+					Double.MIN_VALUE };
+			gbl_panel_2.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+			panel_2.setLayout(gbl_panel_2);
+
+			JButton btnBuscar = new JButton("Buscar");
+			btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+			btnBuscar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+
+					preencherTela(txtAgencia.getText().replace("-", ""));
+				}
+			});
+
+			JLabel lblInformeONmero = new JLabel(
+					"Informe o n\u00FAmero da ag\u00EAnica:");
+			lblInformeONmero.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			GridBagConstraints gbc_lblInformeONmero = new GridBagConstraints();
+			gbc_lblInformeONmero.insets = new Insets(0, 0, 0, 5);
+			gbc_lblInformeONmero.anchor = GridBagConstraints.EAST;
+			gbc_lblInformeONmero.gridx = 0;
+			gbc_lblInformeONmero.gridy = 0;
+			panel_2.add(lblInformeONmero, gbc_lblInformeONmero);
 			txtAgencia = new JFormattedTextField(new MaskFormatter("#####-##"));
 			GridBagConstraints gbc_txtAgencia = new GridBagConstraints();
-			gbc_txtAgencia.fill = GridBagConstraints.VERTICAL;
 			gbc_txtAgencia.anchor = GridBagConstraints.EAST;
+			gbc_txtAgencia.fill = GridBagConstraints.VERTICAL;
 			gbc_txtAgencia.insets = new Insets(0, 0, 0, 5);
-			gbc_txtAgencia.gridx = 0;
+			gbc_txtAgencia.gridx = 1;
 			gbc_txtAgencia.gridy = 0;
 			panel_2.add(txtAgencia, gbc_txtAgencia);
 			txtAgencia.setColumns(10);
+			GridBagConstraints gbc_btnBuscar = new GridBagConstraints();
+			gbc_btnBuscar.fill = GridBagConstraints.BOTH;
+			gbc_btnBuscar.gridx = 2;
+			gbc_btnBuscar.gridy = 0;
+			panel_2.add(btnBuscar, gbc_btnBuscar);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				preencherTela(txtAgencia.getText().replace("-", ""));
-			}
-		});
-		GridBagConstraints gbc_btnBuscar = new GridBagConstraints();
-		gbc_btnBuscar.fill = GridBagConstraints.BOTH;
-		gbc_btnBuscar.gridx = 1;
-		gbc_btnBuscar.gridy = 0;
-		panel_2.add(btnBuscar, gbc_btnBuscar);
-
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridwidth = 2;
 		gbc_scrollPane.gridheight = 8;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
@@ -121,6 +135,7 @@ public class TelaBalanco extends PadraoBancario implements WindowListener {
 
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.gridwidth = 2;
 		gbc_panel_1.gridheight = 3;
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 0;
@@ -192,6 +207,8 @@ public class TelaBalanco extends PadraoBancario implements WindowListener {
 		gbc_lblTotalSaque.gridy = 3;
 		panel_1.add(lblTotalSaque, gbc_lblTotalSaque);
 
+		preencherTela(txtAgencia.getText());
+
 	}
 
 	@Override
@@ -211,26 +228,23 @@ public class TelaBalanco extends PadraoBancario implements WindowListener {
 
 	private void calculaValorMovimentacao(List<Balanco> balancos) {
 
-		BigDecimal saque = new BigDecimal(0);
-		BigDecimal transf = new BigDecimal(0);
-		BigDecimal pagam = new BigDecimal(0);
-		BigDecimal depos = new BigDecimal(0);
-		BigDecimal total = new BigDecimal(0);
+		BigDecimal saque = new BigDecimal(0.00);
+		BigDecimal transf = new BigDecimal(0.00);
+		BigDecimal pagam = new BigDecimal(0.00);
+		BigDecimal depos = new BigDecimal(0.00);
+		BigDecimal total = new BigDecimal(0.00);
+
 		for (int i = 0; i < balancos.size(); i++) {
 
 			switch (balancos.get(i).getOperacao()) {
 			case "saque":
 				saque.add(balancos.get(i).getValor());
-				break;
 			case "transferência":
 				transf.add(balancos.get(i).getValor());
-				break;
 			case "pagamento":
 				pagam.add(balancos.get(i).getValor());
-				break;
 			case "depósito":
 				depos.add(balancos.get(i).getValor());
-				break;
 			default:
 				break;
 			}
