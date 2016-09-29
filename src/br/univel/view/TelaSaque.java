@@ -19,6 +19,7 @@ import br.univel.model.Conta;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Observable;
 import java.awt.event.ActionEvent;
 
 public class TelaSaque extends PadraoCliente {
@@ -29,12 +30,9 @@ public class TelaSaque extends PadraoCliente {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtValor;
 
-	MovimentacaoFacade facade;
-
-	public TelaSaque(Conta conta, MovimentacaoFacade facade) {
+	public TelaSaque(Conta conta) {
 		super(conta);
 		setTitle("Saque");
-		this.facade = facade;
 		setResizable(false);
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
@@ -60,8 +58,7 @@ public class TelaSaque extends PadraoCliente {
 
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(50.00), null, Operacao.SAQUE, null,
-						facade);
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(50.00), null, Operacao.SAQUE, null);
 				senhaConfirme.setVisible(true);
 			}
 		});
@@ -76,8 +73,8 @@ public class TelaSaque extends PadraoCliente {
 		btnCem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(100.00), null, Operacao.SAQUE, null,
-						facade);
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(100.00), null, Operacao.SAQUE,
+						null);
 				senhaConfirme.setVisible(true);
 			}
 		});
@@ -92,8 +89,8 @@ public class TelaSaque extends PadraoCliente {
 		btnDuzentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(200.00), null, Operacao.SAQUE, null,
-						facade);
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(200.00), null, Operacao.SAQUE,
+						null);
 				senhaConfirme.setVisible(true);
 			}
 		});
@@ -108,8 +105,8 @@ public class TelaSaque extends PadraoCliente {
 		btnTrezentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(300.00), null, Operacao.SAQUE, null,
-						facade);
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(300.00), null, Operacao.SAQUE,
+						null);
 				senhaConfirme.setVisible(true);
 			}
 		});
@@ -124,8 +121,8 @@ public class TelaSaque extends PadraoCliente {
 		btnQuinhentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(500.00), null, Operacao.SAQUE, null,
-						facade);
+				SenhaConfirm senhaConfirme = new SenhaConfirm(conta, new BigDecimal(500.00), null, Operacao.SAQUE,
+						null);
 				senhaConfirme.setVisible(true);
 
 			}
@@ -172,7 +169,7 @@ public class TelaSaque extends PadraoCliente {
 
 					new SenhaConfirm(conta,
 							new BigDecimal(txtValor.getText().replace(".", "").replace(",", ".").toString()), null,
-							Operacao.SAQUE, null, facade).setVisible(true);
+							Operacao.SAQUE, null).setVisible(true);
 				}
 
 			}

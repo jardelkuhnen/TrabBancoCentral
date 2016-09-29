@@ -44,8 +44,7 @@ public class TelaDeposito extends PadraoCliente {
 		super(conta);
 		this.conta = conta;
 		telaDeposito = this;
-		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
-				.getLayout();
+		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 0.0 };
 		setTitle("Depósito");
@@ -64,10 +63,8 @@ public class TelaDeposito extends PadraoCliente {
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		ckbContaLogada = new JCheckBox("Conta logada");
@@ -106,8 +103,7 @@ public class TelaDeposito extends PadraoCliente {
 		gbc_lblNewLabel.gridy = 2;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
 
-		JLabel lblInformeOValor = new JLabel(
-				"Informe o valor a ser depositado:");
+		JLabel lblInformeOValor = new JLabel("Informe o valor a ser depositado:");
 		GridBagConstraints gbc_lblInformeOValor = new GridBagConstraints();
 		gbc_lblInformeOValor.insets = new Insets(0, 0, 5, 5);
 		gbc_lblInformeOValor.gridx = 4;
@@ -147,8 +143,7 @@ public class TelaDeposito extends PadraoCliente {
 		formatter.setFormat(dFormat);
 		formatter.setAllowsInvalid(false);
 		txtValorDeposito = new JFormattedTextField();
-		((JFormattedTextField) txtValorDeposito)
-				.setFormatterFactory(new DefaultFormatterFactory(formatter));
+		((JFormattedTextField) txtValorDeposito).setFormatterFactory(new DefaultFormatterFactory(formatter));
 		txtValorDeposito.setText(new DecimalFormat("R$#,##0.00").format(0.00));
 		txtValorDeposito.setToolTipText("Valor a ser depositado na conta");
 		GridBagConstraints gbc_txtValorDeposito = new GridBagConstraints();
@@ -163,19 +158,14 @@ public class TelaDeposito extends PadraoCliente {
 		btnConfirme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				if (txtAgencia.getText().equals("")
-						|| txtConta.getText().equals("")
-						|| txtTitular.getText().equals("")
+				if (txtAgencia.getText().equals("") || txtConta.getText().equals("") || txtTitular.getText().equals("")
 						|| txtValorDeposito.getText().equals("")) {
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"Existem campos vazios. Preencha todos para realizar ação!",
-									"Atenção", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Existem campos vazios. Preencha todos para realizar ação!",
+							"Atenção", JOptionPane.WARNING_MESSAGE);
 				} else {
 
-					BigDecimal valorDeposito = new BigDecimal(txtValorDeposito
-							.getText().replace(".", "").replace(",", "."));
+					BigDecimal valorDeposito = new BigDecimal(
+							txtValorDeposito.getText().replace(".", "").replace(",", "."));
 
 					if (ckbContaLogada.isSelected()) {
 						new ContaController().deposito(conta, valorDeposito);
@@ -185,14 +175,13 @@ public class TelaDeposito extends PadraoCliente {
 					} else {
 
 						Conta contaDeposito = new Conta();
-						contaDeposito.setAgencia(txtAgencia.getText().trim());
+						contaDeposito.setAgencia(txtAgencia.getText().replace("-", ""));
 						contaDeposito.setNome(txtTitular.getText().trim());
-						contaDeposito.setNumeroConta(txtConta.getText().trim());
+						contaDeposito.setNumeroConta(txtConta.getText().replace("-", ""));
 
 						limparCampos();
 						cmbTipoConta.setEnabled(true);
-						new ContaController().deposito(contaDeposito,
-								valorDeposito);
+						new ContaController().deposito(contaDeposito, valorDeposito);
 					}
 				}
 			}
@@ -291,6 +280,5 @@ public class TelaDeposito extends PadraoCliente {
 		}
 		return TipoConta.CE;
 	}
-
 
 }

@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Observable;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -31,14 +32,12 @@ public class TelaPagamento extends PadraoCliente {
 	private JTextField txtCodbarras;
 	private JTextField txtValorPag;
 
-	MovimentacaoFacade facade;
 
 	/**
 	 * Create the frame.
 	 */
-	public TelaPagamento(Conta conta, MovimentacaoFacade facade) {
+	public TelaPagamento(Conta conta) {
 		super(conta);
-		this.facade = facade;
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 0.0 };
@@ -113,11 +112,10 @@ public class TelaPagamento extends PadraoCliente {
 
 					BigDecimal valorPag = new BigDecimal(txtValorPag.getText().replace(".", "").replace(",", "."));
 
-					
 					txtCodbarras.setText("");
 					txtValorPag.setText("0.00");
 
-					new SenhaConfirm(conta, valorPag, null, Operacao.PAGAMENTO, txtCodbarras.getText(), facade)
+					new SenhaConfirm(conta, valorPag, null, Operacao.PAGAMENTO, txtCodbarras.getText())
 							.setVisible(true);
 				}
 

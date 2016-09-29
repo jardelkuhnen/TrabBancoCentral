@@ -1,19 +1,20 @@
 package br.univel.view;
 
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import br.univel.enums.Operacao;
 import br.univel.model.Conta;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.text.NumberFormat;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
 
 public class OperacaoRealizada extends PadraoCliente {
 
@@ -26,17 +27,14 @@ public class OperacaoRealizada extends PadraoCliente {
 	private Operacao operacao;
 	private BigDecimal vlrOperacao;
 
-	public OperacaoRealizada(Conta conta, Operacao operacao,
-			BigDecimal vlrOperacao) {
+	public OperacaoRealizada(Conta conta, Operacao operacao, BigDecimal vlrOperacao) {
 		super(conta);
 		this.operacao = operacao;
 		this.vlrOperacao = vlrOperacao;
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setTitle("Operação " + operacao.getOperacao()
-				+ " realizada com sucesso");
-		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
-				.getLayout();
+		setTitle("Operação " + operacao.getOperacao() + " realizada com sucesso");
+		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 0.0 };
 
@@ -49,14 +47,11 @@ public class OperacaoRealizada extends PadraoCliente {
 		gbc_panel.gridy = 1;
 		getContentPane().add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 58, 59, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0 };
+		gbl_panel.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 58, 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		lblOperacaoRealizada = new JLabel("");
@@ -108,8 +103,7 @@ public class OperacaoRealizada extends PadraoCliente {
 
 	private void setInformacoes() {
 
-		lblOperacaoRealizada.setText("Operação " + operacao.getOperacao()
-				+ " realizada com sucesso");
+		lblOperacaoRealizada.setText("Operação " + operacao.getOperacao() + " realizada com sucesso");
 		lblValor.setText(NumberFormat.getCurrencyInstance().format(vlrOperacao));
 
 	}

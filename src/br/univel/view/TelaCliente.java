@@ -11,11 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import br.univel.controller.ContaController;
-import br.univel.general.MovimentacaoFacade;
-import br.univel.interfaces.AtualizacaoDeConta;
 import br.univel.model.Conta;
 
-public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
+public class TelaCliente extends PadraoCliente {
 
 	/**
 	 * 
@@ -32,12 +30,9 @@ public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 	private JButton btnFinaliza;
 	private PadraoCliente padraoCliente;
 
-	private MovimentacaoFacade facade = new MovimentacaoFacade();
-
 	public TelaCliente(Conta conta) {
 		super(conta);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		facade.addObservers(this);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Área do Cliente");
@@ -64,10 +59,9 @@ public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 		btnSaque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				TelaSaque telaSaque = new TelaSaque(conta, facade);
+				TelaSaque telaSaque = new TelaSaque(conta);
 				telaSaque.setVisible(true);
 				telaSaque.setLocationRelativeTo(null);
-				// facade.addObservers(telaSaque);
 			}
 		});
 		GridBagConstraints gbc_btnSaque = new GridBagConstraints();
@@ -81,10 +75,9 @@ public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 		btnTransferncia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				TelaTransferencia telaTransf = new TelaTransferencia(conta, facade);
+				TelaTransferencia telaTransf = new TelaTransferencia(conta);
 				telaTransf.setVisible(true);
 				telaTransf.setLocationRelativeTo(null);
-				// facade.addObservers(telaTransf);
 
 			}
 		});
@@ -115,10 +108,9 @@ public class TelaCliente extends PadraoCliente implements AtualizacaoDeConta {
 		btnPagamentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				TelaPagamento telaPag = new TelaPagamento(conta, facade);
+				TelaPagamento telaPag = new TelaPagamento(conta);
 				telaPag.setVisible(true);
 				telaPag.setLocationRelativeTo(null);
-				// facade.addObservers(telaPag);
 
 			}
 		});

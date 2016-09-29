@@ -22,8 +22,7 @@ public class TelaBancario extends PadraoBancario {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Área do Bancario");
-		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
-				.getLayout();
+		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 0.0 };
 
@@ -127,6 +126,7 @@ public class TelaBancario extends PadraoBancario {
 
 				ListaCliente listaClientes = new ListaCliente();
 				listaClientes.setVisible(true);
+				listaClientes.setExtendedState(MAXIMIZED_BOTH);
 			}
 		});
 		GridBagConstraints gbc_btnClientes = new GridBagConstraints();

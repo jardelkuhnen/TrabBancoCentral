@@ -78,7 +78,7 @@ public class ContaController implements ContaMethods {
 		 */
 		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
 
-		if (conta.getId() == null) {
+		if (conta == null) {
 			JOptionPane.showMessageDialog(null, "Conta não localizada. Verifique!", "Atenção",
 					JOptionPane.WARNING_MESSAGE);
 		} else {
@@ -123,10 +123,9 @@ public class ContaController implements ContaMethods {
 
 	}
 
-	public List<Movimentacao> buscarMovimentacao() {
+	public List<Movimentacao> buscarMovimentacao(String numeroConta) {
 
-		
-		return new ContaDao().buscarMovimentacoes();
+		return new ContaDao().buscarMovimentacoes(numeroConta);
 	}
 
 }

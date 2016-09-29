@@ -77,9 +77,9 @@ public class TelaBalanco extends PadraoBancario implements WindowListener {
 
 		try {
 			GridBagLayout gbl_panel_2 = new GridBagLayout();
-			gbl_panel_2.columnWidths = new int[] { 363, 86, 106, 0 };
+			gbl_panel_2.columnWidths = new int[] { 0, 363, 86, 106, 0 };
 			gbl_panel_2.rowHeights = new int[] { 28, 0 };
-			gbl_panel_2.columnWeights = new double[] { 1.0, 0.0, 0.0,
+			gbl_panel_2.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0,
 					Double.MIN_VALUE };
 			gbl_panel_2.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 			panel_2.setLayout(gbl_panel_2);
@@ -99,21 +99,20 @@ public class TelaBalanco extends PadraoBancario implements WindowListener {
 			GridBagConstraints gbc_lblInformeONmero = new GridBagConstraints();
 			gbc_lblInformeONmero.insets = new Insets(0, 0, 0, 5);
 			gbc_lblInformeONmero.anchor = GridBagConstraints.EAST;
-			gbc_lblInformeONmero.gridx = 0;
+			gbc_lblInformeONmero.gridx = 1;
 			gbc_lblInformeONmero.gridy = 0;
 			panel_2.add(lblInformeONmero, gbc_lblInformeONmero);
 			txtAgencia = new JFormattedTextField(new MaskFormatter("#####-##"));
 			GridBagConstraints gbc_txtAgencia = new GridBagConstraints();
-			gbc_txtAgencia.anchor = GridBagConstraints.EAST;
-			gbc_txtAgencia.fill = GridBagConstraints.VERTICAL;
+			gbc_txtAgencia.fill = GridBagConstraints.BOTH;
 			gbc_txtAgencia.insets = new Insets(0, 0, 0, 5);
-			gbc_txtAgencia.gridx = 1;
+			gbc_txtAgencia.gridx = 2;
 			gbc_txtAgencia.gridy = 0;
 			panel_2.add(txtAgencia, gbc_txtAgencia);
 			txtAgencia.setColumns(10);
 			GridBagConstraints gbc_btnBuscar = new GridBagConstraints();
 			gbc_btnBuscar.fill = GridBagConstraints.BOTH;
-			gbc_btnBuscar.gridx = 2;
+			gbc_btnBuscar.gridx = 3;
 			gbc_btnBuscar.gridy = 0;
 			panel_2.add(btnBuscar, gbc_btnBuscar);
 		} catch (ParseException e) {

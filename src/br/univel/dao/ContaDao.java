@@ -17,14 +17,14 @@ import br.univel.model.Movimentacao;
 
 public class ContaDao {
 
-	private static final String SQL_GET_CONTA = "SELECT * FROM CONTA WHERE USUARIOACESSO = ? AND SENHAACESSO = ? AND SITUACAO = 'ATIVO'";
-	private static final String SQL_GET_CONTA_DEPOSITO = "SELECT * FROM CONTA WHERE AGENCIA = ? AND NUMEROCONTA = ? AND NOME = ? AND SITUACAO = 'ATIVO'";
-	private static final String SQL_INSERT = "INSERT INTO CONTA (NOME, IDADE, CPF, AGENCIA, TIPOCONTA, USUARIOACESSO, SENHAACESSO, SENHAOPERACOES, NUMEROCONTA, SALDO, SITUACAO) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-	private static final String SQL_SELECT_ALL = "SELECT * FROM CONTA WHERE SITUACAO = 'ATIVO'";
-	private static final String SQL_UPDATE_SALDO_CONTA = "UPDATE CONTA SET SALDO = ? WHERE NUMEROCONTA = ? AND NOME = ?";
-	private static final String SQL_INATIVAR = "UPDATE CONTA SET SITUACAO = 'INATIVO' WHERE ID = ?";
-	private static final String SQL_INSERT_MOVIMENTAO = "INSERT INTO MOVIMENTACAO (OPERACAO, DATA, VALOR) VALUES (?,?,?)";
-	private static final String SQL_SELECT_ALL_MOVIMENTACAO = "SELECT * FROM MOVIMENTACAO ORDER BY ID";
+	private static String SQL_GET_CONTA = "SELECT * FROM CONTA WHERE USUARIOACESSO = ? AND SENHAACESSO = ? AND SITUACAO = 'ATIVO'";
+	private static String SQL_GET_CONTA_DEPOSITO = "SELECT * FROM CONTA WHERE AGENCIA = ? AND NUMEROCONTA = ? AND NOME = ? AND SITUACAO = 'ATIVO'";
+	private static String SQL_INSERT = "INSERT INTO CONTA (NOME, IDADE, CPF, AGENCIA, TIPOCONTA, USUARIOACESSO, SENHAACESSO, SENHAOPERACOES, NUMEROCONTA, SALDO, SITUACAO) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	private static String SQL_SELECT_ALL = "SELECT * FROM CONTA WHERE SITUACAO = 'ATIVO'";
+	private static String SQL_UPDATE_SALDO_CONTA = "UPDATE CONTA SET SALDO = ? WHERE NUMEROCONTA = ? AND NOME = ?";
+	private static String SQL_INATIVAR = "UPDATE CONTA SET SITUACAO = 'INATIVO' WHERE ID = ?";
+	private static String SQL_INSERT_MOVIMENTAO = "INSERT INTO MOVIMENTACAO (OPERACAO, DATA, VALOR, AGENCIA, CONTA) VALUES (?,?,?,?,?)";
+	private static String SQL_SELECT_ALL_MOVIMENTACAO = "SELECT * FROM MOVIMENTACAO WHERE CONTA = ? ORDER BY ID";
 
 	Connection con = null;
 	PreparedStatement stmt = null;
@@ -220,6 +220,8 @@ public class ContaDao {
 			stmt.setString(1, movimentacao.getOperacao());
 			stmt.setTimestamp(2, new Timestamp(movimentacao.getData().getTime()));
 			stmt.setBigDecimal(3, movimentacao.getValor());
+			stmt.setString(4, movimentacao.getAgencia());
+			stmt.setString(5, movimentacao.getConta());
 
 			stmt.execute();
 
@@ -232,13 +234,15 @@ public class ContaDao {
 
 	}
 
-	public List<Movimentacao> buscarMovimentacoes() {
+	public List<Movimentacao> buscarMovimentacoes(String numeroConta) {
 
 		List<Movimentacao> movimentacoes = new ArrayList<>();
 
 		try {
 			con = Conexao.getConection();
 			stmt = con.prepareStatement(SQL_SELECT_ALL_MOVIMENTACAO);
+
+			stmt.setString(1, numeroConta);
 
 			rs = stmt.executeQuery();
 

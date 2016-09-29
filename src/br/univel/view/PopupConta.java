@@ -37,7 +37,7 @@ public class PopupConta extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage("./Imagens/Icone.png"));
-		setBounds(100, 100, 274, 225);
+		setBounds(100, 100, 274, 233);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -55,7 +55,7 @@ public class PopupConta extends JFrame {
 		panel.setLayout(gbl_panel);
 
 		JLabel lblAg = new JLabel("AG");
-		lblAg.setForeground(new Color(0, 0, 205));
+		lblAg.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lblAg = new GridBagConstraints();
 		gbc_lblAg.anchor = GridBagConstraints.WEST;
 		gbc_lblAg.insets = new Insets(0, 0, 5, 5);
@@ -64,7 +64,7 @@ public class PopupConta extends JFrame {
 		panel.add(lblAg, gbc_lblAg);
 
 		JLabel lblConta = new JLabel("Conta");
-		lblConta.setForeground(new Color(0, 0, 205));
+		lblConta.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lblConta = new GridBagConstraints();
 		gbc_lblConta.anchor = GridBagConstraints.WEST;
 		gbc_lblConta.insets = new Insets(0, 0, 5, 5);
@@ -99,7 +99,7 @@ public class PopupConta extends JFrame {
 		}
 
 		JLabel lblTipoConta = new JLabel("Tipo Conta");
-		lblTipoConta.setForeground(new Color(0, 0, 205));
+		lblTipoConta.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lblTipoConta = new GridBagConstraints();
 		gbc_lblTipoConta.anchor = GridBagConstraints.WEST;
 		gbc_lblTipoConta.insets = new Insets(0, 0, 5, 5);
@@ -108,7 +108,7 @@ public class PopupConta extends JFrame {
 		panel.add(lblTipoConta, gbc_lblTipoConta);
 
 		JComboBox cmbTipoConta = new JComboBox(TipoConta.values());
-		cmbTipoConta.setForeground(new Color(0, 0, 205));
+		cmbTipoConta.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_cmbTipoConta = new GridBagConstraints();
 		gbc_cmbTipoConta.insets = new Insets(0, 0, 5, 5);
 		gbc_cmbTipoConta.gridwidth = 2;
@@ -118,7 +118,7 @@ public class PopupConta extends JFrame {
 		panel.add(cmbTipoConta, gbc_cmbTipoConta);
 
 		JLabel lblTitular = new JLabel("Titular");
-		lblTitular.setForeground(new Color(0, 0, 205));
+		lblTitular.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lblTitular = new GridBagConstraints();
 		gbc_lblTitular.anchor = GridBagConstraints.WEST;
 		gbc_lblTitular.insets = new Insets(0, 0, 5, 5);
@@ -154,7 +154,7 @@ public class PopupConta extends JFrame {
 
 			}
 		});
-		btnConfirme.setForeground(new Color(0, 0, 205));
+		btnConfirme.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_btnConfirme = new GridBagConstraints();
 		gbc_btnConfirme.gridwidth = 2;
 		gbc_btnConfirme.insets = new Insets(0, 0, 0, 5);

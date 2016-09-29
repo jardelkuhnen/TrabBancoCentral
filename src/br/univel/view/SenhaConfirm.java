@@ -17,8 +17,8 @@ import javax.swing.JPasswordField;
 
 import br.univel.controller.ContaController;
 import br.univel.enums.Operacao;
-import br.univel.general.MovimentacaoFacade;
 import br.univel.model.Conta;
+import javafx.beans.Observable;
 
 public class SenhaConfirm extends JFrame {
 
@@ -30,12 +30,8 @@ public class SenhaConfirm extends JFrame {
 	private JPasswordField txtSenha;
 	private SenhaConfirm senhaConfirm;
 
-	MovimentacaoFacade facade;
-
-	public SenhaConfirm(Conta conta, BigDecimal valor, Conta contaTransferir, Operacao operacao, String codBarras,
-			MovimentacaoFacade facade) {
+	public SenhaConfirm(Conta conta, BigDecimal valor, Conta contaTransferir, Operacao operacao, String codBarras) {
 		setSize(525, 150);
-		this.facade = facade;
 		setTitle("Senha");
 		senhaConfirm = this;
 		senhaInformada = new StringBuilder();
@@ -286,7 +282,6 @@ public class SenhaConfirm extends JFrame {
 			opRealizada.setVisible(true);
 			senhaConfirm.setVisible(false);
 
-			facade.notifyObservers(conta);
 		}
 	}
 

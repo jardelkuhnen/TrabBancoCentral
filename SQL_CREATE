@@ -19,12 +19,12 @@ create table conta(
 	idade int,
 	cpf varchar(255),
 	agencia varchar(255),
+	numeroConta varchar(255),
 	tipoConta varchar(255),
+	saldo numeric,
 	usuarioAcesso varchar(255),
 	senhaAcesso varchar(255),
 	senhaOperacoes varchar(255),
-	numeroConta varchar(255),
-	saldo numeric,
 	situacao varchar(255),
 	primary key (id));
 
@@ -43,6 +43,8 @@ create table movimentacao(
 	operacao varchar(255),
 	data date,
 	valor numeric,
+	agencia varchar(255),
+	conta varchar(25),
 	primary key (id));
 
 create table balanco(

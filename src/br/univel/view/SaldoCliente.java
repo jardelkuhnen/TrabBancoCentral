@@ -10,7 +10,10 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
@@ -18,10 +21,6 @@ import br.univel.controller.ContaController;
 import br.univel.model.Conta;
 import br.univel.model.ListaSaldoModel;
 import br.univel.model.Movimentacao;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JLabel;
 
 public class SaldoCliente extends PadraoCliente implements WindowListener {
 
@@ -32,9 +31,11 @@ public class SaldoCliente extends PadraoCliente implements WindowListener {
 	private JTable tblMovimentacoes;
 	private List<Movimentacao> movimentacoes;
 	private ListaSaldoModel model;
-
+	private Conta conta;
+	
 	public SaldoCliente(Conta conta) {
 		super(conta);
+		this.conta = conta;
 		addWindowListener(this);
 		setTitle("Saldo Cliente");
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
@@ -54,7 +55,8 @@ public class SaldoCliente extends PadraoCliente implements WindowListener {
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 0, 0, 0, 69, 70, 45, 0, 62, 51, 18, 36, 0 };
 		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 41, 32, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
+				Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
@@ -152,7 +154,7 @@ public class SaldoCliente extends PadraoCliente implements WindowListener {
 		gbc_btnImprimir.gridx = 8;
 		gbc_btnImprimir.gridy = 7;
 		panel.add(btnImprimir, gbc_btnImprimir);
-		
+
 		JLabel lblSaldoper = new JLabel("");
 		GridBagConstraints gbc_lblSaldoper = new GridBagConstraints();
 		gbc_lblSaldoper.insets = new Insets(0, 0, 0, 5);
@@ -178,11 +180,10 @@ public class SaldoCliente extends PadraoCliente implements WindowListener {
 
 	public void preencherTela() {
 
-		movimentacoes = new ContaController().buscarMovimentacao();
+		movimentacoes = new ContaController().buscarMovimentacao(conta.getNumeroConta());
 		model = new ListaSaldoModel(movimentacoes);
 		tblMovimentacoes.setModel(model);
 	}
-
 
 	@Override
 	public void windowActivated(WindowEvent e) {

@@ -43,7 +43,15 @@ public class ListaBalancoModel extends AbstractTableModel {
 		case 2:
 			return balanco.getOperacao();
 		case 3:
-			return balanco.getValor();
+
+			switch (balanco.getOperacao()) {
+			case "saque":
+				return "R$ -" + balanco.getValor();
+			case "tranferência":
+				return "R$ -" + balanco.getValor();
+			default:
+				return "R$ " + balanco.getValor();
+			}
 
 		default:
 			return "Erro";

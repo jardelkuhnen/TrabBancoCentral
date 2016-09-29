@@ -37,19 +37,15 @@ public class TelaTransferencia extends PadraoCliente {
 	private JTextField txtValor;
 	private JComboBox cmbTipoConta;
 
-	MovimentacaoFacade facade;
-	
 	/**
 	 * Create the frame.
 	 */
-	public TelaTransferencia(Conta conta, MovimentacaoFacade facade) {
+	public TelaTransferencia(Conta conta) {
 		super(conta);
 		setSize(575, 430);
-		this.facade = facade;
 		setResizable(false);
 		setLocationRelativeTo(null);
-		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane()
-				.getLayout();
+		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 444 };
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0 };
@@ -67,14 +63,11 @@ public class TelaTransferencia extends PadraoCliente {
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 49, 154, 188, 0, 0 };
 		gbl_panel.rowHeights = new int[] { 33, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
-		JLabel lblContaDeDestinocrdito = new JLabel(
-				"Conta de destino/Cr\u00E9dito");
+		JLabel lblContaDeDestinocrdito = new JLabel("Conta de destino/Cr\u00E9dito");
 		GridBagConstraints gbc_lblContaDeDestinocrdito = new GridBagConstraints();
 		gbc_lblContaDeDestinocrdito.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblContaDeDestinocrdito.insets = new Insets(0, 0, 5, 5);
@@ -171,8 +164,7 @@ public class TelaTransferencia extends PadraoCliente {
 		formatter.setFormat(dFormat);
 		formatter.setAllowsInvalid(false);
 		txtValor = new JFormattedTextField();
-		((JFormattedTextField) txtValor)
-				.setFormatterFactory(new DefaultFormatterFactory(formatter));
+		((JFormattedTextField) txtValor).setFormatterFactory(new DefaultFormatterFactory(formatter));
 		txtValor.setText(new DecimalFormat("R$ #,##0.00").format(0.00));
 		GridBagConstraints gbc_txtValor = new GridBagConstraints();
 		gbc_txtValor.insets = new Insets(0, 0, 5, 0);
@@ -187,29 +179,22 @@ public class TelaTransferencia extends PadraoCliente {
 			public void actionPerformed(ActionEvent arg0) {
 
 				Conta contaRecebeTransf = new Conta();
-				contaRecebeTransf.setAgencia(txtAgencia.getText().replace("-",
-						""));
+				contaRecebeTransf.setAgencia(txtAgencia.getText().replace("-", ""));
 				contaRecebeTransf.setNome(txtTitular.getText().trim());
-				contaRecebeTransf.setNumeroConta(txtConta.getText().replace(
-						"-", ""));
-				contaRecebeTransf.setTipoConta(cmbTipoConta.getSelectedItem()
-						.toString());
+				contaRecebeTransf.setNumeroConta(txtConta.getText().replace("-", ""));
+				contaRecebeTransf.setTipoConta(cmbTipoConta.getSelectedItem().toString());
 
-				contaRecebeTransf = new MovimentacaoFacade()
-						.validaContaTransferencia(contaRecebeTransf);
+				contaRecebeTransf = new MovimentacaoFacade().validaContaTransferencia(contaRecebeTransf);
 
 				if (contaRecebeTransf == null) {
 
-					JOptionPane.showMessageDialog(TelaTransferencia.this,
-							"Conta não localizada!", "Atenção",
+					JOptionPane.showMessageDialog(TelaTransferencia.this, "Conta não localizada!", "Atenção",
 							JOptionPane.WARNING_MESSAGE);
 
 				} else {
 
-					String valor = txtValor.getText().replace(".", "")
-							.replace(",", ".");
-					new SenhaConfirm(conta, new BigDecimal(valor),
-							contaRecebeTransf, Operacao.TRANSFERENCIA, null, facade)
+					String valor = txtValor.getText().replace(".", "").replace(",", ".");
+					new SenhaConfirm(conta, new BigDecimal(valor), contaRecebeTransf, Operacao.TRANSFERENCIA, null)
 							.setVisible(true);
 
 					limparCampos();
@@ -235,6 +220,5 @@ public class TelaTransferencia extends PadraoCliente {
 		cmbTipoConta.setSelectedIndex(0);
 
 	}
-
 
 }
