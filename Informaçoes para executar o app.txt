@@ -1,0 +1,14 @@
+O projeto foi desenvolvido utilizando a IDE Eclipse superior a versão Luna.
+
+Foi utilizado o banco de dados postgres para salvar informações.
+
+Para executar o projeto:
+
+1º - Criar uma database com o nome de "BancoCentral";
+2º - Após criado a database, executar os scripts de criaçao e população de dados que estão junto como projeto
+3º - Após executar os scripts poderá acessar o sistema com o usuário e senha padrão "admin", "admin";
+4º - Também poderá acessar o sistema com outros usuários como: jardel, ze, tia. Lembrando que o nome do usuário é o mesmo da senha.
+5º - Lembrando de sempre escoher a qual tipo de acesso o usuário tem acesso, "CLIENTE, BANCARIO", pois o sistema valida o usuario com seu aceso.
+6º - Precisa necessáriamente estar todas letras minusculas, pois com letra maiuscula o hash muda.
+7º - Para acesso há tela do bancário utilizar o usuário padrão;
+
