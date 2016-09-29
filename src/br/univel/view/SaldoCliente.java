@@ -36,6 +36,7 @@ public class SaldoCliente extends PadraoCliente implements WindowListener {
 	public SaldoCliente(Conta conta) {
 		super(conta);
 		this.conta = conta;
+		setBounds(100, 100, 700, 500);
 		addWindowListener(this);
 		setTitle("Saldo Cliente");
 		GridBagLayout gridBagLayout = (GridBagLayout) getContentPane().getLayout();
@@ -53,9 +54,9 @@ public class SaldoCliente extends PadraoCliente implements WindowListener {
 		gbc_panel.gridy = 1;
 		getContentPane().add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 0, 0, 0, 69, 70, 45, 0, 62, 51, 18, 36, 0 };
+		gbl_panel.columnWidths = new int[] { 60, 0, 0, 69, 70, 45, 0, 62, 51, 18, 36, 0 };
 		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 41, 32, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
+		gbl_panel.columnWeights = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
 				Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
@@ -147,7 +148,7 @@ public class SaldoCliente extends PadraoCliente implements WindowListener {
 		gbc_avancaAno.gridy = 7;
 		panel.add(avancaAno, gbc_avancaAno);
 
-		JButton btnImprimir = new JButton("Print");
+		JButton btnImprimir = new JButton("Imprimir");
 		GridBagConstraints gbc_btnImprimir = new GridBagConstraints();
 		gbc_btnImprimir.insets = new Insets(0, 0, 0, 5);
 		gbc_btnImprimir.fill = GridBagConstraints.BOTH;
