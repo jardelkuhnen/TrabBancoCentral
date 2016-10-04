@@ -1,9 +1,12 @@
 package br.univel.model;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+
+import br.univel.interfaces.Coluna;
 
 public class ListaAgenciaModel extends AbstractTableModel {
 
@@ -19,7 +22,18 @@ public class ListaAgenciaModel extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 3;
+
+		Object objeto = agencias.get(0);
+		Class<?> classe = objeto.getClass();
+
+		int colunas = 0;
+		for (Method metodo : classe.getDeclaredMethods()) {
+			if (metodo.isAnnotationPresent(Coluna.class)) {
+				colunas++;
+			}
+		}
+
+		return colunas;
 	}
 
 	@Override
@@ -28,24 +42,27 @@ public class ListaAgenciaModel extends AbstractTableModel {
 	}
 
 	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
+	public Object getValueAt(int row, int column) {
 
-		final Agencia agencia = this.agencias.get(rowIndex);
+		Object objeto = agencias.get(0);
+		Class<?> classe = objeto.getClass();
 
-		switch (columnIndex) {
-		case -1:
-			return agencia.getId();
-		case 0:
-			return agencia.getNome();
-		case 1:
-			return agencia.getNumero();
-		case 2:
-			return agencia.getCidade();
-		case 10:
-			return agencia.getId();
-		default:
+		try {
+
+			for (Method metodo : classe.getDeclaredMethods()) {
+				if (metodo.isAnnotationPresent(Coluna.class)) {
+					Coluna anotacao = metodo.getAnnotation(Coluna.class);
+
+					if (anotacao.posicao() == column) {
+						return metodo.invoke(objeto);
+					}
+				}
+			}
+			return "";
+		} catch (Exception e) {
 			return "Erro";
 		}
+
 	}
 
 	public void incluir(List<Agencia> agencia) {
@@ -56,18 +73,20 @@ public class ListaAgenciaModel extends AbstractTableModel {
 	@Override
 	public String getColumnName(int col) {
 
-		switch (col) {
-		case 0:
-			return "Agência";
-		case 1:
-			return "Número";
-		case 2:
-			return "Cidade";
-		case 3:
-			return "";
-		default:
-			return "Erro";
-		}
-	}
+		Object objeto = agencias.get(0);
+		Class<?> classe = objeto.getClass();
 
+		for (Method metodo : classe.getDeclaredMethods()) {
+
+			if (metodo.isAnnotationPresent(Coluna.class)) {
+
+				Coluna anotacao = metodo.getAnnotation(Coluna.class);
+				if (anotacao.posicao() == col) {
+					return anotacao.nome();
+				}
+			}
+		}
+		return "";
+
+	}
 }

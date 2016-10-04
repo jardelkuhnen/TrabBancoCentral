@@ -18,21 +18,13 @@ import br.univel.model.Balanco;
 import br.univel.model.Conta;
 import br.univel.model.FormatoData;
 import br.univel.model.Movimentacao;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 
-public class MovimentacaoFacade implements ContaMethods, Observable {
+public class MovimentacaoFacade implements ContaMethods {
 
 	ContaDao contaDao = new ContaDao();
 
-	List<InvalidationListener> observers = new ArrayList<>();
-
 	Movimentacao movimentacao = new Movimentacao();
 	Balanco balanco = new Balanco();
-
-	public void addObservers(InvalidationListener listener) {
-		observers.add(listener);
-	}
 
 	@Override
 	public void deposito(Conta conta, BigDecimal valorDeposito) {
@@ -50,9 +42,11 @@ public class MovimentacaoFacade implements ContaMethods, Observable {
 	}
 
 	@Override
-	public boolean saque(Conta conta, BigDecimal valorSaque, String senhaInformada) {
+	public boolean saque(Conta conta, BigDecimal valorSaque,
+			String senhaInformada) {
 
-		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
+		conta = new ContaDao().getConta(conta.getAgencia(),
+				conta.getNumeroConta(), conta.getNome());
 
 		BigDecimal saldoApos = conta.getSaldo();
 
@@ -72,8 +66,11 @@ public class MovimentacaoFacade implements ContaMethods, Observable {
 
 			return true;
 		} else {
-			JOptionPane.showMessageDialog(null, "Saldo insuficiente para saque! Seu saldo é de R$ " + conta.getSaldo(),
-					"Atenção", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(
+					null,
+					"Saldo insuficiente para saque! Seu saldo é de R$ "
+							+ conta.getSaldo(), "Atenção",
+					JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 
@@ -85,8 +82,9 @@ public class MovimentacaoFacade implements ContaMethods, Observable {
 	 * @param valor
 	 * @param operacao
 	 */
-	private void writeMovimentacao(BigDecimal valor, Operacao operacao, Conta conta) {
-		
+	private void writeMovimentacao(BigDecimal valor, Operacao operacao,
+			Conta conta) {
+
 		movimentacao.setValor(valor);
 		movimentacao.setData(gerarData());
 		movimentacao.setAgencia(conta.getAgencia());
@@ -115,8 +113,10 @@ public class MovimentacaoFacade implements ContaMethods, Observable {
 		java.util.Date date = null;
 		String data = null;
 		try {
-			data = new GetHorarioLocal().getHorarioLocal(FormatoData.getDtformattddmmyyyyhhmm());
-			DateFormat formatter = new SimpleDateFormat(FormatoData.getDtformattddmmyyyyhhmm());
+			data = new GetHorarioLocal().getHorarioLocal(FormatoData
+					.getDtformattddmmyyyyhhmm());
+			DateFormat formatter = new SimpleDateFormat(
+					FormatoData.getDtformattddmmyyyyhhmm());
 			date = formatter.parse(data);
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -125,13 +125,15 @@ public class MovimentacaoFacade implements ContaMethods, Observable {
 	}
 
 	@Override
-	public boolean transferencia(Conta conta, Conta contaRecebeTransf, BigDecimal valorTransf) {
+	public boolean transferencia(Conta conta, Conta contaRecebeTransf,
+			BigDecimal valorTransf) {
 
 		BigDecimal contaRecebeSaldoApos = contaRecebeTransf.getSaldo();
 
 		System.out.println(contaRecebeSaldoApos);
 
-		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
+		conta = new ContaDao().getConta(conta.getAgencia(),
+				conta.getNumeroConta(), conta.getNome());
 
 		BigDecimal contaSaldoApos = conta.getSaldo();
 
@@ -141,7 +143,8 @@ public class MovimentacaoFacade implements ContaMethods, Observable {
 			contaRecebeTransf.setSaldo(contaRecebeSaldoApos.add(valorTransf));
 
 			new ContaDao().updateSaldo(conta, conta.getSaldo());
-			new ContaDao().updateSaldo(contaRecebeTransf, contaRecebeTransf.getSaldo());
+			new ContaDao().updateSaldo(contaRecebeTransf,
+					contaRecebeTransf.getSaldo());
 
 			writeMovimentacao(valorTransf, Operacao.TRANSFERENCIA, conta);
 			writeBalanco(valorTransf, conta, Operacao.TRANSFERENCIA);
@@ -153,7 +156,8 @@ public class MovimentacaoFacade implements ContaMethods, Observable {
 			return true;
 		} else {
 			JOptionPane.showMessageDialog(null,
-					"Saldo insuficiente para transferência! Seu saldo é de R$ " + conta.getSaldo(), "Atenção",
+					"Saldo insuficiente para transferência! Seu saldo é de R$ "
+							+ conta.getSaldo(), "Atenção",
 					JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -190,14 +194,18 @@ public class MovimentacaoFacade implements ContaMethods, Observable {
 		/**
 		 * Consulta no banco as informacoes da conta a receber transferencia
 		 */
-		return contaRecebeTransf = new ContaDao().getConta(contaRecebeTransf.getAgencia(),
-				contaRecebeTransf.getNumeroConta(), contaRecebeTransf.getNome());
+		return contaRecebeTransf = new ContaDao()
+				.getConta(contaRecebeTransf.getAgencia(),
+						contaRecebeTransf.getNumeroConta(),
+						contaRecebeTransf.getNome());
 	}
 
 	@Override
-	public boolean pagamento(Conta conta, BigDecimal valorPagam, String codigoDeBarras) {
+	public boolean pagamento(Conta conta, BigDecimal valorPagam,
+			String codigoDeBarras) {
 
-		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
+		conta = new ContaDao().getConta(conta.getAgencia(),
+				conta.getNumeroConta(), conta.getNome());
 		BigDecimal saldoApos = conta.getSaldo();
 
 		if (conta.getSaldo().compareTo(valorPagam) >= 0) {
@@ -217,7 +225,8 @@ public class MovimentacaoFacade implements ContaMethods, Observable {
 
 		} else {
 			JOptionPane.showMessageDialog(null,
-					"Saldo insuficiente para pagamento! Seu saldo é de R$ " + conta.getSaldo(), "Atenção",
+					"Saldo insuficiente para pagamento! Seu saldo é de R$ "
+							+ conta.getSaldo(), "Atenção",
 					JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -227,27 +236,19 @@ public class MovimentacaoFacade implements ContaMethods, Observable {
 	@Override
 	public void finalizarConta(Conta conta) {
 
-		conta = new ContaDao().getConta(conta.getAgencia(), conta.getNumeroConta(), conta.getNome());
+		conta = new ContaDao().getConta(conta.getAgencia(),
+				conta.getNumeroConta(), conta.getNome());
 
 		if (conta.getSaldo().compareTo(new BigDecimal(0.00)) > 0) {
 
-			JOptionPane.showMessageDialog(null,
-					"Sua " + conta.getTipoConta() + " possui saldo de: " + conta.getSaldo() + ". Impossível inativar");
+			JOptionPane.showMessageDialog(null, "Sua " + conta.getTipoConta()
+					+ " possui saldo de: " + conta.getSaldo()
+					+ ". Impossível inativar");
 
 		} else {
 			new ContaDao().inativarConta(conta);
 			new UsuarioDao().inativarConta(conta);
 		}
-
-	}
-
-	@Override
-	public void addListener(InvalidationListener listener) {
-		observers.add(listener);
-	}
-
-	@Override
-	public void removeListener(InvalidationListener listener) {
 
 	}
 

@@ -18,7 +18,6 @@ import javax.swing.JPasswordField;
 import br.univel.controller.ContaController;
 import br.univel.enums.Operacao;
 import br.univel.model.Conta;
-import javafx.beans.Observable;
 
 public class SenhaConfirm extends JFrame {
 
