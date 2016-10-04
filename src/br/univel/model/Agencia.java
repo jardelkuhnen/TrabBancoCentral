@@ -16,7 +16,7 @@ public class Agencia {
 		this.cidade = cidade;
 	}
 
-	@Coluna(posicao = -1, nome = "Id")
+	@Coluna(posicao = 0, nome = "Id")
 	public int getId() {
 		return id;
 	}
@@ -25,7 +25,7 @@ public class Agencia {
 		this.id = id;
 	}
 
-	@Coluna(posicao = 0, nome = "Nome")
+	@Coluna(posicao = 1, nome = "Nome")
 	public String getNome() {
 		return nome;
 	}
@@ -34,7 +34,7 @@ public class Agencia {
 		this.nome = nome;
 	}
 
-	@Coluna(posicao = 1, nome = "Número")
+	@Coluna(posicao = 2, nome = "Número")
 	public String getNumero() {
 		return numero;
 	}
@@ -43,7 +43,7 @@ public class Agencia {
 		this.numero = numero;
 	}
 
-	@Coluna(posicao = 2, nome = "Cidade")
+	@Coluna(posicao = 3, nome = "Cidade")
 	public String getCidade() {
 		return cidade;
 	}

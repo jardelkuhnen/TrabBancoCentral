@@ -14,16 +14,16 @@ public class ListaAgenciaModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	List<Agencia> agencias = new ArrayList<>();
+	List<?> lista = new ArrayList<>();
 
-	public ListaAgenciaModel(final List<Agencia> agencias) {
-		this.agencias = agencias;
+	public ListaAgenciaModel(final List<Object> lista) {
+		this.lista = lista;
 	}
 
 	@Override
 	public int getColumnCount() {
 
-		Object objeto = agencias.get(0);
+		Object objeto = lista.get(0);
 		Class<?> classe = objeto.getClass();
 
 		int colunas = 0;
@@ -38,13 +38,13 @@ public class ListaAgenciaModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return this.agencias.size();
+		return this.lista.size();
 	}
 
 	@Override
 	public Object getValueAt(int row, int column) {
 
-		Object objeto = agencias.get(0);
+		Object objeto = lista.get(0);
 		Class<?> classe = objeto.getClass();
 
 		try {
@@ -65,15 +65,15 @@ public class ListaAgenciaModel extends AbstractTableModel {
 
 	}
 
-	public void incluir(List<Agencia> agencia) {
-		this.agencias = agencia;
+	public void incluir(List<Object> objeto) {
+		this.lista = objeto;
 		fireTableDataChanged();
 	}
 
 	@Override
 	public String getColumnName(int col) {
 
-		Object objeto = agencias.get(0);
+		Object objeto = lista.get(0);
 		Class<?> classe = objeto.getClass();
 
 		for (Method metodo : classe.getDeclaredMethods()) {
@@ -81,6 +81,7 @@ public class ListaAgenciaModel extends AbstractTableModel {
 			if (metodo.isAnnotationPresent(Coluna.class)) {
 
 				Coluna anotacao = metodo.getAnnotation(Coluna.class);
+
 				if (anotacao.posicao() == col) {
 					return anotacao.nome();
 				}

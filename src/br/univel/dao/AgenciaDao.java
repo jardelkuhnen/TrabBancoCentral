@@ -65,8 +65,8 @@ public class AgenciaDao {
 
 	}
 
-	public List<Agencia> buscarAgencias() {
-		List<Agencia> agencias = new ArrayList<>();
+	public List<Object> buscarAgencias() {
+		List<Object> agencias = new ArrayList<>();
 
 		try {
 			con = Conexao.getConection();

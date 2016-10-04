@@ -26,7 +26,7 @@ public class ListaAgencia extends PadraoBancario implements WindowListener {
 	private JPanel contentPane;
 	private JTable tblAgencia;
 	private ListaAgenciaModel model;
-	private List<Agencia> agencias;
+	private List<Object> agencias;
 
 	public ListaAgencia() {
 		super();

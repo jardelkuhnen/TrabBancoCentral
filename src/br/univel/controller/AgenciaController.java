@@ -30,7 +30,7 @@ public class AgenciaController {
 
 	}
 
-	public List<Agencia> buscarAgencias() {
+	public List<Object> buscarAgencias() {
 
 		return new AgenciaDao().buscarAgencias();
 	}
